@@ -9,7 +9,7 @@ jobs:
       before_script:
         - cd ./services/free-service
       script:
-        - ./mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+        - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
     - stage: "Docker build free-service"
       before_script:
         - cd ./services/free-service
