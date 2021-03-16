@@ -10,5 +10,6 @@ jobs:
         - cd ./services/free-service
       script:
         - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
-        - docker build -t noahcha/msr-free-service:latest .
-        - docker push noahcha/msr-free-service:latest
+        - docker build -t yvesrut/msr-free-service:latest .
+        - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+        - docker push yvesrut/msr-free-service:latest
