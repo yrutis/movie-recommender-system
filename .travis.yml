@@ -1,0 +1,17 @@
+services:
+  - docker
+jobs:
+  include:
+    - stage: "Maven build free-service"
+      language: java
+      jdk: oraclejdk8
+      before_script:
+        - cd ./services/free-service
+      script:
+        - ./mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+    - stage: "Docker build free-service"
+      before_script:
+        - cd ./services/free-service
+      script:
+        - docker build -t noahcha/msr-free-service:latest .
+        - docker push noahcha/msr-free-service:latest
