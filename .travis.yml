@@ -11,5 +11,5 @@ jobs:
       script:
         - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
         - docker build -t yvesrut/msr-free-service:latest .
-        - echo "$\$DOCKER_PASSWORD" | docker login -u "$\$DOCKER_USERNAME" --password-stdin
+        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker push yvesrut/msr-free-service:latest
