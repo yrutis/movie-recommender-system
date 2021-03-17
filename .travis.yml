@@ -9,8 +9,9 @@ jobs:
       before_script:
         - cd ./services/free-service
       script:
+        - ART_VERSION="$(mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.version -q -DforceStdout)"
         - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
         - mvn sonar:sonar -Dsonar.projectKey=mrs-free-service -Dsonar.host.url=https://sonaruzh.dev.eng.c-alm.ch -Dsonar.login=$SONAR_TOKEN
-        - docker build -t noahcha/msr-free-service:latest .
+        - docker build -t noahcha/msr-free-service:$ART_VERSION .
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        - docker push noahcha/msr-free-service:latest
+        - docker push noahcha/msr-free-service:$ART_VERSION
