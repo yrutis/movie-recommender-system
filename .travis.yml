@@ -2,24 +2,26 @@ services:
   - docker
 jobs:
   include:
-    - stage: "Maven build free-service"
+    - stage: "Build & Deploy mrs-webapp"
+      addons:
+        sonarqube: true
+      dist: trusty
+      language: node_js
+      node_js: 12
+      before_script:
+        - cd ./services/webapp
+      script: bash build.sh
+    - stage: "Build & Deploy mrs-free-service"
       dist: trusty
       language: java
       jdk: oraclejdk8
       before_script:
         - cd ./services/free-service
-        - version2=TEST
       script: bash build.sh
-        # - export version3=$(mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.version -q -DforceStdout)
-        # - echo ${version3}
-        # - echo $version3
-        # - echo ${version}
-        # - echo $version
-        # - echo ${version2}
-        # - echo $version2
-        # - $(mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.version -q -DforceStdout)
-        #- mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
-        #- mvn sonar:sonar -Dsonar.projectKey=mrs-free-service -Dsonar.host.url=https://sonaruzh.dev.eng.c-alm.ch -Dsonar.login=$SONAR_TOKEN
-        #- docker build -t noahcha/msr-free-service:${version} .
-        #- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        #- docker push noahcha/msr-free-service:${version}
+    - stage: "Build & Deploy mrs-member-service"
+      dist: trusty
+      language: java
+      jdk: oraclejdk8
+      before_script:
+        - cd ./services/member-service
+      script: bash build.sh

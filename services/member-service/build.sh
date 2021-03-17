@@ -1,8 +1,8 @@
 #!/bin/bash
 MVN_VERSION=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
-IMAGE_NAME=noahcha/mrs-free-service
+IMAGE_NAME=noahcha/mrs-member-service
 mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
-mvn sonar:sonar -Dsonar.projectKey=mrs-free-service -Dsonar.host.url=https://sonaruzh.dev.eng.c-alm.ch -Dsonar.login=$SONAR_TOKEN
+mvn sonar:sonar -Dsonar.projectKey=mrs-member-service -Dsonar.host.url=https://sonaruzh.dev.eng.c-alm.ch -Dsonar.login=$SONAR_TOKEN
 docker build -t $IMAGE_NAME .
 docker tag $IMAGE_NAME "${IMAGE_NAME}:latest"
 docker tag $IMAGE_NAME "${IMAGE_NAME}:${MVN_VERSION}"
