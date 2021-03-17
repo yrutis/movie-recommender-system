@@ -10,6 +10,7 @@ jobs:
         - cd ./services/free-service
       script:
         - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+        - mvn sonar:sonar -Dsonar.projectKey=mrs-free-service -Dsonar.host.url=https://sonaruzh.dev.eng.c-alm.ch -Dsonar.login=$SONAR_TOKEN
         - docker build -t noahcha/msr-free-service:latest .
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker push noahcha/msr-free-service:latest
