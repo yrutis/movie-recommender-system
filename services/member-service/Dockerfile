@@ -10,5 +10,5 @@ RUN apk add --update ttf-dejavu && rm -rf /var/cache/apk/*
 
 EXPOSE 8080
 WORKDIR /usr/src/app
-COPY target/free-service.jar .
-CMD ["java", "-jar", "/usr/src/app/free-service.jar"]
+COPY target/member-service.jar .
+CMD ["java", "-jar", "/usr/src/app/member-service.jar"]
