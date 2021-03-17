@@ -8,17 +8,16 @@ jobs:
       jdk: oraclejdk8
       before_script:
         - cd ./services/free-service
-        - version=$(mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.version -q -DforceStdout)
         - version2=TEST
-      script:
-        - export version3=$(mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.version -q -DforceStdout)
-        - echo ${version3}
-        - echo $version3
-        - echo ${version}
-        - echo $version
-        - echo ${version2}
-        - echo $version2
-        - $(mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.version -q -DforceStdout)
+      script: bash build.sh
+        # - export version3=$(mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.version -q -DforceStdout)
+        # - echo ${version3}
+        # - echo $version3
+        # - echo ${version}
+        # - echo $version
+        # - echo ${version2}
+        # - echo $version2
+        # - $(mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.version -q -DforceStdout)
         #- mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
         #- mvn sonar:sonar -Dsonar.projectKey=mrs-free-service -Dsonar.host.url=https://sonaruzh.dev.eng.c-alm.ch -Dsonar.login=$SONAR_TOKEN
         #- docker build -t noahcha/msr-free-service:${version} .
