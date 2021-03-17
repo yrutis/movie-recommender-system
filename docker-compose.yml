@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+
+  inferenceservice:
+    build:
+      context: ./services/inference-service
+      dockerfile: Dockerfile
+    volumes:
+      - './services/inference-service:/usr/src/app'
+    ports:
+      - 5004:5000
+    environment:
+      - FLASK_APP=src/__init__.py
+      - FLASK_ENV=development
+      - APP_SETTINGS=src.config.DevelopmentConfig
