@@ -8,9 +8,12 @@ jobs:
       jdk: oraclejdk8
       before_script:
         - cd ./services/free-service
-        - version="$(mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.version -q -DforceStdout)"
+        - version=$(mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.version -q -DforceStdout)
         - version2=TEST
       script:
+        - export version3=$(mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.version -q -DforceStdout)
+        - echo ${version3}
+        - echo $version3
         - echo ${version}
         - echo $version
         - echo ${version2}
