@@ -26,6 +26,8 @@ jobs:
         - cd ./services/member-service
       script: bash build.sh
     - stage: "Build & Deploy Inference Service"
+      addons:
+        sonarqube: true
       dist: xenial
       language: python
       python: 3.9
