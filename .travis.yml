@@ -25,3 +25,10 @@ jobs:
       before_script:
         - cd ./services/member-service
       script: bash build.sh
+    - stage: "Build & Deploy Inference Service"
+      dist: trusty
+      language: python
+      python: 3.9
+      before_script:
+        - cd ./services/inference-service
+      script: bash build.sh
