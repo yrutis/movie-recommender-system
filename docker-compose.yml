@@ -1,16 +1,23 @@
-version: '3.8'
+version: '3.7'
 
 services:
-
-  inferenceservice:
-    build:
-      context: ./services/inference-service
-      dockerfile: Dockerfile
-    volumes:
-      - './services/inference-service:/usr/src/app'
+  # inferenceservice:
+  #   build:
+  #     context: ./services/inference-service
+  #     dockerfile: Dockerfile
+  #   volumes:
+  #     - './services/inference-service:/usr/src/app'
+  #   ports:
+  #     - 5004:5000
+  #   environment:
+  #     - FLASK_APP=src/__init__.py
+  #     - FLASK_ENV=development
+  #     - APP_SETTINGS=src.config.DevelopmentConfig
+  database:
+    image: postgres:latest
     ports:
-      - 5004:5000
+      - 5432:5432
     environment:
-      - FLASK_APP=src/__init__.py
-      - FLASK_ENV=development
-      - APP_SETTINGS=src.config.DevelopmentConfig
+      POSTGRES_DB: mrs
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
