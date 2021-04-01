@@ -42,8 +42,7 @@ public class SignupController {
      */
     @PostMapping
     public User createUser(@RequestBody UserDto user){
-        User newUser = null;
-        newUser = signupService.createUser(user);
+        User newUser = signupService.createUser(user);
         newUser.setPassword(null);
         return newUser;
     }
