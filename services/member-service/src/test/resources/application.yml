@@ -1,1 +1,2 @@
-
+HOSTS:
+  GUI: "http://localhost:4200"

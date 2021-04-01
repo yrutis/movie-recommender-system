@@ -12,11 +12,13 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HttpClientModule} from '@angular/common/http';
 import {ToastrModule} from 'ngx-toastr';
+import { MemberAreaComponent } from './views/member-area/member-area.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    MemberAreaComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +32,7 @@ import {ToastrModule} from 'ngx-toastr';
     MatFormFieldModule,
     FontAwesomeModule,
     ToastrModule.forRoot({
-      timeOut: 0,
+      timeOut: 4000,
       positionClass: 'toast-top-center',
       preventDuplicates: true,
       toastClass: 'custom-toast'
