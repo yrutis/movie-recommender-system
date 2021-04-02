@@ -12,7 +12,6 @@ export class MemberService {
   private serviceUrl = environment.memberBackend;
 
   constructor(private httpClient: HttpClient, private router: Router) {
-    console.log('created');
   }
 
   public checkUsernameAvailable(username: string): Observable<boolean> {

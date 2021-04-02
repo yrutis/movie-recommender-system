@@ -1,0 +1,10 @@
+<div class="container">
+  <div class="row pt-5">
+    <div class="col-4" *ngFor="let movie of movies; let i = index">
+      <app-movie-rater *ngIf="movie" [movie]="movie" (movieRated)="movieWasRated(i, $event)">
+      </app-movie-rater>
+    </div>
+  </div>
+</div>
+
+

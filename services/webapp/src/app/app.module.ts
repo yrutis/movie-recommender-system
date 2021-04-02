@@ -13,12 +13,16 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HttpClientModule} from '@angular/common/http';
 import {ToastrModule} from 'ngx-toastr';
 import { MemberAreaComponent } from './views/member-area/member-area.component';
+import { MovieRaterComponent } from './shared/movie-rater/movie-rater.component';
+import { FreeAreaComponent } from './views/free-area/free-area.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    MemberAreaComponent
+    MemberAreaComponent,
+    MovieRaterComponent,
+    FreeAreaComponent
   ],
   imports: [
     BrowserModule,

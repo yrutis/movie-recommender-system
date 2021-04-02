@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("api/login")
-@CrossOrigin("${HOSTS.GUI}")
+@CrossOrigin(origins = "${HOSTS.GUI}")
 public class LoginController {
 
     private final ILoginService loginService;
