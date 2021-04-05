@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FreeService} from '../../service/free.service';
 import {Movie} from '../../model/movie';
-import {MovieRating} from '../../model/movieRating';
+import {MovieRating} from '../../model/ratings';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-free-area',
@@ -11,16 +12,28 @@ import {MovieRating} from '../../model/movieRating';
 export class FreeAreaComponent implements OnInit {
   movies: Movie[];
   ratedMovies: MovieRating[] = [];
-  constructor(private freeService: FreeService) {
+  firstInit = true;
+  serviceProblem = false;
+  loading = false;
+
+  constructor(private freeService: FreeService, private toastr: ToastrService) {
   }
 
   ngOnInit(): void {
+    this.loading = true;
     this.freeService.getMovies(3).subscribe(value => {
-      this.movies = value;
-    });
+        this.movies = value;
+        this.loading = false;
+      },
+      () => {
+        this.serviceProblem = true;
+        this.loading = false;
+        this.toastr.error('Something went wrong, please try again later!');
+      });
   }
 
   movieWasRated(i: number, value: number): void {
+    this.firstInit = false;
     if (value !== null) {
       const newRating = new MovieRating();
       newRating.movieId = this.movies[i].id;
@@ -31,9 +44,18 @@ export class FreeAreaComponent implements OnInit {
         console.log(this.ratedMovies);
       }
     } else {
-      this.freeService.getMovies(1).subscribe(value1 => {
-        this.movies[i] = value1[0];
-      });
+      this.reloadMovie(i);
     }
+  }
+
+  reloadMovie(index: number): void {
+    this.freeService.getMovies(1).subscribe(newMovie => {
+      const ids = this.movies.map(o => o.id);
+      if (ids.indexOf(newMovie[0].id) > -1) {
+        this.reloadMovie(index);
+      } else {
+        this.movies[index] = newMovie[0];
+      }
+    });
   }
 }

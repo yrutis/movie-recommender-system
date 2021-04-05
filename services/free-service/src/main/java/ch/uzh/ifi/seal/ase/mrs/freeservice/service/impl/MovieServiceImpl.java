@@ -6,6 +6,7 @@ import ch.uzh.ifi.seal.ase.mrs.freeservice.model.Movie;
 import ch.uzh.ifi.seal.ase.mrs.freeservice.model.tmdb.TmdbMovie;
 import ch.uzh.ifi.seal.ase.mrs.freeservice.repository.MovieRepository;
 import ch.uzh.ifi.seal.ase.mrs.freeservice.service.IMovieService;
+import feign.FeignException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,6 +15,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+/**
+ * Implementation of IMovieService
+ */
 @Service
 @Slf4j
 public class MovieServiceImpl implements IMovieService {
@@ -52,14 +56,26 @@ public class MovieServiceImpl implements IMovieService {
         if (amount > numberOfMoviesInDatabase || amount > 10) {
             throw GeneralWebserviceException.builder().status(HttpStatus.BAD_REQUEST).errorCode("M001").message("Maximum number of movies per request: 10").build();
         }
+
         Set<TmdbMovie> movies = new HashSet<>();
+        int maxAttempts = amount * 10;
+        int currentIter = 0;
         while (movies.size() < amount) {
+            currentIter++;
+            if(currentIter >= maxAttempts) {
+                throw GeneralWebserviceException.builder().status(HttpStatus.INTERNAL_SERVER_ERROR).errorCode("M002").message("Maximum number of retries reached without finding enough unique movies").build();
+            }
             Optional<Movie> movie = movieRepository.findById(getRandomMovieId());
             if(movie.isPresent()){
-                TmdbMovie tmdbMovie = getTmdbMovie(movie.get().getTmdbId().toString());
-                if (tmdbMovie != null) {
-                    movies.add(tmdbMovie);
+                try {
+                    TmdbMovie tmdbMovie = getTmdbMovie(movie.get().getTmdbId().toString());
+                    if (tmdbMovie != null) {
+                        movies.add(tmdbMovie);
+                    }
+                }catch (FeignException exception) {
+                    log.info("Problem with Feign Client or the API, e.g. Movie Not found. Retrying with another movie.");
                 }
+
             }
         }
 

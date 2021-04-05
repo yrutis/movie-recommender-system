@@ -34,7 +34,7 @@ public class LoginController {
     @PostMapping
     public User login(@RequestBody UserDto user){
         User newUser = loginService.login(user);
-        newUser.setPassword(null);
+        newUser.setPassword(user.getPassword());
         return newUser;
     }
 }

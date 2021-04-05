@@ -1,8 +1,37 @@
+<div class="container pt-4">
+  <div class="row">
+    <div class="col-12">
+      <h1 class="logo logo-sm pointer" routerLink="/">
+        Movie <br>
+        <span class="logo-offset">Match</span>
+      </h1>
+    </div>
+  </div>
+</div>
 <div class="container">
-  <div class="row pt-5">
+  <div class="row mt-5" *ngIf="loading">
+    <div class="col-12">
+      <mat-spinner class="mx-auto"></mat-spinner>
+    </div>
+  </div>
+  <div class="row mt-5" *ngIf="movies">
+    <div class="col-12 text-center">
+      <p class="text">Please rate the movies shown below or reload them, if you have not seen them yet!</p>
+    </div>
+  </div>
+  <div class="row pt-5" *ngIf="movies">
     <div class="col-4" *ngFor="let movie of movies; let i = index">
-      <app-movie-rater *ngIf="movie" [movie]="movie" (movieRated)="movieWasRated(i, $event)">
+      <app-movie-rater *ngIf="movie" [movie]="movie" (movieRated)="movieWasRated(i, $event)"
+                       [delay]="firstInit ? i * 200: 200">
       </app-movie-rater>
+    </div>
+  </div>
+  <div class="row mt-5" *ngIf="serviceProblem">
+    <div class="col-12 text-center">
+      <p class="text">
+        <fa-icon [icon]="['fas', 'exclamation-triangle']" class="mr-1"></fa-icon>
+        Something went wrong, please try again later.
+      </p>
     </div>
   </div>
 </div>

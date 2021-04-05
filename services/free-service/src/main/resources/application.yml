@@ -13,4 +13,7 @@ HOSTS:
 server:
   port: 8081
 tmdb:
-  api-key: ""
+  url: "https://api.themoviedb.org/3"
+  api-key: ${TMDB-API-KEY}
+inference:
+  url: "http://localhost:5000"
