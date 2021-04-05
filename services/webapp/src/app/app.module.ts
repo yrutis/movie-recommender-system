@@ -13,12 +13,19 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HttpClientModule} from '@angular/common/http';
 import {ToastrModule} from 'ngx-toastr';
 import { MemberAreaComponent } from './views/member-area/member-area.component';
+import { MovieRaterComponent } from './shared/movie-rater/movie-rater.component';
+import { FreeAreaComponent } from './views/free-area/free-area.component';
+import {RatingModule} from 'ng-starrating';
+import {NgbTooltipModule} from '@ng-bootstrap/ng-bootstrap';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    MemberAreaComponent
+    MemberAreaComponent,
+    MovieRaterComponent,
+    FreeAreaComponent
   ],
   imports: [
     BrowserModule,
@@ -37,6 +44,10 @@ import { MemberAreaComponent } from './views/member-area/member-area.component';
       preventDuplicates: true,
       toastClass: 'custom-toast'
     }),
+    RatingModule,
+    NgbTooltipModule,
+    MatProgressSpinnerModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  memberBackend: 'http://localhost:8080'
+  memberBackend: 'http://localhost:8080',
+  freeBackend: 'http://localhost:8081'
 };
 
 /*

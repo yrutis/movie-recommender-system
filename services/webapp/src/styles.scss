@@ -79,6 +79,14 @@ body, html {
   padding-left: 4rem;
 }
 
+.logo-sm{
+  font-size: 3rem;
+  line-height: 3rem;
+}
+.logo-sm  .logo-offset{
+  padding-left: 2rem;
+}
+
 .pointer{
   cursor: pointer;
 }
@@ -104,3 +112,13 @@ body, html {
   color: #f9a500 !important;
 }
 
+.nav-link{
+  color: rgba(255,255,255,0.7) !important;
+  font-size: 1.2rem;
+  font-weight: lighter;
+  padding: 7px 14px !important;
+}
+
+.nav-link:hover, .nav-link.active{
+  color: rgba(255,255,255,1) !important;
+}

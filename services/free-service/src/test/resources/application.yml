@@ -1,1 +1,7 @@
-
+HOSTS:
+  GUI: "http://localhost:4200"
+tmdb:
+  url: "https://api.themoviedb.org/3"
+  api-key: ""
+inference:
+  url: "http://localhost:5000"

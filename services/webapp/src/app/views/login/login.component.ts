@@ -39,7 +39,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-
   }
 
   changeStep(step: number): void {
@@ -47,6 +46,9 @@ export class LoginComponent implements OnInit, OnDestroy {
       case 0:
         break;
       case 1:
+        if (this.memberService.isLoggedIn) {
+          this.router.navigate(['/member']);
+        }
         this.initLoginForm();
         break;
       case 2:

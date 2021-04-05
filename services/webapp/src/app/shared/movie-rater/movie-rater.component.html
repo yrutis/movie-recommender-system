@@ -1,0 +1,19 @@
+<div class="w-100" *ngIf="movie" [@enter]="{ value: '', params: { delay: delay } }">
+  <div class="row">
+    <div class="col-12">
+      <div class="movie-img-style" [style]="movieStyle" [@opacity_anim]="ratable ? 'full_op' : 'semi_op'"></div>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-12">
+      <h3 class="movie-title">{{movie.title}} ({{movie.releaseDate | date: 'yyyy'}})</h3>
+    </div>
+  </div>
+  <div class="row mt-1">
+    <div class="col-12">
+      <star-rating class="d-inline-block float-left" [value]="3" [totalstars]="5" [checkedcolor]="ratable ? '#ffffff96' : '#ffffff'" uncheckedcolor="#00000096" size="35px" [readonly]="!ratable" (rate)="onRate($event)"></star-rating>
+      <button mat-stroked-button *ngIf="ratable" (click)="reload()" class="d-inline-block rounded-0 ml-3 mt-2" [ngbTooltip]="'Rate another movie, if you have not seen \''+movie.title+'\''"><fa-icon [icon]="['fas', 'redo-alt']" class="mr-1"></fa-icon> Not seen</button>
+    </div>
+  </div>
+</div>
+

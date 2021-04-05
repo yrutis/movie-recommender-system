@@ -38,7 +38,7 @@ public class LoginControllerTest {
         User result = loginController.login(loginUser);
         Assertions.assertEquals(serviceUser.getId(), result.getId());
         Assertions.assertEquals(serviceUser.getUsername(), result.getUsername());
-        Assertions.assertNull(result.getPassword());
+        Assertions.assertEquals("abcd", result.getPassword());
     }
 
     /**
