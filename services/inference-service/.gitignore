@@ -256,3 +256,6 @@ Thumbs.db #thumbnail cache on Windows
 # Specific Python related stuff
 __pycache__
 env
+
+# to-do file
+todo.md
