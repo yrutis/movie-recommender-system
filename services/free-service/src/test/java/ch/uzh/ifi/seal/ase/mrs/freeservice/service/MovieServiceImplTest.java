@@ -151,6 +151,9 @@ public class MovieServiceImplTest {
         final List<TmdbMovie> result = movieService.getMovies(2);
 
         Assertions.assertEquals(2, result.size());
+        Assertions.assertThrows(GeneralWebserviceException.class, () -> {
+            movieService.getMovies(9);
+        });
 
     }
 
