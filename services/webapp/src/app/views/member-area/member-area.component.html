@@ -1,0 +1,73 @@
+<div class="container pt-4">
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <h1 class="logo logo-sm pointer" routerLink="/">
+      Movie <br>
+      <span class="logo-offset">Match</span>
+    </h1>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link pointer" [class.active]="step === 0" (click)="changeStep(0)">Movie Rating</a>
+        </li>
+        <li class="nav-item" >
+          <a class="nav-link pointer" [class.active]="step === 1" (click)="changeStep(1)">Actor Rating</a>
+        </li>
+        <li class="nav-item" >
+          <a class="nav-link pointer" [class.active]="step === 2" (click)="changeStep(2)">Recommendations</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link pointer" (click)="logout()"><fa-icon [icon]="['fas','sign-out-alt']" class="mr-1"></fa-icon> Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>
+
+
+<div class="container">
+  <ng-container *ngTemplateOutlet="step === 0 ? movieRating : step === 1 ? actorRating : recommendations"></ng-container>
+</div>
+
+<ng-template #movieRating>
+  <div class="row mt-5" *ngIf="loading">
+    <div class="col-12">
+      <mat-spinner class="mx-auto"></mat-spinner>
+    </div>
+  </div>
+  <div class="row mt-5" *ngIf="movies">
+    <div class="col-12 text-center">
+      <p class="text">Rate as many movies as you want! Your ratings are aggregated and you will be shown new
+        recommendations within the next 24 hours!</p>
+    </div>
+  </div>
+  <div class="row pt-5" *ngIf="movies">
+      <div class="col-4" *ngFor="let movie of movies; let i = index">
+        <app-movie-rater *ngIf="movie" [movie]="movie" (movieRated)="movieWasRated(i, $event)"
+                         [delay]="firstInit ? i * 200: 200">
+        </app-movie-rater>
+      </div>
+  </div>
+</ng-template>
+
+<ng-template #actorRating>
+  <div class="row mt-5">
+    <div class="col-12 text-center">
+      <p class="text">Rate as many actors as you want! Your ratings are aggregated and you will be shown new
+        recommendations within the next 24 hours!</p>
+    </div>
+  </div>
+
+</ng-template>
+
+<ng-template #recommendations>
+  <div class="row mt-5">
+    <div class="col-12 text-center">
+      <p class="text">Recommendations</p>
+    </div>
+  </div>
+
+</ng-template>

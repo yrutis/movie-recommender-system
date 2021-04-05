@@ -1,0 +1,121 @@
+<div class="container">
+  <div class="row custom-top" [@fadeInLeftOnEnter]>
+    <div class="col-12">
+      <h1 class="logo">
+        Movie <br>
+        <span class="logo-offset">Match</span>
+      </h1>
+    </div>
+  </div>
+  <div class="row" *ngIf="step == 0"  [@enter]>
+    <div class="col-12 text-center mt-5" [@tadaOnEnter]>
+      <p class="text">Find a movie to watch!</p>
+    </div>
+    <div class="col-12 text-center mt-2">
+      <button mat-stroked-button class="rounded-0 form-width button-border-white" color="accent" [routerLink]="['/free']">Free Recommendation
+      </button>
+    </div>
+    <div class="col-12 text-center mt-2">
+      <button mat-stroked-button class="rounded-0 form-width button-border-white" color="accent" (click)="changeStep(1)">
+        Custom Recommendation
+      </button>
+    </div>
+  </div>
+  <div class="row" *ngIf="step == 1" [formGroup]="loginForm" [@enter]>
+    <div class="col-12 text-center mt-5">
+      <p class="text" *ngIf="accountCreated">Your account has been created! Please sign-in!</p>
+      <p class="text" *ngIf="!accountCreated">Sign-in or create an account!</p>
+    </div>
+    <div class="col-12 text-center mt-2">
+      <mat-form-field class="form-width text-sm" color="accent">
+        <mat-label>Username</mat-label>
+        <fa-icon matPrefix [icon]="['fas', 'user']" class="px-2"></fa-icon>
+        <input matInput formControlName="username">
+      </mat-form-field>
+    </div>
+    <div class="col-12 text-center mt-3">
+      <mat-form-field class="form-width text-sm" color="accent">
+        <mat-label>Password</mat-label>
+        <fa-icon matPrefix [icon]="['fas', 'lock']" class="px-2"></fa-icon>
+        <input matInput formControlName="password" [type]="hidePasswordLogin ? 'password' : 'text'">
+        <fa-icon matSuffix class="px-2 pointer" (click)="hidePasswordLogin = !hidePasswordLogin"
+                 [icon]="hidePasswordLogin ? 'eye' : 'eye-slash'"></fa-icon>
+      </mat-form-field>
+    </div>
+    <div class="col-12 text-center mb-3" *ngIf="loginForm.hasError('badCredentials')">
+      <div class="form-width d-inline-block text-left">
+        <mat-error class="form-width">Username or password are not valid</mat-error>
+      </div>
+    </div>
+    <div class="col-12 text-center mt-2">
+      <button mat-stroked-button class="rounded-0 form-width button-border-white" color="accent" (click)="login()"
+              [disabled]="!loginForm.valid">Sign-In
+      </button>
+    </div>
+    <div class="col-12 text-center mt-2" *ngIf="!accountCreated">
+      <button mat-stroked-button class="rounded-0 form-width button-border-white" color="accent" (click)="changeStep(2)">
+        Create Account
+      </button>
+    </div>
+    <div class="col-12 text-center mt-2">
+      <button mat-stroked-button class="rounded-0 form-width button-border-white" color="accent" (click)="changeStep(0)">
+        Back
+      </button>
+    </div>
+  </div>
+  <div class="row" *ngIf="step == 2" [formGroup]="createAccountForm"  [@enter]>
+    <div class="col-12 text-center mt-5">
+      <p class="text">Create a new account!</p>
+    </div>
+    <div class="col-12 text-center mt-2">
+      <mat-form-field class="form-width text-sm" color="accent">
+        <mat-label>Username</mat-label>
+        <fa-icon matPrefix [icon]="['fas', 'user']" class="px-2"></fa-icon>
+        <input matInput formControlName="username">
+        <mat-error>
+          <ng-container *ngIf="createAccountForm.get('username').hasError('alreadyTaken')">Username is already taken!
+          </ng-container>
+          <ng-container *ngIf="!createAccountForm.get('username').hasError('alreadyTaken')">Username can only contain
+            letters and numbers (6-16 characters).
+          </ng-container>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-12 text-center mt-3">
+      <mat-form-field class="form-width text-sm" color="accent">
+        <mat-label>Password</mat-label>
+        <fa-icon matPrefix [icon]="['fas', 'lock']" class="px-2"></fa-icon>
+        <input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text'">
+        <fa-icon matSuffix class="px-2 pointer" (click)="hidePassword = !hidePassword"
+                 [icon]="hidePassword ? 'eye' : 'eye-slash'"></fa-icon>
+        <mat-error>
+          <ng-container>Password between 6-16 characters. Allowed a-z A-Z 0-9 -_!$*.()</ng-container>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-12 text-center mt-3">
+      <mat-form-field class="form-width text-sm" color="accent">
+        <mat-label>Repeat Password</mat-label>
+        <fa-icon matPrefix [icon]="['fas', 'lock']" class="px-2"></fa-icon>
+        <input matInput formControlName="passwordRepeat" [type]="hidePasswordRepeat ? 'password' : 'text'"
+               [errorStateMatcher]="passwordErrorStateMatcher">
+        <fa-icon matSuffix class="px-2 pointer" (click)="hidePasswordRepeat = !hidePasswordRepeat"
+                 [icon]="hidePasswordRepeat ? 'eye' : 'eye-slash'"></fa-icon>
+        <mat-error>
+          <ng-container *ngIf="createAccountForm.hasError('notSame')">Passwords do not match!</ng-container>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-12 text-center mt-3">
+      <button mat-stroked-button class="rounded-0 form-width button-border-white" color="accent"
+              (click)="createAccount()" [disabled]="!createAccountForm.valid">Create!
+      </button>
+    </div>
+    <div class="col-12 text-center mt-2">
+      <button mat-stroked-button class="rounded-0 form-width button-border-white" color="accent" (click)="changeStep(1)">
+        Back
+      </button>
+    </div>
+  </div>
+</div>
+
