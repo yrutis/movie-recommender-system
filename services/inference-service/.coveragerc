@@ -1,3 +1,4 @@
 [run]
+include = src
 omit = src/tests/*
 branch = True
