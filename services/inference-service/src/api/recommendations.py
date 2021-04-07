@@ -9,7 +9,6 @@ from src.recommendations.movie_recommender import MovieRecommender
 recommendations_blueprint = Blueprint("recommendations", __name__)
 api = Api(recommendations_blueprint)
 
-
 # Movie ratings is composed of single rated movies
 movie_ratings_model = api.model(
     "MovieRatings",

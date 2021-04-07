@@ -41,24 +41,42 @@ class MovieRecommender:
         # Group by userId and create a column to check the MAE and the count of movies
         new_df = joined_ratings.groupby("userId")["rating_dif"].agg(["sum", "count"])
 
-        # Weighted rating dif with Formula (total sum of rating dif / combined rated movies)
-        new_df["weighted_rating_dif"] = new_df["sum"] / new_df["count"]
+        # Filter all the results where the sum is 0 and the count is 1. Why?
+        # --> They are biased towards 1 movie rating that is the same
+        new_df = new_df[~(new_df["sum"] == 0) | ~(new_df["count"] == 1)]
 
-        # TODO eliminate all users with less than xx combined movie ratings
+        # Weighted rating dif with Formula (total sum of rating dif / combined rated movies ** 2)
+        # We use power of 2 to give more bias towards a movie rating match
+        new_df["weighted_rating_dif"] = new_df["sum"] / (new_df["count"] ** 2)
+        # new_df["weighted_rating_dif"] = new_df["sum"] / (new_df["count"])
 
-        # Get the UserId with the lowest weighted rating dif across the movies
-        user_candidate = new_df.sort_values(by=["weighted_rating_dif"]).iloc[0:1]
+        movie_list = []  # result movie list
+        users_candidate_count = 0  # get the best match first and increase if this user has not rated sufficient movies
+        remaining_movies = 50  # we want 50 movies in the list
+        while remaining_movies != 0:
+            # Get the UserId with the lowest weighted rating dif across the movies
+            user_candidate = new_df.sort_values(
+                by=["weighted_rating_dif", "count"], ascending=(True, False)
+            ).iloc[users_candidate_count : users_candidate_count + 1]
 
-        # Extract userId
-        user_candidate = user_candidate.index.values[0]
+            # Extract userId
+            user_candidate = user_candidate.index.values[0]
 
-        # Get movies from specific userId
-        usersmovies = ratings.loc[ratings["userId"] == user_candidate]
+            # Get movies from specific userId
+            usersmovies = ratings.loc[ratings["userId"] == user_candidate]
 
-        # sort according to userId's preference
-        usersmovies = usersmovies.sort_values(by=["rating"], ascending=False).iloc[0:50]
+            # sort according to userId's preference
+            usersmovies = usersmovies.sort_values(by=["rating"], ascending=False).iloc[
+                0:remaining_movies
+            ]
 
-        # Extract movieIds column to a list
-        movie_list = usersmovies["movieId"].tolist()
+            # Extract movieIds column to a list
+            movie_list += usersmovies["movieId"].tolist()
+
+            # Calculate how many remaining movies are left
+            remaining_movies = 50 - len(movie_list)
+
+            # Update the user candidate
+            users_candidate_count += 1
 
         return movie_list
