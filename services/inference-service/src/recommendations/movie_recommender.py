@@ -4,11 +4,15 @@ import pandas as pd
 
 
 class MovieRecommender:
-    def __init__(self, rated_movie_list):
+    def __init__(self, rated_movie_list:[]):
         """
         initialize MovieRecommender class
         :param rated_movie_list: list of single rated movies
         """
+        # Check if the rated_movie_list is a list
+        if not isinstance(rated_movie_list, list):
+            raise TypeError("rated_movie_list should be of type list")
+
         self.rated_movie_list = rated_movie_list
 
     def get_movie_recommendations(self):

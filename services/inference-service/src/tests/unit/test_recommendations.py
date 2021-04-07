@@ -1,3 +1,6 @@
-# from src.recommendations.movie_recommender import MovieRecommender
+from src.recommendations.movie_recommender import MovieRecommender
+import pytest
 
-# TODO: check if movie ratings is a list etc
+def test_init_movie_recommender():
+    with pytest.raises(TypeError) as e:
+        MovieRecommender({})
