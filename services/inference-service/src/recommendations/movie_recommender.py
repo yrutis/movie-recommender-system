@@ -4,7 +4,7 @@ import pandas as pd
 
 
 class MovieRecommender:
-    def __init__(self, rated_movie_list:[]):
+    def __init__(self, rated_movie_list: []):
         """
         initialize MovieRecommender class
         :param rated_movie_list: list of single rated movies
