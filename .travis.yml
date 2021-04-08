@@ -43,10 +43,9 @@ jobs:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker push "${IMAGE_NAME}:${PYTHON_VERSION}" && docker push "${IMAGE_NAME}:latest"
           # Test
-        - pip install -r requirements.txt
-        - python -m flake8 src # Run linting checks
-        - python -m black src --check
-        - python -m isort src --check-only
-        - python -m pytest "src/tests" -p no:warnings # Run tests
-        - python -m pytest -v -o junit_family=xunit1 --cov=src --cov-report xml:test-results/coverage.xml --junitxml=test-results/results.xml # Create Test report
+        - docker-compose exec inferenceservice flake8 src
+        - docker-compose exec inferenceservice black src --check
+        - docker-compose exec inferenceservice isort src --check-only
+        - docker-compose exec inferenceservice pytest "src/tests" -p no:warnings # Run tests
+        - docker-compose exec inferenceservice pytest -v -o junit_family=xunit1 --cov=src --cov-report xml:test-results/coverage.xml --junitxml=test-results/results.xml # Create Test report
         - sonar-scanner -Dsonar.projectKey=mrs-inference-service -Dsonar.sources=. -Dsonar.host.url=https://sonaruzh.dev.eng.c-alm.ch -Dsonar.login=$SONAR_TOKEN -Dsonar.language=py -Dsonar.source=src -Dsonar.sourceEncoding=UTF-8 -Dsonar.python.xunit.reportPath=test-results/results.xml -Dsonar.python.coverage.reportPaths=test-results/coverage.xml -Dsonar.python.coveragePlugin=cobertura -Dsonar.exclusions=src/tests/**,test-results/**,coverage-reports/htmlcov
