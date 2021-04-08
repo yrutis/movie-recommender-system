@@ -50,8 +50,6 @@ class MovieRecommender:
         new_df["weighted_rating_dif"] = new_df["sum"] / (new_df["count"] ** 2)
         # new_df["weighted_rating_dif"] = new_df["sum"] / (new_df["count"])
 
-        # TODO don't return same movies
-        # TODO rating >=4 zurueckgeben
         movie_list = []  # result movie list
         users_candidate_count = 0  # get the best match first and increase if this user has not rated sufficient movies
         remaining_movies = 50  # we want 50 movies in the list
@@ -72,6 +70,14 @@ class MovieRecommender:
                 0:remaining_movies
             ]
 
+            # Do not include movies the client has rated in the final movie list as a suggestion
+            usersmovies = usersmovies[
+                ~(usersmovies["movieId"].isin(incoming_ratings_df["movieId"]))
+            ]
+
+            # Extract movies with a rating of >=4
+            usersmovies = usersmovies[usersmovies["rating"] >= 4]
+
             # Extract movieIds column to a list
             movie_list += usersmovies["movieId"].tolist()
 
@@ -80,5 +86,7 @@ class MovieRecommender:
 
             # Update the user candidate
             users_candidate_count += 1
+
+        # TODO Insert movie ratings from incoming user
 
         return movie_list
