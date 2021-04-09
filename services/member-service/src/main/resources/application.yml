@@ -8,5 +8,6 @@ spring.jpa.generate-ddl: true
 spring.jpa.hibernate.ddl-auto: create-drop
 spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation: true
 
+
 HOSTS:
   GUI: "http://localhost:4200"

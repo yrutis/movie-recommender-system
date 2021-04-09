@@ -9,7 +9,9 @@ import java.time.LocalDate;
 import java.util.List;
 
 
-
+/**
+ * TMDB Movie Class
+ */
 @AllArgsConstructor
 @Getter
 @Builder

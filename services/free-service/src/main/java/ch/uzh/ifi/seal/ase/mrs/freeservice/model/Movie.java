@@ -32,17 +32,8 @@ public class Movie {
     private String imdbId;
 
     /**
-     * Popularity
+     * Score of the movie
      */
-    private Double popularity;
+    private Double score;
 
-    /**
-     * Average vote of users
-     */
-    private Double voteAverage;
-
-    /**
-     * Number of votes
-     */
-    private Integer voteCount;
 }

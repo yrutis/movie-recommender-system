@@ -1,5 +1,6 @@
 package ch.uzh.ifi.seal.ase.mrs.memberservice.controller;
 
+import ch.uzh.ifi.seal.ase.mrs.memberservice.model.ActorRating;
 import ch.uzh.ifi.seal.ase.mrs.memberservice.model.MovieRating;
 import ch.uzh.ifi.seal.ase.mrs.memberservice.model.User;
 import ch.uzh.ifi.seal.ase.mrs.memberservice.service.impl.MemberServiceImpl;
@@ -44,6 +45,31 @@ public class MemberControllerTest {
         ArgumentCaptor<Principal> argumentCaptor2 = ArgumentCaptor.forClass(Principal.class);
         verify(memberService).rateMovie(argumentCaptor1.capture(), argumentCaptor2.capture());
         MovieRating capturedArgument1 = argumentCaptor1.<User> getValue();
+        Assertions.assertEquals(4.0, capturedArgument1.getRating());
+        Assertions.assertEquals(1L, capturedArgument1.getTmdbId());
+
+        Principal capturedArgument2 = argumentCaptor2.<User> getValue();
+        Assertions.assertEquals("Admin", capturedArgument2.getName());
+    }
+
+    /**
+     * Test rate actor
+     */
+    @Test
+    public void testNewActorRating() {
+
+        ActorRating actorRating = ActorRating.builder().tmdbId(1L).rating(4.0).build();
+        Principal principal = new Principal() {
+            @Override
+            public String getName() {
+                return "Admin";
+            }
+        };
+        memberController.newActorRating(actorRating, principal);
+        ArgumentCaptor<ActorRating> argumentCaptor1 = ArgumentCaptor.forClass(ActorRating.class);
+        ArgumentCaptor<Principal> argumentCaptor2 = ArgumentCaptor.forClass(Principal.class);
+        verify(memberService).rateActor(argumentCaptor1.capture(), argumentCaptor2.capture());
+        ActorRating capturedArgument1 = argumentCaptor1.<User> getValue();
         Assertions.assertEquals(4.0, capturedArgument1.getRating());
         Assertions.assertEquals(1L, capturedArgument1.getTmdbId());
 

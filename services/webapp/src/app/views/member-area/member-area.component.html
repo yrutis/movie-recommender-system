@@ -46,9 +46,9 @@
   </div>
   <div class="row pt-5" *ngIf="movies">
       <div class="col-4" *ngFor="let movie of movies; let i = index">
-        <app-movie-rater *ngIf="movie" [movie]="movie" (movieRated)="movieWasRated(i, $event)"
+        <app-rater *ngIf="movie" [ratingObject]="movie" (objectRated)="movieWasRated(i, $event)"
                          [delay]="firstInit ? i * 200: 200">
-        </app-movie-rater>
+        </app-rater>
       </div>
   </div>
 </ng-template>
@@ -60,7 +60,13 @@
         recommendations within the next 24 hours!</p>
     </div>
   </div>
-
+  <div class="row pt-5" *ngIf="actors">
+    <div class="col-4" *ngFor="let actor of actors; let i = index">
+      <app-rater *ngIf="actor" [ratingObject]="actor" (objectRated)="actorWasRated(i, $event)"
+                 [delay]="firstInit ? i * 200: 200">
+      </app-rater>
+    </div>
+  </div>
 </ng-template>
 
 <ng-template #recommendations>

@@ -14,16 +14,28 @@
       <mat-spinner class="mx-auto"></mat-spinner>
     </div>
   </div>
-  <div class="row mt-5" *ngIf="movies">
+  <div class="row mt-5" *ngIf="movies && !isActorRating">
     <div class="col-12 text-center">
       <p class="text">Please rate the movies shown below or reload them, if you have not seen them yet!</p>
     </div>
   </div>
-  <div class="row pt-5" *ngIf="movies">
+  <div class="row mt-5" *ngIf="actors && isActorRating">
+    <div class="col-12 text-center">
+      <p class="text">Please rate the actors shown below or reload them, if you do not know them!</p>
+    </div>
+  </div>
+  <div class="row pt-5" *ngIf="movies && !isActorRating">
     <div class="col-4" *ngFor="let movie of movies; let i = index">
-      <app-movie-rater *ngIf="movie" [movie]="movie" (movieRated)="movieWasRated(i, $event)"
+      <app-rater *ngIf="movie" [ratingObject]="movie" (objectRated)="movieWasRated(i, $event)"
                        [delay]="firstInit ? i * 200: 200">
-      </app-movie-rater>
+      </app-rater>
+    </div>
+  </div>
+  <div class="row pt-5" *ngIf="actors && isActorRating">
+    <div class="col-4" *ngFor="let actor of actors; let i = index">
+      <app-rater *ngIf="actor" [ratingObject]="actor" (objectRated)="actorWasRated(i, $event)"
+                 [delay]="firstInit ? i * 200: 200">
+      </app-rater>
     </div>
   </div>
   <div class="row mt-5" *ngIf="serviceProblem">

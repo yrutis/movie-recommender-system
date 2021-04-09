@@ -1,4 +1,4 @@
-package ch.uzh.ifi.seal.ase.mrs.freeservice.model;
+package ch.uzh.ifi.seal.ase.mrs.memberservice.model;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -12,7 +12,7 @@ import lombok.Getter;
 public class ActorRating {
 
     /**
-     * TmdbId of rated actor
+     * Id of rated actor
      */
     private final long tmdbId;
 
