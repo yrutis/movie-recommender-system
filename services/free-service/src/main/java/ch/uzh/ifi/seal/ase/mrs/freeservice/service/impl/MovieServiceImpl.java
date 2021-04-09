@@ -34,7 +34,7 @@ public class MovieServiceImpl implements IMovieService {
      * Constructor, autowires the MovieRepository and the TmdbClient, creates a Random Object, and counts the number of movies in the database
      *
      * @param movieRepository movie repository
-     * @param tmdbClient tmdbClient
+     * @param tmdbClient      tmdbClient
      */
     @Autowired
     public MovieServiceImpl(MovieRepository movieRepository, TmdbClient tmdbClient) {
@@ -62,20 +62,15 @@ public class MovieServiceImpl implements IMovieService {
         int currentIter = 0;
         while (movies.size() < amount) {
             currentIter++;
-            if(currentIter >= maxAttempts) {
+            if (currentIter >= maxAttempts) {
                 throw GeneralWebserviceException.builder().status(HttpStatus.INTERNAL_SERVER_ERROR).errorCode("M002").message("Maximum number of retries reached without finding enough unique movies").build();
             }
             Optional<Movie> movie = movieRepository.findById(getRandomMovieId());
-            if(movie.isPresent()){
-                try {
-                    TmdbMovie tmdbMovie = getTmdbMovie(movie.get().getTmdbId().toString());
-                    if (tmdbMovie != null) {
-                        movies.add(tmdbMovie);
-                    }
-                }catch (FeignException exception) {
-                    log.info("Problem with Feign Client or the API, e.g. Movie Not found. Retrying with another movie.");
+            if (movie.isPresent()) {
+                TmdbMovie tmdbMovie = getTmdbMovieById(movie.get().getTmdbId());
+                if (tmdbMovie != null) {
+                    movies.add(tmdbMovie);
                 }
-
             }
         }
 
@@ -83,11 +78,19 @@ public class MovieServiceImpl implements IMovieService {
     }
 
     /**
-     * Wrapper method since feign clients cannot be testet with Mockito when
+     * Get TmdbMovie by Id
+     *
+     * @param movieId movie id
+     * @return TmdbMovie
      */
-
-    public TmdbMovie getTmdbMovie(String movieId) {
-        return this.tmdbClient.getMovie(movieId, tmdbApiKey);
+    @Override
+    public TmdbMovie getTmdbMovieById(Long movieId) {
+        try {
+            return this.tmdbClient.getMovie(movieId.toString(), tmdbApiKey);
+        } catch (FeignException exception) {
+            log.info("Problem with Feign Client or the API, e.g. Movie Not found. TmdbID: " + movieId.toString());
+            return null;
+        }
     }
 
     /**

@@ -20,4 +20,4 @@ tmdb:
   url: "https://api.themoviedb.org/3"
   api-key: ${TMDB-API-KEY}
 inference:
-  url: "http://localhost:5000"
+  url: "http://localhost:5004"

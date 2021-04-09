@@ -15,16 +15,22 @@ export class FreeAreaComponent implements OnInit {
   actors: Actor[];
   ratedMovies: MovieRating[] = [];
   ratedActors: ActorRating[] = [];
+  recommendations: Movie[];
   firstInit = true;
   serviceProblem = false;
   loading = false;
-  isActorRating = false;
+  step = 0;
 
   constructor(private freeService: FreeService, private toastr: ToastrService) {
   }
 
   ngOnInit(): void {
-    this.initMovies();
+    if (localStorage.getItem('tempRec')) {
+      this.recommendations = JSON.parse(localStorage.getItem('tempRec'));
+      this.step = 2;
+    } else {
+      this.initMovies();
+    }
   }
 
   initMovies(): void {
@@ -41,7 +47,7 @@ export class FreeAreaComponent implements OnInit {
   }
 
   initActors(): void {
-    this.isActorRating = true;
+    this.step = 1;
     this.loading = true;
     this.firstInit = true;
     this.freeService.getActors(3).subscribe(value => {
@@ -107,13 +113,16 @@ export class FreeAreaComponent implements OnInit {
     });
   }
 
-  getRecommendations(): void{
+  getRecommendations(): void {
     const ratingDto = new RatingDto();
     ratingDto.actorRatings = this.ratedActors;
     ratingDto.movieRatings = this.ratedMovies;
-    console.log(ratingDto);
+    this.loading = true;
     this.freeService.getRecommendations(ratingDto).subscribe(value => {
-      console.log(value);
+      this.recommendations = value;
+      this.step = 2;
+      this.loading = false;
+      localStorage.setItem('tempRec', JSON.stringify(value));
     });
   }
 }

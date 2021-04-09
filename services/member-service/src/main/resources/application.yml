@@ -5,8 +5,13 @@ spring.datasource.username: admin
 spring.datasource.password: admin
 spring.jpa.show-sql: true
 spring.jpa.generate-ddl: true
-spring.jpa.hibernate.ddl-auto: create-drop
+spring.jpa.hibernate.ddl-auto: update
 spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation: true
+
+spring:
+  datasource:
+    initialization-mode: always
+    data: classpath:tbl_rating_p1.sql, classpath:tbl_rating_p2.sql, classpath:tbl_rating_p3.sql
 
 
 HOSTS:

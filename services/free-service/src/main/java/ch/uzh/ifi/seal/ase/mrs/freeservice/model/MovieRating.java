@@ -1,5 +1,7 @@
 package ch.uzh.ifi.seal.ase.mrs.freeservice.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -16,8 +18,18 @@ public class MovieRating {
      */
     private final long tmdbId;
 
+    @JsonProperty("movieId")
+    public long getTmdbId() {
+        return this.tmdbId;
+    }
+
     /**
      * Rating of the movie
      */
     private final double rating;
+
+    @JsonProperty("my_rating")
+    public int getRating() {
+        return (int)this.rating;
+    }
 }
