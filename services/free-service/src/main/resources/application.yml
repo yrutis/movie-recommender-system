@@ -8,6 +8,10 @@ spring.jpa.generate-ddl: true
 spring.jpa.hibernate.ddl-auto: update
 spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation: true
 
+spring:
+  datasource:
+    initialization-mode: always
+    data: classpath:tbl_movie.sql, classpath:tbl_actor.sql
 HOSTS:
   GUI: "http://localhost:4200"
 server:

@@ -1,5 +1,6 @@
 package ch.uzh.ifi.seal.ase.mrs.memberservice.service.impl;
 
+import ch.uzh.ifi.seal.ase.mrs.memberservice.model.ActorRating;
 import ch.uzh.ifi.seal.ase.mrs.memberservice.model.MovieRating;
 import ch.uzh.ifi.seal.ase.mrs.memberservice.service.IMemberService;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +19,14 @@ public class MemberServiceImpl implements IMemberService {
     public void rateMovie(MovieRating movieRating, Principal principal) {
         // TODO: get user with principal
         log.info(movieRating.toString());
+        // TODO: add rating to the database
+        log.info(principal.getName());
+    }
+
+    @Override
+    public void rateActor(ActorRating actorRating, Principal principal) {
+        // TODO: get user with principal
+        log.info(actorRating.toString());
         // TODO: add rating to the database
         log.info(principal.getName());
     }

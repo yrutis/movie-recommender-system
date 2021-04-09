@@ -13,7 +13,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HttpClientModule} from '@angular/common/http';
 import {ToastrModule} from 'ngx-toastr';
 import { MemberAreaComponent } from './views/member-area/member-area.component';
-import { MovieRaterComponent } from './shared/movie-rater/movie-rater.component';
+import { RaterComponent } from './shared/rater/rater.component';
 import { FreeAreaComponent } from './views/free-area/free-area.component';
 import {RatingModule} from 'ng-starrating';
 import {NgbTooltipModule} from '@ng-bootstrap/ng-bootstrap';
@@ -24,7 +24,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     AppComponent,
     LoginComponent,
     MemberAreaComponent,
-    MovieRaterComponent,
+    RaterComponent,
     FreeAreaComponent
   ],
   imports: [

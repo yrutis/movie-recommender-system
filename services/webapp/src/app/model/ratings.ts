@@ -1,10 +1,10 @@
 export class MovieRating {
-  movieId: number;
+  tmdbId: number;
   rating: number;
 }
 
 export class ActorRating {
-  actorId: number;
+  tmdbId: number;
   rating: number;
 }
 

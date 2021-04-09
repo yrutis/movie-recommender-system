@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FreeService} from '../../service/free.service';
 import {Movie} from '../../model/movie';
-import {MovieRating} from '../../model/ratings';
+import {ActorRating, MovieRating, RatingDto} from '../../model/ratings';
 import {ToastrService} from 'ngx-toastr';
+import {Actor} from '../../model/actor';
 
 @Component({
   selector: 'app-free-area',
@@ -11,18 +12,40 @@ import {ToastrService} from 'ngx-toastr';
 })
 export class FreeAreaComponent implements OnInit {
   movies: Movie[];
+  actors: Actor[];
   ratedMovies: MovieRating[] = [];
+  ratedActors: ActorRating[] = [];
   firstInit = true;
   serviceProblem = false;
   loading = false;
+  isActorRating = false;
 
   constructor(private freeService: FreeService, private toastr: ToastrService) {
   }
 
   ngOnInit(): void {
+    this.initMovies();
+  }
+
+  initMovies(): void {
     this.loading = true;
     this.freeService.getMovies(3).subscribe(value => {
         this.movies = value;
+        this.loading = false;
+      },
+      () => {
+        this.serviceProblem = true;
+        this.loading = false;
+        this.toastr.error('Something went wrong, please try again later!');
+      });
+  }
+
+  initActors(): void {
+    this.isActorRating = true;
+    this.loading = true;
+    this.firstInit = true;
+    this.freeService.getActors(3).subscribe(value => {
+        this.actors = value;
         this.loading = false;
       },
       () => {
@@ -36,15 +59,29 @@ export class FreeAreaComponent implements OnInit {
     this.firstInit = false;
     if (value !== null) {
       const newRating = new MovieRating();
-      newRating.movieId = this.movies[i].id;
+      newRating.tmdbId = this.movies[i].id;
       newRating.rating = value;
       this.ratedMovies.push(newRating);
       if (this.ratedMovies.length === 3) {
-        console.log('GO TO ACTOR RATING');
-        console.log(this.ratedMovies);
+        this.initActors();
       }
     } else {
       this.reloadMovie(i);
+    }
+  }
+
+  actorWasRated(i: number, value: number): void {
+    this.firstInit = false;
+    if (value !== null) {
+      const newRating = new ActorRating();
+      newRating.tmdbId = this.actors[i].id;
+      newRating.rating = value;
+      this.ratedActors.push(newRating);
+      if (this.ratedActors.length === 3) {
+        this.getRecommendations();
+      }
+    } else {
+      this.reloadActor(i);
     }
   }
 
@@ -56,6 +93,27 @@ export class FreeAreaComponent implements OnInit {
       } else {
         this.movies[index] = newMovie[0];
       }
+    });
+  }
+
+  reloadActor(index: number): void {
+    this.freeService.getActors(1).subscribe(newActor => {
+      const ids = this.actors.map(o => o.id);
+      if (ids.indexOf(newActor[0].id) > -1) {
+        this.reloadActor(index);
+      } else {
+        this.actors[index] = newActor[0];
+      }
+    });
+  }
+
+  getRecommendations(): void{
+    const ratingDto = new RatingDto();
+    ratingDto.actorRatings = this.ratedActors;
+    ratingDto.movieRatings = this.ratedMovies;
+    console.log(ratingDto);
+    this.freeService.getRecommendations(ratingDto).subscribe(value => {
+      console.log(value);
     });
   }
 }

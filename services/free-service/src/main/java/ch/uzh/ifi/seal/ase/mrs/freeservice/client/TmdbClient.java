@@ -1,5 +1,6 @@
 package ch.uzh.ifi.seal.ase.mrs.freeservice.client;
 
+import ch.uzh.ifi.seal.ase.mrs.freeservice.model.tmdb.TmdbActor;
 import ch.uzh.ifi.seal.ase.mrs.freeservice.model.tmdb.TmdbMovie;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
@@ -18,4 +19,13 @@ public interface TmdbClient {
      */
     @GetMapping("/movie/{movieId}")
     TmdbMovie getMovie(@PathVariable("movieId") String movieId, @RequestParam("api_key") String apiKey);
+
+    /**
+     * Get details of an actor
+     * @param actorId ID of the actor
+     * @param apiKey API Key
+     * @return Actor Details (TmdbActor)
+     */
+    @GetMapping("/person/{actorId}")
+    TmdbActor getActor(@PathVariable("actorId") String actorId, @RequestParam("api_key") String apiKey);
 }

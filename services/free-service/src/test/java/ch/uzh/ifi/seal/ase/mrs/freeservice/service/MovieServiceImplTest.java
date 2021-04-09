@@ -46,7 +46,7 @@ public class MovieServiceImplTest {
         int amount = 30;
         Map<Long, TmdbMovie> tmdbMovieMap = new HashMap<>();
         for (int i = 1; i <= amount; i++) {
-            Optional<Movie> movie = Optional.of(new Movie((long) i, ((long) i + 1), "imdbId",0.0, 0.0, 0));
+            Optional<Movie> movie = Optional.of(new Movie((long) i, ((long) i + 1), "imdbId",5.0));
             lenient().when(movieRepository.findById((long) i)).thenReturn(movie);
             TmdbMovie tmdbMovie = TmdbMovie.builder().id((long) i + 1).title("Title" + i+1).build();
             tmdbMovieMap.put(tmdbMovie.getId(), tmdbMovie);
@@ -87,7 +87,7 @@ public class MovieServiceImplTest {
         int amount = 6;
         Map<Long, TmdbMovie> tmdbMovieMap = new HashMap<>();
         for (int i = 1; i <= amount; i++) {
-            Optional<Movie> movie = Optional.of(new Movie((long) i, ((long) i + 1), "imdbId",0.0, 0.0, 0));
+            Optional<Movie> movie = Optional.of(new Movie((long) i, ((long) i + 1), "imdbId", 5.0));
             lenient().when(movieRepository.findById((long) i)).thenReturn(movie);
             TmdbMovie tmdbMovie = TmdbMovie.builder().id((long) i + 1).title("Title" + i+1).build();
             tmdbMovieMap.put(tmdbMovie.getId(), tmdbMovie);
@@ -120,9 +120,9 @@ public class MovieServiceImplTest {
     @Test
     public void testGetMoviesBranches() {
         Map<Long, TmdbMovie> tmdbMovieMap = new HashMap<>();
-        Optional<Movie> movie1 = Optional.of(new Movie((long) 1, ((long) 2), "imdbId",0.0, 0.0, 0));
-        Optional<Movie> movie3 = Optional.of(new Movie((long) 3, ((long) 4), "imdbId",0.0, 0.0, 0));
-        Optional<Movie> movie4 = Optional.of(new Movie((long) 4, ((long) 5), "imdbId",0.0, 0.0, 0));
+        Optional<Movie> movie1 = Optional.of(new Movie((long) 1, ((long) 2), "imdbId", 5.0));
+        Optional<Movie> movie3 = Optional.of(new Movie((long) 3, ((long) 4), "imdbId",5.0));
+        Optional<Movie> movie4 = Optional.of(new Movie((long) 4, ((long) 5), "imdbId",5.0));
         TmdbMovie tmdbMovie1 = TmdbMovie.builder().id((long) 2).title("Title 2").build();
         TmdbMovie tmdbMovie4 = TmdbMovie.builder().id((long) 5).title("Title 5").build();
         when(movieRepository.findById((long) 1)).thenReturn(movie1);

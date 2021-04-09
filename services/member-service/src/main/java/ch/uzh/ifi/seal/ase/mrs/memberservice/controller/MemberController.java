@@ -1,5 +1,6 @@
 package ch.uzh.ifi.seal.ase.mrs.memberservice.controller;
 
+import ch.uzh.ifi.seal.ase.mrs.memberservice.model.ActorRating;
 import ch.uzh.ifi.seal.ase.mrs.memberservice.model.MovieRating;
 import ch.uzh.ifi.seal.ase.mrs.memberservice.service.IMemberService;
 import lombok.extern.slf4j.Slf4j;
@@ -36,5 +37,15 @@ public class MemberController {
     @PostMapping("/movieRating")
     public void newMovieRating(@RequestBody MovieRating movieRating, Principal principal){
         this.memberService.rateMovie(movieRating, principal);
+    }
+
+    /**
+     * Handles a new actor rating
+     * @param actorRating rating of the actor
+     * @param principal user rating the actor
+     */
+    @PostMapping("/actorRating")
+    public void newActorRating(@RequestBody ActorRating actorRating, Principal principal){
+        this.memberService.rateActor(actorRating, principal);
     }
 }

@@ -4,7 +4,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {UserDto} from '../model/userDto';
 import {Router} from '@angular/router';
-import {MovieRating} from '../model/ratings';
+import {ActorRating, MovieRating} from '../model/ratings';
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +39,18 @@ export class MemberService {
     };
     console.log(httpOptions);
     return this.httpClient.post<void>(this.serviceUrl + '/api/members/movieRating', movieRating, httpOptions);
+  }
+
+  public rateActor(actorRating: ActorRating): Observable<void> {
+    const httpHeaders = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization', 'Basic ' + btoa(this.loggedInUser.username + ':' + this.loggedInUser.password));
+
+    const httpOptions = {
+      headers: httpHeaders
+    };
+    console.log(httpOptions);
+    return this.httpClient.post<void>(this.serviceUrl + '/api/members/actorRating', actorRating, httpOptions);
   }
 
   public logout(): void {

@@ -1,4 +1,4 @@
-package ch.uzh.ifi.seal.ase.mrs.freeservice.model;
+package ch.uzh.ifi.seal.ase.mrs.memberservice.model;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

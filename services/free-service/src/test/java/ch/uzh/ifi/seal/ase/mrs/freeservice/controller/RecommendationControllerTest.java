@@ -38,7 +38,7 @@ public class RecommendationControllerTest {
         TmdbMovie movie1 = TmdbMovie.builder().id(1L).title("movie1").build();
         TmdbMovie movie2 = TmdbMovie.builder().id(2L).title("movie2").build();
         List<TmdbMovie> movies = Arrays.asList(movie1, movie2);
-        RatingDto ratingDto = RatingDto.builder().movieRatings(Arrays.asList(MovieRating.builder().rating(4.5).tmdbId(7L).build())).actorRatings(Arrays.asList(ActorRating.builder().rating(4.5).actorId(7L).build())).build();
+        RatingDto ratingDto = RatingDto.builder().movieRatings(Arrays.asList(MovieRating.builder().rating(4.5).tmdbId(7L).build())).actorRatings(Arrays.asList(ActorRating.builder().rating(4.5).tmdbId(7L).build())).build();
         when(recommendationService.getRecommendations(ratingDto.getMovieRatings(), ratingDto.getActorRatings())).thenReturn(movies);
         List<TmdbMovie> result = recommendationController.getRecommendations(ratingDto);
         Assertions.assertEquals(2, result.size());

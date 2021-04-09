@@ -3,7 +3,8 @@ import {MemberService} from '../../service/member.service';
 import {Movie} from '../../model/movie';
 import {FreeService} from '../../service/free.service';
 import {ToastrService} from 'ngx-toastr';
-import {MovieRating} from '../../model/ratings';
+import {ActorRating, MovieRating} from '../../model/ratings';
+import {Actor} from '../../model/actor';
 
 @Component({
   selector: 'app-member-area',
@@ -12,6 +13,7 @@ import {MovieRating} from '../../model/ratings';
 })
 export class MemberAreaComponent implements OnInit {
   movies: Movie[];
+  actors: Actor[];
   step = 0;
   loading = false;
   serviceProblem = false;
@@ -35,6 +37,8 @@ export class MemberAreaComponent implements OnInit {
         this.initMovieRating();
         break;
       case 1:
+        this.actors = null;
+        this.initActorRating();
         break;
       case 2:
         break;
@@ -53,13 +57,26 @@ export class MemberAreaComponent implements OnInit {
         this.loading = false;
         this.toastr.error('Something went wrong, please try again later!');
       });
-
   }
+
+
+  initActorRating(): void {
+    this.freeService.getActors(3).subscribe(value => {
+        this.actors = value;
+        this.loading = false;
+      },
+      () => {
+        this.serviceProblem = true;
+        this.loading = false;
+        this.toastr.error('Something went wrong, please try again later!');
+      });
+  }
+
 
   movieWasRated(i: number, $event: number): void {
     if ($event) {
       const movieRating = new MovieRating();
-      movieRating.movieId = this.movies[i].id;
+      movieRating.tmdbId = this.movies[i].tmdbId;
       movieRating.rating = $event;
       this.memberService.rateMovie(movieRating).subscribe(value => {});
     }
@@ -68,6 +85,19 @@ export class MemberAreaComponent implements OnInit {
         this.movies[i] = value[0];
       });
     }, 350);
+  }
 
+  actorWasRated(i: number, $event: number): void {
+    if ($event) {
+      const actorRating = new ActorRating();
+      actorRating.tmdbId = this.actors[i].tmdbId;
+      actorRating.rating = $event;
+      this.memberService.rateActor(actorRating).subscribe(value => {});
+    }
+    setTimeout(() => {
+      this.freeService.getActors(1).subscribe(value => {
+        this.actors[i] = value[0];
+      });
+    }, 350);
   }
 }
