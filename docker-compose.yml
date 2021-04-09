@@ -10,6 +10,8 @@ services:
      - FLASK_APP=src/__init__.py
      - FLASK_ENV=development
      - APP_SETTINGS=src.config.DevelopmentConfig
+   networks:
+     - mrs
  database:
    image: postgres:latest
    ports:
