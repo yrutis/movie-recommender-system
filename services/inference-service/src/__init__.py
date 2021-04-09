@@ -1,26 +1,38 @@
 # src/__init__.py
 
+
 import os
 
-from flask import Flask, jsonify
-from flask_restx import Resource, Api
+from flask import Flask
 
 
-# instantiate the app
-app = Flask(__name__)
+def create_app(script_info=None):
+    """
+    Create flask app
+    :param script_info: script info
+    :return: app
+    """
 
-api = Api(app)
+    # instantiate the app
+    app = Flask(__name__)
 
-# set config
-app_settings = os.getenv('APP_SETTINGS')
-app.config.from_object(app_settings)
+    # set config
+    app_settings = os.getenv("APP_SETTINGS")
+    app.config.from_object(app_settings)
 
-class Ping(Resource):
-    def get(self):
-        return {
-        'status': 'success',
-        'message': 'pong!'
-    }
+    # register blueprints
+    from src.api.ping import ping_blueprint
 
+    app.register_blueprint(ping_blueprint)
 
-api.add_resource(Ping, '/ping')
+    # register blueprints
+    from src.api.recommendations import recommendations_blueprint
+
+    app.register_blueprint(recommendations_blueprint)
+
+    # shell context for flask cli
+    @app.shell_context_processor
+    def ctx():
+        return {"app": app}
+
+    return app
