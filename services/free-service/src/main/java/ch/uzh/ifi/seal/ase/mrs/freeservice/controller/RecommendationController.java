@@ -13,7 +13,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("api/recommendations")
-@CrossOrigin(origins = "${HOSTS.GUI}")
+@CrossOrigin(origins = "${hosts.gui}")
 public class RecommendationController {
 
     private final IRecommendationService recommendationService;

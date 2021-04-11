@@ -19,6 +19,7 @@ export class Movie {
   voteAverage: number;
   voteCount: number;
   releaseDate: Date;
+  displayFullOverview = false;
 }
 
 export class SpokenLanguage {

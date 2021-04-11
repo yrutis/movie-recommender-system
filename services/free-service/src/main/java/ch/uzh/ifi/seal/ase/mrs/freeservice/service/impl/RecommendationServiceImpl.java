@@ -61,8 +61,8 @@ public class RecommendationServiceImpl implements IRecommendationService {
         });
         movieRatings.addAll(additionalRatings);
         List<Long> movieIds = inferenceClient.getRecommendations(movieRatings).getMessage();
-        List<TmdbMovie> movies = movieIds.stream().map(movieService::getTmdbMovieById).collect(Collectors.toList());
-        movies.removeAll(Collections.singleton(null));
-        return movies;
+        Set<TmdbMovie> movies = movieIds.stream().map(movieService::getTmdbMovieById).collect(Collectors.toSet());
+        movies.remove(null);
+        return movies.stream().filter(tmdbMovie -> tmdbMovie.getPosterPath() != null).collect(Collectors.toList());
     }
 }

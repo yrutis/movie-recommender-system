@@ -12,7 +12,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("api/movies")
-@CrossOrigin(origins = "${HOSTS.GUI}")
+@CrossOrigin(origins = "${hosts.gui}")
 public class MovieController {
 
     private final IMovieService movieService;

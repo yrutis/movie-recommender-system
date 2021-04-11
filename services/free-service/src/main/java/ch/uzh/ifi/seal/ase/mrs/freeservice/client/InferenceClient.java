@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Feign Client to interact with the inference backend
  */
-@FeignClient(url = "${inference.url}", name = "inference")
+@FeignClient(url = "${hosts.inference}", name = "inference")
 public interface InferenceClient {
 
     /**

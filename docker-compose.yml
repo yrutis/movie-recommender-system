@@ -1,32 +1,55 @@
 version: '3.7'
 services:
- inferenceservice:
-   build:
-     context: ./services/inference-service
-     dockerfile: Dockerfile
-   volumes:
-     - './services/inference-service:/usr/src/app'
-   ports:
-     - 5004:5000
-   environment:
-     - FLASK_ENV=development
-     - APP_SETTINGS=src.config.DevelopmentConfig
-     - DATABASE_URL=postgresql://admin:admin@movie-recommender-system_database_1:5432/mrs
-   networks:
-     - mrs
- database:
+  inferenceservice:
+    build:
+      context: ./services/inference-service
+      dockerfile: Dockerfile
+    volumes:
+      - './services/inference-service:/usr/src/app'
+    ports:
+      - 5004:5000
+    environment:
+      - FLASK_ENV=development
+      - APP_SETTINGS=src.config.DevelopmentConfig
+  free-service:
+    image: noahcha/mrs-free-service:latest
+    ports:
+      - 8081:8080
+    environment:
+      hosts.gui: "http://localhost"
+      hosts.inference: "http://inferenceservice:5000"
+      tmdb.api-key: "please insert API key"
+      spring.datasource.url: jdbc:postgresql://database:5432/mrs
+      spring.datasource.username: admin
+      server.port: 8080
+      spring.datasource.password: admin
+    depends_on:
+      - "database"
+  member-service:
+    image: noahcha/mrs-member-service:latest
+    ports:
+      - 8080:8080
+    environment:
+      hosts.gui: "http://localhost"
+      spring.datasource.url: jdbc:postgresql://database:5432/mrs
+      spring.datasource.username: admin
+      spring.datasource.password: admin
+    depends_on:
+      - "database"
+  webapp:
+    image: noahcha/mrs-webapp:latest
+    ports:
+      - 80:80
+  database:
    image: postgres:latest
-   expose:
-     - 5432
+   ports:
+     - 5432:5432
    environment:
      POSTGRES_DB: mrs
      POSTGRES_USER: admin
      POSTGRES_PASSWORD: admin
-   volumes:
-     - C:\Users\yvesr\Desktop\fs21_projects\movie-recommender-system\tbl_rating\:/tbl_rating/
-   networks:
-     - mrs
 
 networks:
-  mrs:
-    external: true
+  default:
+    external:
+      name: mrs

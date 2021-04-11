@@ -12,7 +12,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("api/actors")
-@CrossOrigin(origins = "${HOSTS.GUI}")
+@CrossOrigin(origins = "${hosts.gui}")
 public class ActorController {
 
     private final IActorService actorService;
