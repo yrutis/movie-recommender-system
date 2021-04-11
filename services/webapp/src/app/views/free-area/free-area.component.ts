@@ -25,12 +25,13 @@ export class FreeAreaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (localStorage.getItem('tempRec')) {
-      this.recommendations = JSON.parse(localStorage.getItem('tempRec'));
-      this.step = 2;
-    } else {
-      this.initMovies();
-    }
+    // if (localStorage.getItem('tempRec')) {
+    //   this.recommendations = JSON.parse(localStorage.getItem('tempRec'));
+    //   this.step = 2;
+    // } else {
+    //   this.initMovies();
+    // }
+    this.initMovies();
   }
 
   initMovies(): void {
@@ -118,9 +119,9 @@ export class FreeAreaComponent implements OnInit {
     ratingDto.actorRatings = this.ratedActors;
     ratingDto.movieRatings = this.ratedMovies;
     this.loading = true;
+    this.step = 2;
     this.freeService.getRecommendations(ratingDto).subscribe(value => {
       this.recommendations = value;
-      this.step = 2;
       this.loading = false;
       localStorage.setItem('tempRec', JSON.stringify(value));
     });

@@ -19,6 +19,8 @@ import {RatingModule} from 'ng-starrating';
 import {NgbTooltipModule} from '@ng-bootstrap/ng-bootstrap';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { RecommendationDisplayerComponent } from './shared/recommendation-displayer/recommendation-displayer.component';
+import { SafePipe } from './shared/pipes/safe.pipe';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { RecommendationDisplayerComponent } from './shared/recommendation-displa
     MemberAreaComponent,
     RaterComponent,
     FreeAreaComponent,
-    RecommendationDisplayerComponent
+    RecommendationDisplayerComponent,
+    SafePipe
   ],
   imports: [
     BrowserModule,
@@ -48,7 +51,8 @@ import { RecommendationDisplayerComponent } from './shared/recommendation-displa
     }),
     RatingModule,
     NgbTooltipModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    NgxPaginationModule
 
   ],
   providers: [],
