@@ -4,6 +4,10 @@
 import os
 
 from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+
+# instantiate the db
+# db = SQLAlchemy()
 
 
 def create_app(script_info=None):
@@ -19,6 +23,9 @@ def create_app(script_info=None):
     # set config
     app_settings = os.getenv("APP_SETTINGS")
     app.config.from_object(app_settings)
+
+    # set up extensions
+    # db.init_app(app)
 
     # register blueprints
     from src.api.ping import ping_blueprint

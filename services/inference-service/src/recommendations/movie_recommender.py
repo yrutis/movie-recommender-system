@@ -1,6 +1,8 @@
 # src/recommendations/movie_recommender.py
 
 import pandas as pd
+from sqlalchemy import create_engine
+from sqlalchemy.orm import scoped_session, sessionmaker
 
 
 class MovieRecommender:
@@ -15,6 +17,23 @@ class MovieRecommender:
 
         self.rated_movie_list = rated_movie_list
 
+        # TODO refactor
+
+        # connection url for the database
+        conn_url = "postgresql://admin:admin@localhost:5432/mrs"
+
+        # create session
+        engine = create_engine(conn_url)
+        db1 = scoped_session(sessionmaker(bind=engine))
+
+        # get all table ratings
+        query_rows = db1.execute("SELECT * FROM tbl_rating").fetchall()
+
+        # safe all ratings in a pandas dataframe
+        self.ratings = pd.DataFrame(
+            query_rows, columns=["id", "rating", "movieId", "userId"]
+        )
+
     def get_movie_recommendations(self):
         """
         get recommended movie IDs based on a User that has similar movie preferences
@@ -24,13 +43,9 @@ class MovieRecommender:
         # Convert incoming movies-rating list to a pandas dataframe
         incoming_ratings_df = pd.DataFrame(self.rated_movie_list)
 
-        # TODO change to load from database
-        # Load ratings
-        ratings = pd.read_csv("ratings_small.csv")
-
         # Left join ratings DF with incoming ratings
         joined_ratings = pd.merge(
-            ratings, incoming_ratings_df, on="movieId", how="inner"
+            self.ratings, incoming_ratings_df, on="movieId", how="inner"
         )
 
         # Calculate the absolute difference between the users' ratings and the client's rating
@@ -48,7 +63,6 @@ class MovieRecommender:
         # Weighted rating dif with Formula (total sum of rating dif / combined rated movies ** 2)
         # We use power of 2 to give more bias towards a movie rating match
         new_df["weighted_rating_dif"] = new_df["sum"] / (new_df["count"] ** 2)
-        # new_df["weighted_rating_dif"] = new_df["sum"] / (new_df["count"])
 
         movie_list = []  # result movie list
         users_candidate_count = 0  # get the best match first and increase if this user has not rated sufficient movies
@@ -63,7 +77,7 @@ class MovieRecommender:
             user_candidate = user_candidate.index.values[0]
 
             # Get movies from specific userId
-            usersmovies = ratings.loc[ratings["userId"] == user_candidate]
+            usersmovies = self.ratings.loc[self.ratings["userId"] == user_candidate]
 
             # sort according to userId's preference
             usersmovies = usersmovies.sort_values(by=["rating"], ascending=False).iloc[

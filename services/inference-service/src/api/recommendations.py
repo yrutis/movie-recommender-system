@@ -56,9 +56,10 @@ class Recommendations(Resource):
         movie_recommendations = movie_recommender.get_movie_recommendations()
 
         # construct the response object
-        response_object = {"message": movie_recommendations}
+        # TODO update with header
+        response_object = movie_recommendations
 
-        return response_object, 201
+        return response_object
 
 
 api.add_resource(Recommendations, "/recommendations")
