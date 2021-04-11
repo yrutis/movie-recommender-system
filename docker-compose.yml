@@ -17,8 +17,8 @@ services:
       - 8081:8080
     environment:
       hosts.gui: "http://localhost"
-      hosts.inference: "http://inferenceservice:5004"
-      tmdb.api-key: "PLEASE INSERT"
+      hosts.inference: "http://inferenceservice:5000"
+      tmdb.api-key: "please insert API key"
       spring.datasource.url: jdbc:postgresql://database:5432/mrs
       spring.datasource.username: admin
       server.port: 8080
