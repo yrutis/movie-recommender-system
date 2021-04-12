@@ -42,7 +42,7 @@ public class MovieServiceImpl implements IMovieService {
         this.tmdbClient = tmdbClient;
         this.random = new Random();
         this.numberOfMoviesInDatabase = this.movieRepository.count();
-        this.lambda = (1 / (double) this.numberOfMoviesInDatabase) * 15;
+        this.lambda = (1 / (double) this.numberOfMoviesInDatabase) * 100;
     }
 
     /**

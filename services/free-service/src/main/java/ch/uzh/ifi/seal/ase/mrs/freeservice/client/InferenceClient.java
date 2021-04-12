@@ -19,5 +19,5 @@ public interface InferenceClient {
      * @return List of recommended movie IDs wrapped in RecommendationResponse
      */
     @PostMapping("/recommendations")
-    RecommendationResponse getRecommendations(@RequestBody List<MovieRating> movieRatings);
+    List<Long> getRecommendations(@RequestBody List<MovieRating> movieRatings);
 }

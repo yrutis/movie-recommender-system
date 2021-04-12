@@ -8,7 +8,6 @@ import ch.uzh.ifi.seal.ase.mrs.freeservice.model.ActorRating;
 import ch.uzh.ifi.seal.ase.mrs.freeservice.model.MovieRating;
 import ch.uzh.ifi.seal.ase.mrs.freeservice.model.tmdb.TmdbMovie;
 import ch.uzh.ifi.seal.ase.mrs.freeservice.repository.ActorRepository;
-import ch.uzh.ifi.seal.ase.mrs.freeservice.repository.MovieRepository;
 import ch.uzh.ifi.seal.ase.mrs.freeservice.service.IMovieService;
 import ch.uzh.ifi.seal.ase.mrs.freeservice.service.IRecommendationService;
 import lombok.extern.slf4j.Slf4j;
@@ -60,7 +59,7 @@ public class RecommendationServiceImpl implements IRecommendationService {
             additionalRatings.add(MovieRating.builder().tmdbId(actor.getTop3Movie()).rating(actorRating.getRating()).build());
         });
         movieRatings.addAll(additionalRatings);
-        List<Long> movieIds = inferenceClient.getRecommendations(movieRatings).getMessage();
+        List<Long> movieIds = inferenceClient.getRecommendations(movieRatings);
         Set<TmdbMovie> movies = movieIds.stream().map(movieService::getTmdbMovieById).collect(Collectors.toSet());
         movies.remove(null);
         return movies.stream().filter(tmdbMovie -> tmdbMovie.getPosterPath() != null).collect(Collectors.toList());
