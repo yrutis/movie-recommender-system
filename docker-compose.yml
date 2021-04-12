@@ -9,8 +9,14 @@ services:
     ports:
       - 5004:5000
     environment:
+      - FLASK_APP=src/__init__.py
       - FLASK_ENV=development
       - APP_SETTINGS=src.config.DevelopmentConfig
+      - DATABASE_URL=postgresql://admin:admin@database:5432/mrs
+      - DATABASE_TEST_URL=postgresql://admin:admin@database:5432/mrs #TODO update
+    depends_on:
+      - "database"
+
   free-service:
     image: noahcha/mrs-free-service:latest
     ports:

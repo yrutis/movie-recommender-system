@@ -33,7 +33,7 @@ def test_receive_recommendations_valid_input(test_app):
     )
     data = json.loads(resp.data.decode())
     print(data)
-    # TODO change back to gurantee 50 movies
+    # TODO change back to guarantee 50 movies
     assert len(data) <= 50
 
 

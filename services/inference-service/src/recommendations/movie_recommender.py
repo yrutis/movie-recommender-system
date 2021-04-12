@@ -1,47 +1,41 @@
 # src/recommendations/movie_recommender.py
 
 import pandas as pd
-from sqlalchemy import create_engine
-from sqlalchemy.orm import scoped_session, sessionmaker
+
+from src.controller.rating_controller import RatingController
 
 
 class MovieRecommender:
-    def __init__(self, rated_movie_list: []):
+    def __init__(self):
         """
         initialize MovieRecommender class
         :param rated_movie_list: list of single rated movies
         """
-        # Check if the rated_movie_list is a list
-        if not isinstance(rated_movie_list, list):
-            raise TypeError("rated_movie_list should be of type list")
 
-        self.rated_movie_list = rated_movie_list
-
-        # TODO refactor
-
-        # connection url for the database
-        conn_url = "postgresql://admin:admin@localhost:5432/mrs"
-
-        # create session
-        engine = create_engine(conn_url)
-        db1 = scoped_session(sessionmaker(bind=engine))
-
-        # get all table ratings
-        query_rows = db1.execute("SELECT * FROM tbl_rating").fetchall()
+        # get all ratings
+        self.ratings = RatingController.get_all_ratings()
 
         # safe all ratings in a pandas dataframe
         self.ratings = pd.DataFrame(
-            query_rows, columns=["id", "rating", "movieId", "userId"]
+            [
+                [rating.id, rating.rating, rating.tmdb_id, rating.user_id]
+                for rating in self.ratings
+            ],
+            columns=["id", "rating", "movieId", "userId"],
         )
 
-    def get_movie_recommendations(self):
+    def get_movie_recommendations(self, rated_movie_list):
         """
         get recommended movie IDs based on a User that has similar movie preferences
         :return:
         """
 
+        # Check if the rated_movie_list is a list
+        if not isinstance(rated_movie_list, list):
+            raise TypeError("rated_movie_list should be of type list")
+
         # Convert incoming movies-rating list to a pandas dataframe
-        incoming_ratings_df = pd.DataFrame(self.rated_movie_list)
+        incoming_ratings_df = pd.DataFrame(rated_movie_list)
 
         # Left join ratings DF with incoming ratings
         joined_ratings = pd.merge(

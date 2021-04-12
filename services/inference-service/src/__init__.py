@@ -7,7 +7,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 # instantiate the db
-# db = SQLAlchemy()
+db = SQLAlchemy()
 
 
 def create_app(script_info=None):
@@ -25,7 +25,7 @@ def create_app(script_info=None):
     app.config.from_object(app_settings)
 
     # set up extensions
-    # db.init_app(app)
+    db.init_app(app)
 
     # register blueprints
     from src.api.ping import ping_blueprint
@@ -40,6 +40,6 @@ def create_app(script_info=None):
     # shell context for flask cli
     @app.shell_context_processor
     def ctx():
-        return {"app": app}
+        return {"app": app, "db": db}
 
     return app
