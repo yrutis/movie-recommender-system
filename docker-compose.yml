@@ -1,11 +1,7 @@
 version: '3.7'
 services:
   inferenceservice:
-    build:
-      context: ./services/inference-service
-      dockerfile: Dockerfile
-    volumes:
-      - './services/inference-service:/usr/src/app'
+    image: noahcha/mrs-inference-service:latest
     ports:
       - 5004:5000
     environment:
@@ -13,7 +9,6 @@ services:
       - FLASK_ENV=development
       - APP_SETTINGS=src.config.DevelopmentConfig
       - DATABASE_URL=postgresql://admin:admin@database:5432/mrs
-      - DATABASE_TEST_URL=postgresql://admin:admin@database:5432/mrs #TODO update
     depends_on:
       - "database"
 

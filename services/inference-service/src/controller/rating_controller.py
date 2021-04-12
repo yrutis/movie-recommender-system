@@ -4,7 +4,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 from src.models.ratings import Rating
-
+import pandas as pd
 
 class RatingController:
     """
@@ -26,4 +26,11 @@ class RatingController:
         session = Session()
 
         # get all ratings
-        return session.query(Rating).all()
+        ratings =  session.query(Rating).all()
+        return  pd.DataFrame(
+            [
+                [rating.id, rating.rating, rating.tmdb_id, rating.user_id]
+                for rating in ratings
+            ],
+            columns=["id", "rating", "movieId", "userId"],
+        )

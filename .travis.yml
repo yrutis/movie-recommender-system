@@ -33,21 +33,4 @@ jobs:
       python: 3.9
       before_script:
         - cd ./services/inference-service
-      script:
-        - PYTHON_VERSION=$(python _version.py)
-        - echo "PYTHON_VERSION"
-        - IMAGE_NAME=noahcha/mrs-inference-service
-        - docker build -t $IMAGE_NAME .
-        - docker tag $IMAGE_NAME "${IMAGE_NAME}:latest"
-        - docker tag $IMAGE_NAME "${IMAGE_NAME}:${PYTHON_VERSION}"
-        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        - docker push "${IMAGE_NAME}:${PYTHON_VERSION}" && docker push "${IMAGE_NAME}:latest"
-          # Test
-        - docker network create mrs
-        - docker-compose up -d
-        - docker-compose exec inferenceservice flake8 src
-        - docker-compose exec inferenceservice black src --check
-        - docker-compose exec inferenceservice isort src --check-only
-        - docker-compose exec inferenceservice pytest "src/tests" -p no:warnings # Run tests
-        - docker-compose exec inferenceservice pytest -v -o junit_family=xunit1 --cov=src --cov-report xml:test-results/coverage.xml --junitxml=test-results/results.xml # Create Test report
-        - sonar-scanner -Dsonar.projectKey=mrs-inference-service -Dsonar.sources=. -Dsonar.host.url=https://sonaruzh.dev.eng.c-alm.ch -Dsonar.login=$SONAR_TOKEN -Dsonar.language=py -Dsonar.source=src -Dsonar.sourceEncoding=UTF-8 -Dsonar.python.xunit.reportPath=test-results/results.xml -Dsonar.python.coverage.reportPaths=test-results/coverage.xml -Dsonar.python.coveragePlugin=cobertura -Dsonar.exclusions=src/tests/**,test-results/**,coverage-reports/htmlcov
+      script: bash build.sh

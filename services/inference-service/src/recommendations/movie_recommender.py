@@ -15,14 +15,6 @@ class MovieRecommender:
         # get all ratings
         self.ratings = RatingController.get_all_ratings()
 
-        # safe all ratings in a pandas dataframe
-        self.ratings = pd.DataFrame(
-            [
-                [rating.id, rating.rating, rating.tmdb_id, rating.user_id]
-                for rating in self.ratings
-            ],
-            columns=["id", "rating", "movieId", "userId"],
-        )
 
     def get_movie_recommendations(self, rated_movie_list):
         """

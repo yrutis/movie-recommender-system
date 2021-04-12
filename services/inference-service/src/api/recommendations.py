@@ -19,6 +19,7 @@ movie_ratings_model = api.model(
 )
 
 # Create an instance of the MovieRecommender class
+
 movie_recommender = MovieRecommender()
 
 
