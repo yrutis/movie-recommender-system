@@ -15,6 +15,6 @@ public class MovieRatingTest {
     void testMovieRatingBuilderGetter() {
         MovieRating movieRating = MovieRating.builder().rating(4.1).tmdbId(1L).build();
         Assertions.assertEquals(1L, movieRating.getTmdbId());
-        Assertions.assertEquals(4.1, movieRating.getRating());
+        Assertions.assertEquals(4, movieRating.getRating());
     }
 }

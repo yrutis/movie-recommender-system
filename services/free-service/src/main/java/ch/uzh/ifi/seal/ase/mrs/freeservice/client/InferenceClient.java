@@ -9,14 +9,14 @@ import java.util.List;
 /**
  * Feign Client to interact with the inference backend
  */
-@FeignClient(url = "${inference.url}", name = "inference")
+@FeignClient(url = "${hosts.inference}", name = "inference")
 public interface InferenceClient {
 
     /**
      * Gets movie recommendations from the inference backend
      * @param movieRatings List of movie ratings
-     * @return List of recommended movie IDs
+     * @return List of recommended movie IDs wrapped in RecommendationResponse
      */
-    @PostMapping("/tbd")
+    @PostMapping("/recommendations")
     List<Long> getRecommendations(@RequestBody List<MovieRating> movieRatings);
 }

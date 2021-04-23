@@ -18,6 +18,10 @@ movie_ratings_model = api.model(
     },
 )
 
+# Create an instance of the MovieRecommender class
+
+movie_recommender = MovieRecommender()
+
 
 class Recommendations(Resource):
 
@@ -49,16 +53,16 @@ class Recommendations(Resource):
                 ] = "One of the ratings is not between 0 and 5. Please try again!"
                 return response_object, 400
 
-        # create an instance of the recommender class given the client's preferences
-        movie_recommender = MovieRecommender(movie_ratings)
-
         # get the movie recommendations
-        movie_recommendations = movie_recommender.get_movie_recommendations()
+        movie_recommendations = movie_recommender.get_movie_recommendations(
+            movie_ratings
+        )
 
         # construct the response object
-        response_object = {"message": movie_recommendations}
+        # TODO update with header
+        response_object = movie_recommendations
 
-        return response_object, 201
+        return response_object
 
 
 api.add_resource(Recommendations, "/recommendations")

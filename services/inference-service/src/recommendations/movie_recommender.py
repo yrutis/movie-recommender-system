@@ -2,35 +2,36 @@
 
 import pandas as pd
 
+from src.controller.rating_controller import RatingController
+
 
 class MovieRecommender:
-    def __init__(self, rated_movie_list: []):
+    def __init__(self):
         """
         initialize MovieRecommender class
         :param rated_movie_list: list of single rated movies
         """
-        # Check if the rated_movie_list is a list
-        if not isinstance(rated_movie_list, list):
-            raise TypeError("rated_movie_list should be of type list")
 
-        self.rated_movie_list = rated_movie_list
+        # get all ratings
+        self.ratings = RatingController.get_all_ratings()
 
-    def get_movie_recommendations(self):
+
+    def get_movie_recommendations(self, rated_movie_list):
         """
         get recommended movie IDs based on a User that has similar movie preferences
         :return:
         """
 
-        # Convert incoming movies-rating list to a pandas dataframe
-        incoming_ratings_df = pd.DataFrame(self.rated_movie_list)
+        # Check if the rated_movie_list is a list
+        if not isinstance(rated_movie_list, list):
+            raise TypeError("rated_movie_list should be of type list")
 
-        # TODO change to load from database
-        # Load ratings
-        ratings = pd.read_csv("ratings_small.csv")
+        # Convert incoming movies-rating list to a pandas dataframe
+        incoming_ratings_df = pd.DataFrame(rated_movie_list)
 
         # Left join ratings DF with incoming ratings
         joined_ratings = pd.merge(
-            ratings, incoming_ratings_df, on="movieId", how="inner"
+            self.ratings, incoming_ratings_df, on="movieId", how="inner"
         )
 
         # Calculate the absolute difference between the users' ratings and the client's rating
@@ -48,7 +49,6 @@ class MovieRecommender:
         # Weighted rating dif with Formula (total sum of rating dif / combined rated movies ** 2)
         # We use power of 2 to give more bias towards a movie rating match
         new_df["weighted_rating_dif"] = new_df["sum"] / (new_df["count"] ** 2)
-        # new_df["weighted_rating_dif"] = new_df["sum"] / (new_df["count"])
 
         movie_list = []  # result movie list
         users_candidate_count = 0  # get the best match first and increase if this user has not rated sufficient movies
@@ -63,7 +63,7 @@ class MovieRecommender:
             user_candidate = user_candidate.index.values[0]
 
             # Get movies from specific userId
-            usersmovies = ratings.loc[ratings["userId"] == user_candidate]
+            usersmovies = self.ratings.loc[self.ratings["userId"] == user_candidate]
 
             # sort according to userId's preference
             usersmovies = usersmovies.sort_values(by=["rating"], ascending=False).iloc[

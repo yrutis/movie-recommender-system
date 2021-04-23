@@ -14,7 +14,7 @@ import java.security.Principal;
  */
 @RestController
 @RequestMapping("api/members")
-@CrossOrigin(origins = "${HOSTS.GUI}")
+@CrossOrigin(origins = "${hosts.gui}")
 @Slf4j
 public class MemberController {
 

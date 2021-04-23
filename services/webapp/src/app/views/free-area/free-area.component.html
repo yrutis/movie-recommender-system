@@ -14,28 +14,33 @@
       <mat-spinner class="mx-auto"></mat-spinner>
     </div>
   </div>
-  <div class="row mt-5" *ngIf="movies && !isActorRating">
+  <div class="row mt-5" *ngIf="movies && step == 0">
     <div class="col-12 text-center">
       <p class="text">Please rate the movies shown below or reload them, if you have not seen them yet!</p>
     </div>
   </div>
-  <div class="row mt-5" *ngIf="actors && isActorRating">
+  <div class="row mt-5" *ngIf="actors && step == 1">
     <div class="col-12 text-center">
       <p class="text">Please rate the actors shown below or reload them, if you do not know them!</p>
     </div>
   </div>
-  <div class="row pt-5" *ngIf="movies && !isActorRating">
+  <div class="row pt-5" *ngIf="movies && step == 0">
     <div class="col-4" *ngFor="let movie of movies; let i = index">
       <app-rater *ngIf="movie" [ratingObject]="movie" (objectRated)="movieWasRated(i, $event)"
                        [delay]="firstInit ? i * 200: 200">
       </app-rater>
     </div>
   </div>
-  <div class="row pt-5" *ngIf="actors && isActorRating">
+  <div class="row pt-5" *ngIf="actors && step == 1">
     <div class="col-4" *ngFor="let actor of actors; let i = index">
       <app-rater *ngIf="actor" [ratingObject]="actor" (objectRated)="actorWasRated(i, $event)"
                  [delay]="firstInit ? i * 200: 200">
       </app-rater>
+    </div>
+  </div>
+  <div class="row pt-5" *ngIf="recommendations && step == 2">
+    <div class="col-12">
+      <app-recommendation-displayer [recommendations]="recommendations"></app-recommendation-displayer>
     </div>
   </div>
   <div class="row mt-5" *ngIf="serviceProblem">

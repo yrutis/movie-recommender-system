@@ -18,6 +18,9 @@ import { FreeAreaComponent } from './views/free-area/free-area.component';
 import {RatingModule} from 'ng-starrating';
 import {NgbTooltipModule} from '@ng-bootstrap/ng-bootstrap';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { RecommendationDisplayerComponent } from './shared/recommendation-displayer/recommendation-displayer.component';
+import { SafePipe } from './shared/pipes/safe.pipe';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,9 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     LoginComponent,
     MemberAreaComponent,
     RaterComponent,
-    FreeAreaComponent
+    FreeAreaComponent,
+    RecommendationDisplayerComponent,
+    SafePipe
   ],
   imports: [
     BrowserModule,
@@ -46,7 +51,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     }),
     RatingModule,
     NgbTooltipModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    NgxPaginationModule
 
   ],
   providers: [],

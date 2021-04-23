@@ -42,7 +42,7 @@ public class ActorServiceImpl implements IActorService {
         this.tmdbClient = tmdbClient;
         this.random = new Random();
         this.numberOfActorsInDatabase = this.actorRepository.count();
-        this.lambda = (1 / (double) this.numberOfActorsInDatabase) * 20;
+        this.lambda = (1 / (double) this.numberOfActorsInDatabase) * 100;
     }
 
     /**

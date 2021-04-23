@@ -56,8 +56,8 @@ public class MovieServiceImplTest {
         MovieServiceImpl movieService = new MovieServiceImpl(movieRepository, tmdbClient) {
             long i = 0;
             @Override
-            public TmdbMovie getTmdbMovie(String movieId) {
-                return tmdbMovieMap.get(Long.parseLong(movieId));
+            public TmdbMovie getTmdbMovieById(Long movieId) {
+                return tmdbMovieMap.get(movieId);
             }
             // Override the random ID generator, in order to test the get movies method efficiently
             @Override
@@ -97,8 +97,8 @@ public class MovieServiceImplTest {
         MovieServiceImpl movieService = new MovieServiceImpl(movieRepository, tmdbClient) {
             long i = 0;
             @Override
-            public TmdbMovie getTmdbMovie(String movieId) {
-                return tmdbMovieMap.get(Long.parseLong(movieId));
+            public TmdbMovie getTmdbMovieById(Long movieId) {
+                return tmdbMovieMap.get(movieId);
             }
             // Override the random ID generator, in order to test the get movies method efficiently
             @Override
@@ -137,8 +137,8 @@ public class MovieServiceImplTest {
         MovieServiceImpl movieService = new MovieServiceImpl(movieRepository, tmdbClient) {
             long i = 1;
             @Override
-            public TmdbMovie getTmdbMovie(String movieId) {
-                return tmdbMovieMap.get(Long.parseLong(movieId));
+            public TmdbMovie getTmdbMovieById(Long movieId) {
+                return tmdbMovieMap.get(movieId);
             }
             // Override the random ID generator, in order to test the get movies method efficiently
             @Override

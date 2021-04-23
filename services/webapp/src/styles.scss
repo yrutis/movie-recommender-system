@@ -122,3 +122,15 @@ body, html {
 .nav-link:hover, .nav-link.active{
   color: rgba(255,255,255,1) !important;
 }
+
+.ngx-pagination .current{
+  background: #f9a500 !important;
+}
+
+.ngx-pagination a, .ngx-pagination button {
+  color: #ffffff !important;
+}
+
+.ngx-pagination a:hover, .ngx-pagination button:hover {
+  background: #e0b769 !important;
+}

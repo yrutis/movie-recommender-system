@@ -16,4 +16,11 @@ public interface IMovieService {
      */
     List<TmdbMovie> getMovies(Integer amount);
 
+    /**
+     * Get TmdbMovie by Id
+     * @param movieId movie id
+     * @return Tmdb Movie
+     */
+    TmdbMovie getTmdbMovieById(Long movieId);
+
 }
