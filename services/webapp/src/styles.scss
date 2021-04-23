@@ -134,3 +134,16 @@ body, html {
 .ngx-pagination a:hover, .ngx-pagination button:hover {
   background: #e0b769 !important;
 }
+
+.button-border-white {
+  border-color: white !important;
+}
+
+.custom-slider .ngx-slider .ngx-slider-bubble {
+  color: white !important;
+}
+
+.custom-slider .ngx-slider .ngx-slider-active:after {
+  background-color: #f9a500 !important;
+}
+

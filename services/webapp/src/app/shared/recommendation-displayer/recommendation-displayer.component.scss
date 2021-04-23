@@ -3,15 +3,24 @@
   display: inline-block;
   background-color: rgba(255,255,255,0.5);
   color: #2855b5;
-  margin-right: 10px;
+  margin-right: 5px;
+  margin-bottom: 5px;
   padding: 5px;
   border-radius: 7px;
+}
+
+.genre-list-filter-active-item {
+  background-color: rgba(255, 255, 255, 0.9) !important;
 }
 
 .movie-title {
   color: #ffb134;
   font-size: 1.4rem;
   font-weight: lighter;
+}
+
+.language-list-filter-inactive-item{
+  opacity: 0.5 !important;
 }
 
 .movie-tagline{
@@ -35,4 +44,8 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+}
+
+.custom-hr{
+  background-color: rgba(255,255,255,.5);
 }

@@ -21,6 +21,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { RecommendationDisplayerComponent } from './shared/recommendation-displayer/recommendation-displayer.component';
 import { SafePipe } from './shared/pipes/safe.pipe';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
 
 @NgModule({
   declarations: [
@@ -52,8 +53,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
     RatingModule,
     NgbTooltipModule,
     MatProgressSpinnerModule,
-    NgxPaginationModule
-
+    NgxPaginationModule,
+    NgxSliderModule
   ],
   providers: [],
   bootstrap: [AppComponent]

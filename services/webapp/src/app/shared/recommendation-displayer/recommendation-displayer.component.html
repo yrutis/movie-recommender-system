@@ -1,6 +1,101 @@
 <div class="w-100">
+  <div class="row mb-4">
+    <div class="col-12">
+      <button mat-stroked-button class="rounded-0 form-width button-border-white float-right" color="accent" (click)="filterExpanded = !filterExpanded"><fa-icon [icon]="['fas', 'filter']" class="mr-2"></fa-icon>Filter</button>
+    </div>
+  </div>
+  <div class="row mb-5" *ngIf="filterExpanded" [@expandOnEnter] [@collapseOnLeave]>
+    <div class="col-6 custom-slider">
+      <p class="text-sm mb-0">Rating</p>
+      <hr class="custom-hr mt-1">
+      <ngx-slider [(value)]="ratingMinValue" [(highValue)]="ratingMaxValue" [options]="ratingOptions"></ngx-slider>
+    </div>
+    <div class="col-6 custom-slider">
+      <p class="text-sm mb-0">Popularity</p>
+      <hr class="custom-hr mt-1">
+      <ngx-slider [(value)]="popularityMinValue" [(highValue)]="popularityMaxValue" [options]="popularityOptions"></ngx-slider>
+    </div>
+    <div class="col-12 mt-4">
+      <p class="text-sm mb-0">Genres</p>
+      <hr class="custom-hr mt-1">
+      <div class="genre-list my-2">
+        <ul>
+          <li *ngFor="let genre of genreFilterKeys" (click)="changeGenreFilterValue(genre)" class="pointer" [class.genre-list-filter-active-item]="genreFilterValues.get(genre)">
+            {{genre}}
+          </li>
+        </ul>
+        <ul class="float-right">
+          <li class="genre-list-filter-active-item pointer"  (click)="changeGenreFilterAll(true)">
+            <fa-icon [icon]="['far', 'check-square']" class="mr-1"></fa-icon>Select All
+          </li>
+          <li class="genre-list-filter-active-item pointer" (click)="changeGenreFilterAll(false)">
+            <fa-icon [icon]="['far', 'square']" class="mr-1"></fa-icon>Select None
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col-6 mt-4">
+      <p class="text-sm mb-0">Spoken Languages</p>
+      <hr class="custom-hr mt-1">
+      <div class="my-2">
+        <img *ngFor="let lang of spokenLanguagesFilterKeys" [src]="'https://unpkg.com/language-icons@0.3.0/icons/'+ lang + '.svg' | safe:'resourceUrl'" height="20px" class="pointer mr-1" [ngbTooltip]="languageCodeMap.get(lang)" (click)="changeSpokenLanguageFilterValue(lang)" [class.language-list-filter-inactive-item]="!spokenLanguagesFilterValues.get(lang)">
+      </div>
+      <div class="genre-list my-2">
+        <ul class="float-right">
+          <li class="genre-list-filter-active-item pointer"  (click)="changeSpokenLanguageFilterAll(true)">
+            <fa-icon [icon]="['far', 'check-square']" class="mr-1"></fa-icon>Select All
+          </li>
+          <li class="genre-list-filter-active-item pointer" (click)="changeSpokenLanguageFilterAll(false)">
+            <fa-icon [icon]="['far', 'square']" class="mr-1"></fa-icon>Select None
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col-6 mt-4">
+      <p class="text-sm mb-0">Original Languages</p>
+      <hr class="custom-hr mt-1">
+      <div class="my-2">
+        <img *ngFor="let lang of originalLanguagesFilterKeys" [src]="'https://unpkg.com/language-icons@0.3.0/icons/'+ lang + '.svg' | safe:'resourceUrl'" height="20px" class="pointer mr-1" [ngbTooltip]="languageCodeMap.get(lang)" (click)="changeOriginalLanguageFilterValue(lang)" [class.language-list-filter-inactive-item]="!originalLanguagesFilterValues.get(lang)">
+      </div>
+      <div class="genre-list my-2">
+        <ul class="float-right">
+          <li class="genre-list-filter-active-item pointer"  (click)="changeOriginalLanguageFilterAll(true)">
+            <fa-icon [icon]="['far', 'check-square']" class="mr-1"></fa-icon>Select All
+          </li>
+          <li class="genre-list-filter-active-item pointer" (click)="changeOriginalLanguageFilterAll(false)">
+            <fa-icon [icon]="['far', 'square']" class="mr-1"></fa-icon>Select None
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col-6 mt-4 custom-slider">
+      <p class="text-sm mb-0">Revenue</p>
+      <hr class="custom-hr mt-1">
+      <ngx-slider [(value)]="revenueMinValue" [(highValue)]="revenueMaxValue" [options]="revenueOptions"></ngx-slider>
+    </div>
+    <div class="col-6 mt-4 custom-slider">
+      <p class="text-sm mb-0">Budget</p>
+      <hr class="custom-hr mt-1">
+      <ngx-slider [(value)]="budgetMinValue" [(highValue)]="budgetMaxValue" [options]="budgetOptions"></ngx-slider>
+    </div>
+    <div class="col-6 mt-4 custom-slider">
+      <p class="text-sm mb-0">Release Year</p>
+      <hr class="custom-hr mt-1">
+      <ngx-slider [(value)]="releaseMinValue" [(highValue)]="releaseMaxValue" [options]="releaseOptions"></ngx-slider>
+    </div>
+
+    <div class="col-12 mt-4">
+      <hr class="custom-hr mt-1">
+      <button mat-stroked-button (click)="applyFilter()" class="rounded-0 form-width button-border-white float-right ml-2" color="accent"><fa-icon [icon]="['fas', 'filter']" class="mr-2"></fa-icon>Apply Filters</button>
+      <button mat-stroked-button (click)="resetFilter()" class="rounded-0 form-width button-border-white float-right" color="accent"><fa-icon [icon]="['fas', 'redo']" class="mr-2"></fa-icon>Reset Filters</button>
+    </div>
+  </div>
+
   <div class="row">
-    <div class="col-12 text-center">
+    <div class="col-12 mb-3">
       <p class="text">These are the movies we recommend you to watch!</p>
     </div>
   </div>
@@ -30,19 +125,18 @@
       <p><fa-icon [icon]="['fas', 'money-bill']" [fixedWidth]="true" class="mr-2 orange" ngbTooltip="Revenue"></fa-icon>${{(rec.revenue / 1000000) | number:'1.2-2'}} MM</p>
       <p>
         <fa-icon [icon]="['fas', 'language']" [fixedWidth]="true" class="mr-2 orange" ngbTooltip="Original Language"></fa-icon>
-        <img alt="English" [src]="'https://unpkg.com/language-icons@0.3.0/icons/'+ rec.originalLanguage+ '.svg' | safe:'resourceUrl'" height="20px">
+        <img alt="English" [src]="'https://unpkg.com/language-icons@0.3.0/icons/'+ rec.originalLanguage+ '.svg' | safe:'resourceUrl'" height="20px" [ngbTooltip]="languageCodeMap.get(rec.originalLanguage)">
       </p>
       <p>
         <fa-icon [icon]="['fas', 'language']" [fixedWidth]="true" class="mr-2 orange" ngbTooltip="Spoken Languages"></fa-icon>
         <img *ngFor="let lang of rec.spokenLanguages" [alt]="lang.englishName" [ngbTooltip]="lang.englishName" [src]="'https://unpkg.com/language-icons@0.3.0/icons/'+ lang.languageCode+ '.svg' | safe:'resourceUrl'" height="20px" class="mr-1">
       </p>
-<!--      <p>{{rec.productionCompanies}}</p>-->
-<!--      <p>{{rec.productionCountries}}</p>-->
     </div>
   </div>
   <div class="row">
     <div class="col-12 text-center">
-      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      <pagination-controls (pageChange)="p = $event" *ngIf="filteredRecommendations.length > 0"></pagination-controls>
+      <p *ngIf="filteredRecommendations.length == 0 && recommendations.length > 0" class="text-sm">No Results with current filter settings.</p>
     </div>
   </div>
 </div>
