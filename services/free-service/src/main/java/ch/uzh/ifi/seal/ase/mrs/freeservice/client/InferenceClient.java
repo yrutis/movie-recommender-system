@@ -1,7 +1,6 @@
 package ch.uzh.ifi.seal.ase.mrs.freeservice.client;
 
 import ch.uzh.ifi.seal.ase.mrs.freeservice.model.MovieRating;
-import ch.uzh.ifi.seal.ase.mrs.freeservice.model.RecommendationResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
