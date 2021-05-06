@@ -3,6 +3,7 @@ package ch.uzh.ifi.seal.ase.mrs.memberservice.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 /**
  * Class for storing login information of users
@@ -32,4 +33,14 @@ public class User {
      * Password of the User
      */
     private String password;
+
+    /**
+     * User ID in Rating Table
+     */
+    private Long tblRatingUserId;
+
+    /**
+     * Last Trained On
+     */
+    private LocalDateTime lastTrainedOn;
 }
