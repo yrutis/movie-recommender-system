@@ -1,4 +1,5 @@
 # src/recommendations/movie_recommender.py
+import math
 from datetime import datetime
 
 import pandas as pd
@@ -41,8 +42,13 @@ class MovieRecommender:
         # TODO change back to 5
         learn.fit_one_cycle(1, 5e-3, wd=0.1)
 
-        # for each user in our user database, get the top 50 rated movies
+        # for each user in our user database, get the top 100 rated movies
         for index, row in self.users.iterrows():
+
+            # user has not rated any movies yet and hence should not get any recommendations
+            if not row['tbl_rating_user_id'] or math.isnan(row['tbl_rating_user_id']):
+                continue
+
             # create a new dataframe for the test object for the fastai model
             new_df = pd.DataFrame()
 
@@ -71,15 +77,14 @@ class MovieRecommender:
             new_df = new_df.loc[~new_df['movieId'].isin(merged_table['movieId'].tolist())]
 
             # TODO add to database
+            RatingController.insert_ratings(new_df)
 
-        # update the timestamp of the last training
-        self.users['last_trained_on'] = datetime.today()
 
         # update users in database
-        self.users
+        UserController.update_user_timestamp()
 
         return True
 
-
-movie_recommender = MovieRecommender(use_db=0)
-movie_recommender.train_movie_recommendations()
+#
+# movie_recommender = MovieRecommender(use_db=0)
+# movie_recommender.train_movie_recommendations()

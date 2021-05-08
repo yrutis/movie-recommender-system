@@ -39,7 +39,7 @@ class RatingController:
     @staticmethod
     def insert_ratings(ratings):
         """
-        insert a row in the database
+        insert ratings in the database
         :return:
         """
         conn_url = os.getenv("DATABASE_URL")
@@ -48,7 +48,8 @@ class RatingController:
         Session = sessionmaker(bind=engine)
         session = Session()
 
-        rating = Rating(rating=4, user_id=1, tmdb_id=5)
-
-        session.add(rating)
-        session.commit()
+        for index, row in ratings.iterrows():
+            rating = Rating(rating=row['rating'], user_id=row['userId'], tmdb_id=row['movieId'])
+            session.add(rating)
+            session.commit()
+            print('ratings inserted')
