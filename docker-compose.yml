@@ -1,7 +1,11 @@
 version: '3.7'
 services:
   training-service:
-    image: noahcha/mrs-training-service:latest
+    build:
+      context: ./services/training-service
+      dockerfile: Dockerfile
+    volumes:
+      - './services/training-service:/usr/src/app'
     ports:
       - 6004:6000
     environment:
