@@ -76,7 +76,10 @@ class MovieRecommender:
             new_df = new_df.nlargest(100 + merged_table.shape[0], 'rating')
             new_df = new_df.loc[~new_df['movieId'].isin(merged_table['movieId'].tolist())]
 
-            # TODO add to database
+            print("fix autoincrement")
+            RatingController.fix_autoincrement()
+
+            print("insert ratings")
             RatingController.insert_ratings(new_df)
 
 
