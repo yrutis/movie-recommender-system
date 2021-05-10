@@ -17,7 +17,7 @@ api = Api(recommendations_blueprint)
 
 # Create an instance of the MovieRecommender class
 
-movie_recommender = MovieRecommender(use_db=0)
+movie_recommender = MovieRecommender(use_db=1)
 
 
 class Recommendations(Resource):
