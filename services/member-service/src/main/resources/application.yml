@@ -16,3 +16,8 @@ spring:
 
 hosts:
   gui: "http://localhost:4200"
+  training: "http://localhost:6004"
+
+tmdb:
+  url: "https://api.themoviedb.org/3"
+  api-key: ${TMDB-API-KEY}

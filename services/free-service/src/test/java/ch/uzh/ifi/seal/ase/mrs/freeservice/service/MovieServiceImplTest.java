@@ -48,7 +48,7 @@ public class MovieServiceImplTest {
         for (int i = 1; i <= amount; i++) {
             Optional<Movie> movie = Optional.of(new Movie((long) i, ((long) i + 1), "imdbId",5.0));
             lenient().when(movieRepository.findById((long) i)).thenReturn(movie);
-            TmdbMovie tmdbMovie = TmdbMovie.builder().id((long) i + 1).title("Title" + i+1).build();
+            TmdbMovie tmdbMovie = TmdbMovie.builder().id((long) i + 1).title("Title" + i+1).posterPath("path").build();
             tmdbMovieMap.put(tmdbMovie.getId(), tmdbMovie);
         }
 
@@ -123,8 +123,8 @@ public class MovieServiceImplTest {
         Optional<Movie> movie1 = Optional.of(new Movie((long) 1, ((long) 2), "imdbId", 5.0));
         Optional<Movie> movie3 = Optional.of(new Movie((long) 3, ((long) 4), "imdbId",5.0));
         Optional<Movie> movie4 = Optional.of(new Movie((long) 4, ((long) 5), "imdbId",5.0));
-        TmdbMovie tmdbMovie1 = TmdbMovie.builder().id((long) 2).title("Title 2").build();
-        TmdbMovie tmdbMovie4 = TmdbMovie.builder().id((long) 5).title("Title 5").build();
+        TmdbMovie tmdbMovie1 = TmdbMovie.builder().id((long) 2).title("Title 2").posterPath("path").build();
+        TmdbMovie tmdbMovie4 = TmdbMovie.builder().id((long) 5).title("Title 5").posterPath("path").build();
         when(movieRepository.findById((long) 1)).thenReturn(movie1);
         when(movieRepository.findById((long) 2)).thenReturn(Optional.empty());
         when(movieRepository.findById((long) 3)).thenReturn(movie3);
@@ -155,6 +155,44 @@ public class MovieServiceImplTest {
             movieService.getMovies(9);
         });
 
+    }
+
+    /**
+     * Test getMovies with no poster path
+     */
+    @Test
+    public void testGetMoviesNoPosterPath() {
+        Map<Long, TmdbMovie> tmdbMovieMap = new HashMap<>();
+        Optional<Movie> movie1 = Optional.of(new Movie((long) 1, ((long) 1), "imdbId", 5.0));
+        Optional<Movie> movie2 = Optional.of(new Movie((long) 2, ((long) 2), "imdbId",5.0));
+        TmdbMovie tmdbMovie1 = TmdbMovie.builder().id((long) 1).title("Title 1").posterPath("path").build();
+        TmdbMovie tmdbMovie2 = TmdbMovie.builder().id((long) 2).title("Title 2").posterPath(null).build();
+        when(movieRepository.findById((long) 1)).thenReturn(movie1);
+        when(movieRepository.findById((long) 2)).thenReturn(movie2);
+        tmdbMovieMap.put(1L, tmdbMovie1);
+        tmdbMovieMap.put(2L, tmdbMovie2);
+        when(movieRepository.count()).thenReturn((2L));
+
+        MovieServiceImpl movieService = new MovieServiceImpl(movieRepository, tmdbClient) {
+            long i = 1;
+            @Override
+            public TmdbMovie getTmdbMovieById(Long movieId) {
+                return tmdbMovieMap.get(movieId);
+            }
+            // Override the random ID generator, in order to test the get movies method efficiently
+            @Override
+            public long getRandomMovieId() {
+                long result = i;
+                i++;
+                return result;
+            }
+        };
+        final List<TmdbMovie> result = movieService.getMovies(1);
+
+        Assertions.assertEquals(1, result.size());
+        Assertions.assertThrows(GeneralWebserviceException.class, () -> {
+            movieService.getMovies(2);
+        });
     }
 
     /**

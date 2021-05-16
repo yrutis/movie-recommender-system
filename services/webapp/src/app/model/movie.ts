@@ -1,6 +1,5 @@
 export class Movie {
   id: number;
-  tmdbId: number;
   imdbId: string;
   originalLanguage: string;
   originalTitle: string;

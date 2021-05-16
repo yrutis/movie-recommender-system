@@ -1,23 +1,39 @@
 package ch.uzh.ifi.seal.ase.mrs.memberservice.model;
 
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
+import javax.persistence.*;
 
 /**
- * DTO for storing a movie rating
+ * Class for storing movie ratings
  */
 @Getter
+@Setter
 @Builder
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "tbl_rating")
 public class MovieRating {
+    /**
+     * Id of the Rating
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     /**
-     * TMDB Id of rated movie
+     * Tmdb Movie Id
      */
-    private final long tmdbId;
+    private Long tmdbId;
 
     /**
-     * Rating of the movie
+     * User Id
      */
-    private final double rating;
+    private Long userId;
+
+    /**
+     * Rating
+     */
+    private Double rating;
 }

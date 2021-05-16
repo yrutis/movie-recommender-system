@@ -29,7 +29,7 @@
 
 
 <div class="container">
-  <ng-container *ngTemplateOutlet="step === 0 ? movieRating : step === 1 ? actorRating : recommendations"></ng-container>
+  <ng-container *ngTemplateOutlet="step === 0 ? movieRating : step === 1 ? actorRating : recommendationsDisplay"></ng-container>
 </div>
 
 <ng-template #movieRating>
@@ -41,7 +41,7 @@
   <div class="row mt-5" *ngIf="movies">
     <div class="col-12 text-center">
       <p class="text">Rate as many movies as you want! Your ratings are aggregated and you will be shown new
-        recommendations within the next 24 hours!</p>
+        recommendations within the next 15 minutes!</p>
     </div>
   </div>
   <div class="row pt-5" *ngIf="movies">
@@ -54,10 +54,15 @@
 </ng-template>
 
 <ng-template #actorRating>
-  <div class="row mt-5">
+  <div class="row mt-5" *ngIf="loading">
+    <div class="col-12">
+      <mat-spinner class="mx-auto"></mat-spinner>
+    </div>
+  </div>
+  <div class="row mt-5" *ngIf="actors">
     <div class="col-12 text-center">
       <p class="text">Rate as many actors as you want! Your ratings are aggregated and you will be shown new
-        recommendations within the next 24 hours!</p>
+        recommendations within the next 15 minutes!</p>
     </div>
   </div>
   <div class="row pt-5" *ngIf="actors">
@@ -69,10 +74,15 @@
   </div>
 </ng-template>
 
-<ng-template #recommendations>
-  <div class="row mt-5">
-    <div class="col-12 text-center">
-      <p class="text">Recommendations</p>
+<ng-template #recommendationsDisplay>
+  <div class="row mt-5" *ngIf="loading">
+    <div class="col-12">
+      <mat-spinner class="mx-auto"></mat-spinner>
+    </div>
+  </div>
+  <div class="row mt-5" *ngIf="recommendations">
+    <div class="col-12">
+      <app-recommendation-displayer [recommendations]="recommendations" [isMember]="true" [lastTrainedOn]="lastTrainedOn"></app-recommendation-displayer>
     </div>
   </div>
 

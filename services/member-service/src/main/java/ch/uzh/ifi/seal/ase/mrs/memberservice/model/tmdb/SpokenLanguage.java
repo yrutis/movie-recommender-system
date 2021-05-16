@@ -1,9 +1,8 @@
-package ch.uzh.ifi.seal.ase.mrs.freeservice.model.tmdb;
+package ch.uzh.ifi.seal.ase.mrs.memberservice.model.tmdb;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 
 /**

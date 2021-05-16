@@ -3,6 +3,7 @@ package ch.uzh.ifi.seal.ase.mrs.memberservice.service;
 import ch.uzh.ifi.seal.ase.mrs.memberservice.exception.GeneralWebserviceException;
 import ch.uzh.ifi.seal.ase.mrs.memberservice.model.User;
 import ch.uzh.ifi.seal.ase.mrs.memberservice.model.dto.UserDto;
+import ch.uzh.ifi.seal.ase.mrs.memberservice.repository.RatingRepository;
 import ch.uzh.ifi.seal.ase.mrs.memberservice.repository.UserRepository;
 import ch.uzh.ifi.seal.ase.mrs.memberservice.service.impl.SignupServiceImpl;
 import org.junit.jupiter.api.Assertions;
@@ -29,6 +30,9 @@ public class SignupServiceImplTest {
 
     @Mock
     UserRepository userRepository;
+
+    @Mock
+    RatingRepository ratingRepository;
 
     /**
      * Test checkUsernameAvailable
@@ -61,10 +65,14 @@ public class SignupServiceImplTest {
      */
     @Test
     public void checkCreateUserWithUsernameAvailable() {
-        UserDto signupUser = UserDto.builder().username("john").password("abcd").build();
-        when(userRepository.findByUsername("john")).thenReturn(Optional.empty());
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        User dbUser = User.builder().password(encoder.encode("abcd")).username("john").build();
+        UserDto signupUser = UserDto.builder().username("john").password("abcd").build();
+        User dbUser0 = User.builder().password(encoder.encode("abcd")).username("john").tblRatingUserId(10L).build();
+        when(userRepository.findByUsername("john")).thenReturn(Optional.empty());
+        when(userRepository.findByTblRatingUserId(10L)).thenReturn(Optional.of(dbUser0));
+        when(ratingRepository.getHighestId()).thenReturn(9L);
+
+        User dbUser = User.builder().password(encoder.encode("abcd")).username("john").tblRatingUserId(11L).build();
         when(userRepository.save(any(User.class))).thenReturn(dbUser);
         User createdUser = signupService.createUser(signupUser);
         ArgumentCaptor<User> argumentCaptor = ArgumentCaptor.forClass(User.class);
@@ -72,6 +80,7 @@ public class SignupServiceImplTest {
         User capturedArgument = argumentCaptor.<User> getValue();
         Assertions.assertTrue(encoder.matches("abcd", capturedArgument.getPassword()));
         Assertions.assertEquals(signupUser.getUsername(), createdUser.getUsername());
+        Assertions.assertEquals(11L, capturedArgument.getTblRatingUserId());
         Assertions.assertTrue(encoder.matches("abcd", createdUser.getPassword()));
     }
 

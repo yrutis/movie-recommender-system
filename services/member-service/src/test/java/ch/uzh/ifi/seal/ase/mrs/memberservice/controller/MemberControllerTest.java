@@ -1,7 +1,7 @@
 package ch.uzh.ifi.seal.ase.mrs.memberservice.controller;
 
-import ch.uzh.ifi.seal.ase.mrs.memberservice.model.ActorRating;
-import ch.uzh.ifi.seal.ase.mrs.memberservice.model.MovieRating;
+import ch.uzh.ifi.seal.ase.mrs.memberservice.model.dto.ActorRatingDto;
+import ch.uzh.ifi.seal.ase.mrs.memberservice.model.dto.MovieRatingDto;
 import ch.uzh.ifi.seal.ase.mrs.memberservice.model.User;
 import ch.uzh.ifi.seal.ase.mrs.memberservice.service.impl.MemberServiceImpl;
 import org.junit.jupiter.api.Assertions;
@@ -15,6 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.security.Principal;
 
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * Test MemberController
@@ -27,29 +28,28 @@ public class MemberControllerTest {
     @Mock
     MemberServiceImpl memberService;
 
+    @Mock
+    Principal principal;
+
+
     /**
      * Test rate movie
      */
     @Test
     public void testNewMovieRating() {
 
-        MovieRating movieRating = MovieRating.builder().tmdbId(1L).rating(4.0).build();
-        Principal principal = new Principal() {
-            @Override
-            public String getName() {
-                return "Admin";
-            }
-        };
-        memberController.newMovieRating(movieRating, principal);
-        ArgumentCaptor<MovieRating> argumentCaptor1 = ArgumentCaptor.forClass(MovieRating.class);
+        MovieRatingDto movieRatingDto = MovieRatingDto.builder().tmdbId(1L).rating(4.0).build();
+        when(principal.getName()).thenReturn("admin");
+        memberController.newMovieRating(movieRatingDto, principal);
+        ArgumentCaptor<MovieRatingDto> argumentCaptor1 = ArgumentCaptor.forClass(MovieRatingDto.class);
         ArgumentCaptor<Principal> argumentCaptor2 = ArgumentCaptor.forClass(Principal.class);
         verify(memberService).rateMovie(argumentCaptor1.capture(), argumentCaptor2.capture());
-        MovieRating capturedArgument1 = argumentCaptor1.<User> getValue();
+        MovieRatingDto capturedArgument1 = argumentCaptor1.<User> getValue();
         Assertions.assertEquals(4.0, capturedArgument1.getRating());
         Assertions.assertEquals(1L, capturedArgument1.getTmdbId());
 
         Principal capturedArgument2 = argumentCaptor2.<User> getValue();
-        Assertions.assertEquals("Admin", capturedArgument2.getName());
+        Assertions.assertEquals("admin", capturedArgument2.getName());
     }
 
     /**
@@ -58,22 +58,17 @@ public class MemberControllerTest {
     @Test
     public void testNewActorRating() {
 
-        ActorRating actorRating = ActorRating.builder().tmdbId(1L).rating(4.0).build();
-        Principal principal = new Principal() {
-            @Override
-            public String getName() {
-                return "Admin";
-            }
-        };
-        memberController.newActorRating(actorRating, principal);
-        ArgumentCaptor<ActorRating> argumentCaptor1 = ArgumentCaptor.forClass(ActorRating.class);
+        ActorRatingDto actorRatingDto = ActorRatingDto.builder().tmdbId(1L).rating(4.0).build();
+        when(principal.getName()).thenReturn("admin");
+        memberController.newActorRating(actorRatingDto, principal);
+        ArgumentCaptor<ActorRatingDto> argumentCaptor1 = ArgumentCaptor.forClass(ActorRatingDto.class);
         ArgumentCaptor<Principal> argumentCaptor2 = ArgumentCaptor.forClass(Principal.class);
         verify(memberService).rateActor(argumentCaptor1.capture(), argumentCaptor2.capture());
-        ActorRating capturedArgument1 = argumentCaptor1.<User> getValue();
+        ActorRatingDto capturedArgument1 = argumentCaptor1.<User> getValue();
         Assertions.assertEquals(4.0, capturedArgument1.getRating());
         Assertions.assertEquals(1L, capturedArgument1.getTmdbId());
 
         Principal capturedArgument2 = argumentCaptor2.<User> getValue();
-        Assertions.assertEquals("Admin", capturedArgument2.getName());
+        Assertions.assertEquals("admin", capturedArgument2.getName());
     }
 }

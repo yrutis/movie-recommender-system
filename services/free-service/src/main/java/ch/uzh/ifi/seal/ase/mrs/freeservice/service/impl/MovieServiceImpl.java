@@ -68,7 +68,7 @@ public class MovieServiceImpl implements IMovieService {
             Optional<Movie> movie = movieRepository.findById(getRandomMovieId());
             if (movie.isPresent()) {
                 TmdbMovie tmdbMovie = getTmdbMovieById(movie.get().getTmdbId());
-                if (tmdbMovie != null) {
+                if (tmdbMovie != null && tmdbMovie.getPosterPath() != null) {
                     movies.add(tmdbMovie);
                 }
             }
@@ -85,6 +85,9 @@ public class MovieServiceImpl implements IMovieService {
      */
     @Override
     public TmdbMovie getTmdbMovieById(Long movieId) {
+        if(tmdbApiKey == null){
+            throw GeneralWebserviceException.builder().errorCode("TMDB001").status(HttpStatus.INTERNAL_SERVER_ERROR).message("API KEY NOT SET").build();
+        }
         try {
             return this.tmdbClient.getMovie(movieId.toString(), tmdbApiKey);
         } catch (FeignException exception) {

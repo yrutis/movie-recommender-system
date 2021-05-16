@@ -1,6 +1,6 @@
-package ch.uzh.ifi.seal.ase.mrs.freeservice.model.tmdb;
+package ch.uzh.ifi.seal.ase.mrs.memberservice.model.tmdb;
 
-import ch.uzh.ifi.seal.ase.mrs.freeservice.model.tmdb.TmdbMovie;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

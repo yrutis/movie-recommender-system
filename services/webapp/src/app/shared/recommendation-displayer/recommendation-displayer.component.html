@@ -1,7 +1,10 @@
 <div class="w-100">
   <div class="row">
-    <div class="col-12 text-center">
+    <div class="col-12 text-center border-bottom mb-3">
       <p class="text">These are the movies we recommend you to watch!</p>
+      <p class="text" *ngIf="isMember && lastTrainedOn">Your recommendations were generated for you last time on: <i>{{lastTrainedOn | date:'medium'}}</i></p>
+      <p class="text" *ngIf="isMember && lastTrainedOn === null">There are no recommendations generated for you yet. Come back in 15 minutes!</p>
+      <p class="text" *ngIf="isMember && trainingAllowed" class="pointer demo-train" (click)="startTrainingManually()">For demonstration purposes you can click here to start the training without waiting for the scheduled run. The training takes a while, please be patient.</p>
     </div>
   </div>
   <div class="row mb-2" *ngFor="let rec of filteredRecommendations  | paginate: { itemsPerPage: 3, currentPage: p }; let i = index" [@enterAnim]="{ value: '', params: { delay: i * 150 } }">
