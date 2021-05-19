@@ -1,6 +1,6 @@
 #
 
-from sqlalchemy import Column, Float, Integer, Time, String
+from sqlalchemy import Column, Integer, String, Time
 from sqlalchemy.ext.declarative import declarative_base
 
 

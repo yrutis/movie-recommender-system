@@ -12,9 +12,34 @@ services:
       - FLASK_APP=src/__init__.py
       - FLASK_ENV=development
       - APP_SETTINGS=src.config.DevelopmentConfig
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
       - DATABASE_URL=postgresql://admin:admin@database:5432/mrs
     depends_on:
       - "database"
+      - "redis"
+
+  worker:
+    build:
+      context: ./services/training-service
+      dockerfile: Dockerfile
+    command: celery worker --app=src.tasks.celery --loglevel=info
+    volumes:
+      - './services/training-service:/usr/src/app'
+    environment:
+      - FLASK_DEBUG=1
+      - APP_SETTINGS=src.config.DevelopmentConfig
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+      - DATABASE_URL=postgresql://admin:admin@database:5432/mrs
+    depends_on:
+      - "database"
+      - "training-service"
+      - "redis"
+
+  redis:
+    image: redis:6-alpine
+
 
   inferenceservice:
     image: noahcha/mrs-inference-service:latest

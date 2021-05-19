@@ -1,12 +1,10 @@
 import os
 
+import pandas as pd
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy import text
-
 
 from src.models.ratings import Rating
-import pandas as pd
 
 
 class RatingController:
@@ -50,12 +48,13 @@ class RatingController:
         Session = sessionmaker(bind=engine)
         session = Session()
 
-
         for index, row in ratings.iterrows():
-            rating = Rating(rating=row['rating'], user_id=row['userId'], tmdb_id=row['movieId'])
+            rating = Rating(
+                rating=row["rating"], user_id=row["userId"], tmdb_id=row["movieId"]
+            )
             session.add(rating)
             session.commit()
-            print('ratings inserted')
+            print("ratings inserted")
 
     @staticmethod
     def fix_autoincrement():
@@ -64,8 +63,10 @@ class RatingController:
         engine = create_engine(conn_url, echo=True)
 
         # fix pkey autoincremment issue
-        # session.execute("SELECT setval(pg_get_serial_sequence('tbl_rating', 'id'), coalesce(max(id)+1, 1), false) FROM tbl_rating;")
+        # session.execute("SELECT setval(pg_get_serial_sequence('tbl_rating', 'id'),
+        # coalesce(max(id)+1, 1), false) FROM tbl_rating;")
         with engine.connect() as connection:
             result = connection.execute(
-                "SELECT setval(pg_get_serial_sequence('tbl_rating', 'id'), coalesce(max(id)+1, 1), false) FROM tbl_rating;")
+                "SELECT setval(pg_get_serial_sequence('tbl_rating', 'id'), coalesce(max(id)+1, 1), false) FROM tbl_rating;"
+            )
             print("autoincrement error solved, resetting pkey to {}".format(result))

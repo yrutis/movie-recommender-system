@@ -1,11 +1,11 @@
 import os
 from datetime import datetime
 
+import pandas as pd
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 from src.models.users import User
-import pandas as pd
 
 
 class UserController:
@@ -31,10 +31,22 @@ class UserController:
         users = session.query(User).all()
         return pd.DataFrame(
             [
-                [user.id, user.username, user.password, user.last_trained_on, user.tbl_rating_user_id]
+                [
+                    user.id,
+                    user.username,
+                    user.password,
+                    user.last_trained_on,
+                    user.tbl_rating_user_id,
+                ]
                 for user in users
             ],
-            columns=["id", "username", "password", "last_trained_on", "tbl_rating_user_id"],
+            columns=[
+                "id",
+                "username",
+                "password",
+                "last_trained_on",
+                "tbl_rating_user_id",
+            ],
         )
 
     @staticmethod
@@ -60,6 +72,3 @@ class UserController:
             session.add(user)
             session.commit()
             # print("user updated")
-
-
-
