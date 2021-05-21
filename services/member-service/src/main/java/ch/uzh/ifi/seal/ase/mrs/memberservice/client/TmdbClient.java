@@ -1,7 +1,9 @@
 package ch.uzh.ifi.seal.ase.mrs.memberservice.client;
 
 
+import ch.uzh.ifi.seal.ase.mrs.memberservice.model.tmdb.TmdbCast;
 import ch.uzh.ifi.seal.ase.mrs.memberservice.model.tmdb.TmdbMovie;
+import ch.uzh.ifi.seal.ase.mrs.memberservice.model.tmdb.TmdbWatchProvider;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,4 +24,21 @@ public interface TmdbClient {
     @GetMapping("/movie/{movieId}")
     TmdbMovie getMovie(@PathVariable("movieId") String movieId, @RequestParam("api_key") String apiKey);
 
+    /**
+     * Get cast of a movie
+     * @param movieId ID of the movie
+     * @param apiKey API Key
+     * @return Cast (TmdbCast)
+     */
+    @GetMapping("movie/{movieId}/credits")
+    TmdbCast getCast(@PathVariable("movieId") String movieId, @RequestParam("api_key") String apiKey);
+
+    /**
+     * Get watch providers of a movie
+     * @param movieId ID of the movie
+     * @param apiKey API Key
+     * @return Cast (TmdbWatchProvider)
+     */
+    @GetMapping("movie/{movieId}/watch/providers")
+    TmdbWatchProvider getWatchProvider(@PathVariable("movieId") String movieId, @RequestParam("api_key") String apiKey);
 }

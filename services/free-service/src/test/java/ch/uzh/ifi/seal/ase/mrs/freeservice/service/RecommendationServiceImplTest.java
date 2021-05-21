@@ -57,12 +57,12 @@ public class RecommendationServiceImplTest {
         ActorRating a2 = ActorRating.builder().rating(4.0).tmdbId(2L).build();
         ActorRating a3 = ActorRating.builder().rating(4.0).tmdbId(3L).build();
         when(inferenceClient.getRecommendations(ArgumentMatchers.any())).thenReturn(Arrays.asList(5L, 6L, 7L));
-        TmdbMovie tmdbMovie1 = TmdbMovie.builder().id(5L).posterPath("path").build();
-        TmdbMovie tmdbMovie2 = TmdbMovie.builder().id(6L).posterPath("path").build();
+        TmdbMovie tmdbMovie1 = TmdbMovie.builder().id(5L).posterPath("path").popularity(5.0).build();
+        TmdbMovie tmdbMovie2 = TmdbMovie.builder().id(6L).posterPath("path").popularity(2.0).build();
         TmdbMovie tmdbMovie3 = TmdbMovie.builder().id(7L).build();
-        when(movieService.getTmdbMovieById(5L, false)).thenReturn(tmdbMovie1);
-        when(movieService.getTmdbMovieById(6L, false)).thenReturn(tmdbMovie2);
-        when(movieService.getTmdbMovieById(7L, false)).thenReturn(tmdbMovie3);
+        when(movieService.getTmdbMovieById(5L, true)).thenReturn(tmdbMovie1);
+        when(movieService.getTmdbMovieById(6L, true)).thenReturn(tmdbMovie2);
+        when(movieService.getTmdbMovieById(7L, true)).thenReturn(tmdbMovie3);
         RecommendationServiceImpl recommendationService = new RecommendationServiceImpl(actorRepository, inferenceClient, movieService);
         List<MovieRating> movieRatings = new ArrayList<>(Arrays.asList(m1, m2, m3));
         List<ActorRating> actorRatings = new ArrayList<>(Arrays.asList(a1,a2,a3));

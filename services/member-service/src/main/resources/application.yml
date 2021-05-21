@@ -21,3 +21,4 @@ hosts:
 tmdb:
   url: "https://api.themoviedb.org/3"
   api-key: ${TMDB-API-KEY}
+  watch-provider-locale: "CH"

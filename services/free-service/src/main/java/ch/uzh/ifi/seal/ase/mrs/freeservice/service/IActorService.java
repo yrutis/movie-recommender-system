@@ -11,8 +11,9 @@ public interface IActorService {
     /**
      * Collects actors until there are the amount of actors asked in the set
      * @param amount amount of movies
+     * @param popularity popularity of movies
      * @return set of actors as list
      */
-    List<TmdbActor> getActors(Integer amount);
+    List<TmdbActor> getActors(Integer amount, Integer popularity);
 
 }

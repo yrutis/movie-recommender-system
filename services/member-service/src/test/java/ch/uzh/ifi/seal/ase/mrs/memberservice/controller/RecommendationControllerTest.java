@@ -73,6 +73,7 @@ public class RecommendationControllerTest {
     public void testTrain() {
         doNothing().when(trainingClient).startTraining();
         recommendationController.train();
+        verify(trainingClient, times(1)).startTraining();
     }
 
     /**

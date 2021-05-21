@@ -290,4 +290,30 @@ public class TmdbMovie {
     public void setReleaseDate(LocalDate releaseDate) {
         this.releaseDate = releaseDate;
     }
+
+    /**
+     * Cast of the movie
+     */
+    private TmdbCast cast;
+
+    /**
+     * Setter for the movie cast
+     * @param cast TmdbCast
+     */
+    public void setCast(TmdbCast cast){
+        this.cast = cast;
+    }
+
+    /**
+     * Watchproviders by locale
+     */
+    private TmdbWatchProviderCountry watchProviders;
+
+    /**
+     * Setter for the movie cast
+     * @param watchProviders TmdbWatchProviderCountry
+     */
+    public void setWatchProviders(TmdbWatchProviderCountry watchProviders){
+        this.watchProviders = watchProviders;
+    }
 }

@@ -36,8 +36,8 @@ public class MovieControllerTest {
         TmdbMovie movie1 = TmdbMovie.builder().id(1L).title("movie1").build();
         TmdbMovie movie2 = TmdbMovie.builder().id(2L).title("movie2").build();
         List<TmdbMovie> movies = Arrays.asList(movie1, movie2);
-        when(movieService.getMovies(2)).thenReturn(movies);
-        List<TmdbMovie> result = movieController.getMovies(2);
+        when(movieService.getMovies(2, 100)).thenReturn(movies);
+        List<TmdbMovie> result = movieController.getMovies(2, 100);
         Assertions.assertEquals(2, result.size());
         Assertions.assertEquals("movie1", result.get(0).getTitle());
     }

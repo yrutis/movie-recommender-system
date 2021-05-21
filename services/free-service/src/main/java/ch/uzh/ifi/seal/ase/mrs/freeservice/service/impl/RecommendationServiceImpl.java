@@ -1,14 +1,10 @@
 package ch.uzh.ifi.seal.ase.mrs.freeservice.service.impl;
 
 import ch.uzh.ifi.seal.ase.mrs.freeservice.client.InferenceClient;
-
-import ch.uzh.ifi.seal.ase.mrs.freeservice.client.TmdbClient;
 import ch.uzh.ifi.seal.ase.mrs.freeservice.exception.GeneralWebserviceException;
 import ch.uzh.ifi.seal.ase.mrs.freeservice.model.Actor;
 import ch.uzh.ifi.seal.ase.mrs.freeservice.model.ActorRating;
-
 import ch.uzh.ifi.seal.ase.mrs.freeservice.model.MovieRating;
-import ch.uzh.ifi.seal.ase.mrs.freeservice.model.tmdb.TmdbCast;
 import ch.uzh.ifi.seal.ase.mrs.freeservice.model.tmdb.TmdbMovie;
 import ch.uzh.ifi.seal.ase.mrs.freeservice.repository.ActorRepository;
 import ch.uzh.ifi.seal.ase.mrs.freeservice.service.IMovieService;

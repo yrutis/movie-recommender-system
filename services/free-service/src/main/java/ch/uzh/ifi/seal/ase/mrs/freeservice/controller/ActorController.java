@@ -31,10 +31,11 @@ public class ActorController {
     /**
      * List of actors
      * @param amount the number of actors
+     * @param popularity the popularity of actors
      * @return List of actors
      */
-    @GetMapping("/{amount}")
-    public List<TmdbActor> getActors(@PathVariable("amount") Integer amount) {
-        return actorService.getActors(amount);
+    @GetMapping("/{amount}/{popularity}")
+    public List<TmdbActor> getActors(@PathVariable("amount") Integer amount,  @PathVariable("popularity") Integer popularity) {
+        return actorService.getActors(amount, popularity);
     }
 }

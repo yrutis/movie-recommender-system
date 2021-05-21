@@ -5,3 +5,4 @@ hosts:
 tmdb:
   url: "https://api.themoviedb.org/3"
   api-key: ""
+  watch-provider-locale: ""

@@ -20,6 +20,7 @@ export class Movie {
   releaseDate: Date;
   displayFullOverview = false;
   cast: Cast;
+  watchProviders: WatchProviderCountry;
 }
 
 export class SpokenLanguage {
@@ -49,4 +50,16 @@ export class CastMember {
   name: string;
   character: string;
   order: number;
+}
+
+export class WatchProviderCountry {
+  link: string;
+  rent: WatchProvider[];
+  buy: WatchProvider[];
+  flatrate: WatchProvider[];
+}
+
+export class WatchProvider {
+  providerName: string;
+  logoPath: string;
 }

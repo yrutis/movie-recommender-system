@@ -5,6 +5,7 @@ import {FreeService} from '../../service/free.service';
 import {ToastrService} from 'ngx-toastr';
 import {ActorRating, MovieRating} from '../../model/ratings';
 import {Actor} from '../../model/actor';
+import {ChangeContext, LabelType} from '@angular-slider/ngx-slider';
 
 @Component({
   selector: 'app-member-area',
@@ -20,7 +21,34 @@ export class MemberAreaComponent implements OnInit {
   serviceProblem = false;
   firstInit = true;
   lastTrainedOn: Date = null;
-
+  moviePopularity = 5;
+  actorPopularity = 5;
+  moviePopularitySlideOptions = {
+    step: 1,
+    floor: 1,
+    ceil: 10,
+    translate: (value: number, label: LabelType): string => {
+      switch (label) {
+        case LabelType.Low:
+          return '<b>Movie Popularity: </b>' + value;
+        default:
+          return '';
+      }
+    }
+  };
+  actorPopularitySlideOptions = {
+    step: 1,
+    floor: 1,
+    ceil: 10,
+    translate: (value: number, label: LabelType): string => {
+      switch (label) {
+        case LabelType.Low:
+          return '<b>Actor Popularity: </b>' + value;
+        default:
+          return '';
+      }
+    }
+  };
   constructor(private memberService: MemberService, private freeService: FreeService, private toastr: ToastrService) {
   }
 
@@ -30,6 +58,8 @@ export class MemberAreaComponent implements OnInit {
     this.memberService.getLastTrained().subscribe(value => {
       this.lastTrainedOn = value;
     });
+
+
   }
 
   logout(): void {
@@ -57,7 +87,7 @@ export class MemberAreaComponent implements OnInit {
 
   initMovieRating(): void {
     this.loading = true;
-    this.freeService.getMovies(3).subscribe(value => {
+    this.freeService.getMovies(3, this.moviePopularity).subscribe(value => {
         this.movies = value;
         this.loading = false;
       },
@@ -71,7 +101,7 @@ export class MemberAreaComponent implements OnInit {
 
   initActorRating(): void {
     this.loading = true;
-    this.freeService.getActors(3).subscribe(value => {
+    this.freeService.getActors(3, this.actorPopularity).subscribe(value => {
         this.actors = value;
         this.loading = false;
       },
@@ -103,7 +133,7 @@ export class MemberAreaComponent implements OnInit {
       this.memberService.rateMovie(movieRating).subscribe(value => {});
     }
     setTimeout(() => {
-      this.freeService.getMovies(1).subscribe(value => {
+      this.freeService.getMovies(1, this.moviePopularity).subscribe(value => {
         this.movies[i] = value[0];
       });
     }, 350);
@@ -117,9 +147,19 @@ export class MemberAreaComponent implements OnInit {
       this.memberService.rateActor(actorRating).subscribe(value => {});
     }
     setTimeout(() => {
-      this.freeService.getActors(1).subscribe(value => {
+      this.freeService.getActors(1, this.actorPopularity).subscribe(value => {
         this.actors[i] = value[0];
       });
     }, 350);
+  }
+
+  moviePopularityChanged($event: ChangeContext): void {
+    this.movies = undefined;
+    this.initMovieRating();
+  }
+
+  actorPopularityChanged($event: ChangeContext): void {
+    this.actors = undefined;
+    this.initActorRating();
   }
 }

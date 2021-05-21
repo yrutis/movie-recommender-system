@@ -16,12 +16,12 @@ export class FreeService {
   constructor(private httpClient: HttpClient) {
   }
 
-  public getMovies(amount: number): Observable<Movie[]> {
-    return this.httpClient.get<Movie[]>(this.serviceUrl + '/api/movies/' + amount);
+  public getMovies(amount: number, moviePopularity: number): Observable<Movie[]> {
+    return this.httpClient.get<Movie[]>(this.serviceUrl + '/api/movies/' + amount + '/' + moviePopularity);
   }
 
-  public getActors(amount: number): Observable<Actor[]> {
-    return this.httpClient.get<Actor[]>(this.serviceUrl + '/api/actors/' + amount);
+  public getActors(amount: number, moviePopularity: number): Observable<Actor[]> {
+    return this.httpClient.get<Actor[]>(this.serviceUrl + '/api/actors/' + amount + '/' + moviePopularity);
   }
 
   public getRecommendations(ratingDto: RatingDto): Observable<Movie[]> {

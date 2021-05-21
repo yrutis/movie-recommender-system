@@ -34,6 +34,10 @@ export class RecommendationDisplayerComponent implements OnInit, AfterViewInit {
   originalLanguagesFilterValues: Map<string, boolean> = new Map();
   originalLanguagesFilterKeys: string[];
 
+  watchProviderFilterValues: Map<string, boolean> = new Map();
+  watchProviderFilterKeys: string[];
+  watchProviderLogoMap: Map<string, string> = new Map();
+
   languageCodeMap: Map<string, string> = new Map();
 
   releaseMinValue;
@@ -93,10 +97,30 @@ export class RecommendationDisplayerComponent implements OnInit, AfterViewInit {
         this.spokenLanguagesFilterValues.set(language.languageCode, true);
         this.languageCodeMap.set(language.languageCode, language.englishName);
       });
+      if (movie?.watchProviders?.rent) {
+        movie?.watchProviders?.rent.forEach(provider => {
+          this.watchProviderFilterValues.set(provider.providerName, true);
+          this.watchProviderLogoMap.set(provider.providerName, provider.logoPath);
+        });
+      }
+      if (movie?.watchProviders?.buy) {
+        movie?.watchProviders?.buy.forEach(provider => {
+          this.watchProviderFilterValues.set(provider.providerName, true);
+          this.watchProviderLogoMap.set(provider.providerName, provider.logoPath);
+        });
+      }
+      if (movie?.watchProviders?.flatrate) {
+        movie.watchProviders.flatrate.forEach(provider => {
+          this.watchProviderFilterValues.set(provider.providerName, true);
+          this.watchProviderLogoMap.set(provider.providerName, provider.logoPath);
+        });
+      }
+
     });
     this.genreFilterKeys = Array.from(this.genreFilterValues.keys());
     this.spokenLanguagesFilterKeys = Array.from(this.spokenLanguagesFilterValues.keys());
     this.originalLanguagesFilterKeys = Array.from(this.originalLanguagesFilterValues.keys());
+    this.watchProviderFilterKeys = Array.from(this.watchProviderFilterValues.keys());
 
     const minDate = this.recommendations.reduce(
       (min, currentValue) => currentValue.releaseDate < min ? currentValue.releaseDate : min, this.recommendations[0].releaseDate);
@@ -140,7 +164,7 @@ export class RecommendationDisplayerComponent implements OnInit, AfterViewInit {
     };
 
     const minPopularity = Math.floor(this.recommendations.reduce(
-        (min, currentValue) => currentValue.popularity < min ? currentValue.popularity : min, this.recommendations[0].popularity));
+      (min, currentValue) => currentValue.popularity < min ? currentValue.popularity : min, this.recommendations[0].popularity));
     const maxPopularity = Math.ceil(this.recommendations.reduce(
       (max, currentValue) => currentValue.popularity > max ? currentValue.popularity : max, this.recommendations[0].popularity));
     this.popularityMinValue = minPopularity;
@@ -247,11 +271,24 @@ export class RecommendationDisplayerComponent implements OnInit, AfterViewInit {
       this.originalLanguagesFilterValues.set(key, value);
     });
   }
+
+  changeWatchProviderFilterValue(key: string): void {
+    const current = this.watchProviderFilterValues.get(key);
+    this.watchProviderFilterValues.set(key, !current);
+  }
+
+  changeWatchProviderFilterValueAll(value: boolean): void {
+    this.watchProviderFilterKeys.forEach(key => {
+      this.watchProviderFilterValues.set(key, value);
+    });
+  }
+
   resetFilter(): void {
     this.initFilterValues();
     this.filteredRecommendations = this.recommendations;
     this.p = 1;
   }
+
   applyFilter(): void {
     let currentRecommendations = this.recommendations;
     currentRecommendations = currentRecommendations.filter(value => {
@@ -276,6 +313,32 @@ export class RecommendationDisplayerComponent implements OnInit, AfterViewInit {
 
     currentRecommendations = currentRecommendations.filter(value => {
       return this.originalLanguagesFilterValues.get(value.originalLanguage);
+    });
+
+    currentRecommendations = currentRecommendations.filter(value => {
+      let valid = false;
+      if (value?.watchProviders?.rent) {
+        value.watchProviders.rent.forEach(provider => {
+          if (this.watchProviderFilterValues.get(provider.providerName)) {
+            valid = true;
+          }
+        });
+      }
+      if (value?.watchProviders?.buy) {
+        value.watchProviders.buy.forEach(provider => {
+          if (this.watchProviderFilterValues.get(provider.providerName)) {
+            valid = true;
+          }
+        });
+      }
+      if (value?.watchProviders?.flatrate) {
+        value.watchProviders.flatrate.forEach(provider => {
+          if (this.watchProviderFilterValues.get(provider.providerName)) {
+            valid = true;
+          }
+        });
+      }
+      return valid;
     });
 
 

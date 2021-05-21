@@ -3,14 +3,15 @@ package ch.uzh.ifi.seal.ase.mrs.freeservice.service.impl;
 import ch.uzh.ifi.seal.ase.mrs.freeservice.client.TmdbClient;
 import ch.uzh.ifi.seal.ase.mrs.freeservice.exception.GeneralWebserviceException;
 import ch.uzh.ifi.seal.ase.mrs.freeservice.model.Movie;
-import ch.uzh.ifi.seal.ase.mrs.freeservice.model.tmdb.TmdbCast;
-import ch.uzh.ifi.seal.ase.mrs.freeservice.model.tmdb.TmdbMovie;
+import ch.uzh.ifi.seal.ase.mrs.freeservice.model.tmdb.*;
 import ch.uzh.ifi.seal.ase.mrs.freeservice.repository.MovieRepository;
 import ch.uzh.ifi.seal.ase.mrs.freeservice.service.IMovieService;
 import feign.FeignException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -22,15 +23,18 @@ import java.util.stream.Collectors;
  */
 @Service
 @Slf4j
+@CacheConfig(cacheNames={"movies"})
 public class MovieServiceImpl implements IMovieService {
     private final MovieRepository movieRepository;
     private final TmdbClient tmdbClient;
     private final Random random;
     private final long numberOfMoviesInDatabase;
-    private final double lambda;
 
     @Value("${tmdb.api-key}")
     private String tmdbApiKey;
+
+    @Value("${tmdb.watch-provider-locale}")
+    private String tmdbWatchProviderLocale;
 
     /**
      * Constructor, autowires the MovieRepository and the TmdbClient, creates a Random Object, and counts the number of movies in the database
@@ -44,7 +48,6 @@ public class MovieServiceImpl implements IMovieService {
         this.tmdbClient = tmdbClient;
         this.random = new Random();
         this.numberOfMoviesInDatabase = this.movieRepository.count();
-        this.lambda = (1 / (double) this.numberOfMoviesInDatabase) * 100;
     }
 
     /**
@@ -54,7 +57,7 @@ public class MovieServiceImpl implements IMovieService {
      * @return set of movies as list
      */
     @Override
-    public List<TmdbMovie> getMovies(Integer amount) {
+    public List<TmdbMovie> getMovies(Integer amount, Integer popularity) {
         if (amount > numberOfMoviesInDatabase || amount > 10) {
             throw GeneralWebserviceException.builder().status(HttpStatus.BAD_REQUEST).errorCode("M001").message("Maximum number of movies per request: 10").build();
         }
@@ -67,7 +70,8 @@ public class MovieServiceImpl implements IMovieService {
             if (currentIter >= maxAttempts) {
                 throw GeneralWebserviceException.builder().status(HttpStatus.INTERNAL_SERVER_ERROR).errorCode("M002").message("Maximum number of retries reached without finding enough unique movies").build();
             }
-            Optional<Movie> movie = movieRepository.findById(getRandomMovieId());
+            double lambda = (1 / (double) this.numberOfMoviesInDatabase) * (popularity * 50);
+            Optional<Movie> movie = movieRepository.findById(getRandomMovieId(lambda));
             if (movie.isPresent()) {
                 TmdbMovie tmdbMovie = getTmdbMovieById(movie.get().getTmdbId(), false);
                 if (tmdbMovie != null && tmdbMovie.getPosterPath() != null) {
@@ -86,14 +90,16 @@ public class MovieServiceImpl implements IMovieService {
      * @return TmdbMovie
      */
     @Override
-    public TmdbMovie getTmdbMovieById(Long movieId, boolean includeCast) {
+    @Cacheable
+    public TmdbMovie getTmdbMovieById(Long movieId, boolean includeDetails) {
         if(tmdbApiKey == null){
             throw GeneralWebserviceException.builder().errorCode("TMDB001").status(HttpStatus.INTERNAL_SERVER_ERROR).message("API KEY NOT SET").build();
         }
         try {
             TmdbMovie movie =  this.tmdbClient.getMovie(movieId.toString(), tmdbApiKey);
-            if(includeCast){
+            if(includeDetails){
                 movie.setCast(getCast(movieId));
+                movie.setWatchProviders(getWatchProviders(movieId));
             }
             return movie;
         } catch (FeignException exception) {
@@ -102,20 +108,36 @@ public class MovieServiceImpl implements IMovieService {
         }
     }
 
-    private TmdbCast getCast(Long movieId) throws FeignException{
+    /**
+     * Gets the cast of a movie
+     * @param movieId movie ID
+     * @return Movie Cast
+     */
+    private TmdbCast getCast(Long movieId){
         TmdbCast tmdbCast = this.tmdbClient.getCast(movieId.toString(), tmdbApiKey);
         tmdbCast.setCast(tmdbCast.getCast().stream().limit(3).collect(Collectors.toList()));
         return tmdbCast;
     }
 
     /**
+     * Gets the watch providers of a movie
+     * @param movieId movie ID
+     * @return Watch Providers
+     */
+    private TmdbWatchProviderCountry getWatchProviders(Long movieId){
+        TmdbWatchProvider tmdbWatchProvider = this.tmdbClient.getWatchProvider(movieId.toString(), tmdbApiKey);
+        return tmdbWatchProvider.getResults().get(tmdbWatchProviderLocale);
+    }
+
+
+    /**
      * generates a random movie id based on negative exponential distribution
      *
      * @return movie Id
      */
-    public long getRandomMovieId() {
+    public long getRandomMovieId(double lambda) {
         double l = 1;
-        long movieId = (long) (-Math.log(Math.exp(-this.lambda * l) - (Math.exp(-this.lambda * l) - Math.exp(-this.lambda * this.numberOfMoviesInDatabase)) * this.random.nextDouble()) / this.lambda);
+        long movieId = (long) (-Math.log(Math.exp(-lambda * l) - (Math.exp(-lambda * l) - Math.exp(-lambda * this.numberOfMoviesInDatabase)) * this.random.nextDouble()) / lambda);
         if (movieId >= 1 && movieId <= this.numberOfMoviesInDatabase) {
             return movieId;
         }
