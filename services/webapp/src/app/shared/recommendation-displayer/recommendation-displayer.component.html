@@ -14,10 +14,17 @@
     <div class="col-md-6 order-md-1 order-0 col-12">
       <h3 class="movie-title">{{rec.title}} <span *ngIf="rec.releaseDate">({{rec.releaseDate | date: 'yyyy'}})</span></h3>
       <p class="movie-tagline" *ngIf="rec.tagline">{{rec.tagline}}</p>
-      <div class="genre-list my-2">
+      <div class="genre-list my-2 pb-2 border-bottom">
         <ul>
           <li *ngFor="let genre of rec.genres">
             {{genre.name}}
+          </li>
+        </ul>
+      </div>
+      <div class="my-2 pb-2 border-bottom">
+        <ul>
+          <li *ngFor="let castMember of rec.cast.cast">
+            <strong>{{castMember.name}}</strong> ({{castMember.character}})
           </li>
         </ul>
       </div>

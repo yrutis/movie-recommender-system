@@ -3,6 +3,7 @@ package ch.uzh.ifi.seal.ase.mrs.freeservice.service.impl;
 import ch.uzh.ifi.seal.ase.mrs.freeservice.client.TmdbClient;
 import ch.uzh.ifi.seal.ase.mrs.freeservice.exception.GeneralWebserviceException;
 import ch.uzh.ifi.seal.ase.mrs.freeservice.model.Movie;
+import ch.uzh.ifi.seal.ase.mrs.freeservice.model.tmdb.TmdbCast;
 import ch.uzh.ifi.seal.ase.mrs.freeservice.model.tmdb.TmdbMovie;
 import ch.uzh.ifi.seal.ase.mrs.freeservice.repository.MovieRepository;
 import ch.uzh.ifi.seal.ase.mrs.freeservice.service.IMovieService;
@@ -14,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Implementation of IMovieService
@@ -67,7 +69,7 @@ public class MovieServiceImpl implements IMovieService {
             }
             Optional<Movie> movie = movieRepository.findById(getRandomMovieId());
             if (movie.isPresent()) {
-                TmdbMovie tmdbMovie = getTmdbMovieById(movie.get().getTmdbId());
+                TmdbMovie tmdbMovie = getTmdbMovieById(movie.get().getTmdbId(), false);
                 if (tmdbMovie != null && tmdbMovie.getPosterPath() != null) {
                     movies.add(tmdbMovie);
                 }
@@ -84,16 +86,26 @@ public class MovieServiceImpl implements IMovieService {
      * @return TmdbMovie
      */
     @Override
-    public TmdbMovie getTmdbMovieById(Long movieId) {
+    public TmdbMovie getTmdbMovieById(Long movieId, boolean includeCast) {
         if(tmdbApiKey == null){
             throw GeneralWebserviceException.builder().errorCode("TMDB001").status(HttpStatus.INTERNAL_SERVER_ERROR).message("API KEY NOT SET").build();
         }
         try {
-            return this.tmdbClient.getMovie(movieId.toString(), tmdbApiKey);
+            TmdbMovie movie =  this.tmdbClient.getMovie(movieId.toString(), tmdbApiKey);
+            if(includeCast){
+                movie.setCast(getCast(movieId));
+            }
+            return movie;
         } catch (FeignException exception) {
-            log.info("Problem with Feign Client or the API, e.g. Movie Not found. TmdbID: " + movieId.toString());
+            log.info("Problem with Feign Client or the API, e.g. Movie or Cast Not found. TmdbID: " + movieId.toString());
             return null;
         }
+    }
+
+    private TmdbCast getCast(Long movieId) throws FeignException{
+        TmdbCast tmdbCast = this.tmdbClient.getCast(movieId.toString(), tmdbApiKey);
+        tmdbCast.setCast(tmdbCast.getCast().stream().limit(3).collect(Collectors.toList()));
+        return tmdbCast;
     }
 
     /**

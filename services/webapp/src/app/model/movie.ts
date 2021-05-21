@@ -19,6 +19,7 @@ export class Movie {
   voteCount: number;
   releaseDate: Date;
   displayFullOverview = false;
+  cast: Cast;
 }
 
 export class SpokenLanguage {
@@ -39,4 +40,13 @@ export class ProductionCompany {
 export class Genre{
   id: number;
   name: string;
+}
+
+export class Cast{
+  cast: CastMember[];
+}
+export class CastMember {
+  name: string;
+  character: string;
+  order: number;
 }

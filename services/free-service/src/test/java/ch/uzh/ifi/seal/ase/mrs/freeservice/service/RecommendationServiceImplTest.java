@@ -60,9 +60,9 @@ public class RecommendationServiceImplTest {
         TmdbMovie tmdbMovie1 = TmdbMovie.builder().id(5L).posterPath("path").build();
         TmdbMovie tmdbMovie2 = TmdbMovie.builder().id(6L).posterPath("path").build();
         TmdbMovie tmdbMovie3 = TmdbMovie.builder().id(7L).build();
-        when(movieService.getTmdbMovieById(5L)).thenReturn(tmdbMovie1);
-        when(movieService.getTmdbMovieById(6L)).thenReturn(tmdbMovie2);
-        when(movieService.getTmdbMovieById(7L)).thenReturn(tmdbMovie3);
+        when(movieService.getTmdbMovieById(5L, false)).thenReturn(tmdbMovie1);
+        when(movieService.getTmdbMovieById(6L, false)).thenReturn(tmdbMovie2);
+        when(movieService.getTmdbMovieById(7L, false)).thenReturn(tmdbMovie3);
         RecommendationServiceImpl recommendationService = new RecommendationServiceImpl(actorRepository, inferenceClient, movieService);
         List<MovieRating> movieRatings = new ArrayList<>(Arrays.asList(m1, m2, m3));
         List<ActorRating> actorRatings = new ArrayList<>(Arrays.asList(a1,a2,a3));

@@ -2,16 +2,20 @@ package ch.uzh.ifi.seal.ase.mrs.freeservice.service.impl;
 
 import ch.uzh.ifi.seal.ase.mrs.freeservice.client.InferenceClient;
 
+import ch.uzh.ifi.seal.ase.mrs.freeservice.client.TmdbClient;
+import ch.uzh.ifi.seal.ase.mrs.freeservice.exception.GeneralWebserviceException;
 import ch.uzh.ifi.seal.ase.mrs.freeservice.model.Actor;
 import ch.uzh.ifi.seal.ase.mrs.freeservice.model.ActorRating;
 
 import ch.uzh.ifi.seal.ase.mrs.freeservice.model.MovieRating;
+import ch.uzh.ifi.seal.ase.mrs.freeservice.model.tmdb.TmdbCast;
 import ch.uzh.ifi.seal.ase.mrs.freeservice.model.tmdb.TmdbMovie;
 import ch.uzh.ifi.seal.ase.mrs.freeservice.repository.ActorRepository;
 import ch.uzh.ifi.seal.ase.mrs.freeservice.service.IMovieService;
 import ch.uzh.ifi.seal.ase.mrs.freeservice.service.IRecommendationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -29,17 +33,17 @@ public class RecommendationServiceImpl implements IRecommendationService {
 
 
     /**
-     * Constructor, autowires the ActorRepository and the InferenceClient
+     * Constructor, autowires the ActorRepository, the InferenceClient and the IMovieService
      *
      * @param actorRepository actorRepository
      * @param inferenceClient InferenceClient
+     * @param movieService IMovieService
      */
     @Autowired
     public RecommendationServiceImpl(ActorRepository actorRepository, InferenceClient inferenceClient, IMovieService movieService) {
         this.actorRepository = actorRepository;
         this.inferenceClient = inferenceClient;
         this.movieService = movieService;
-
     }
 
     /**
@@ -53,15 +57,15 @@ public class RecommendationServiceImpl implements IRecommendationService {
     public List<TmdbMovie> getRecommendations(List<MovieRating> movieRatings, List<ActorRating> actorRatings) {
         List<MovieRating> additionalRatings = new ArrayList<>();
         actorRatings.forEach(actorRating -> {
-            Actor actor = actorRepository.findByTmdbId(actorRating.getTmdbId()).get();
+            Actor actor = actorRepository.findByTmdbId(actorRating.getTmdbId()).orElseThrow(() -> GeneralWebserviceException.builder().errorCode("A002").status(HttpStatus.NOT_FOUND).message("Actor not found").build());
             additionalRatings.add(MovieRating.builder().tmdbId(actor.getTop1Movie()).rating(actorRating.getRating()).build());
             additionalRatings.add(MovieRating.builder().tmdbId(actor.getTop2Movie()).rating(actorRating.getRating()).build());
             additionalRatings.add(MovieRating.builder().tmdbId(actor.getTop3Movie()).rating(actorRating.getRating()).build());
         });
         movieRatings.addAll(additionalRatings);
         List<Long> movieIds = inferenceClient.getRecommendations(movieRatings);
-        Set<TmdbMovie> movies = movieIds.stream().map(movieService::getTmdbMovieById).collect(Collectors.toSet());
+        Set<TmdbMovie> movies = movieIds.stream().map(id -> movieService.getTmdbMovieById(id, true)).collect(Collectors.toSet());
         movies.remove(null);
-        return movies.stream().filter(tmdbMovie -> tmdbMovie.getPosterPath() != null).collect(Collectors.toList());
+        return movies.stream().filter(tmdbMovie -> tmdbMovie.getPosterPath() != null).collect(Collectors.toList()).stream().sorted(Comparator.comparingDouble(TmdbMovie::getPopularity).reversed()).collect(Collectors.toList());
     }
 }

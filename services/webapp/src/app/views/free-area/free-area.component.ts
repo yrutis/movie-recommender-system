@@ -25,13 +25,13 @@ export class FreeAreaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // if (localStorage.getItem('tempRec')) {
-    //   this.recommendations = JSON.parse(localStorage.getItem('tempRec'));
-    //   this.step = 2;
-    // } else {
-    //   this.initMovies();
-    // }
-    this.initMovies();
+    if (localStorage.getItem('tempRec')) {
+      this.recommendations = JSON.parse(localStorage.getItem('tempRec'));
+      this.step = 2;
+    } else {
+      this.initMovies();
+    }
+    // this.initMovies();
   }
 
   initMovies(): void {

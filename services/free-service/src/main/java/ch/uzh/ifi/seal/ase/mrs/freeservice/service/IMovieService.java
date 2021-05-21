@@ -19,8 +19,9 @@ public interface IMovieService {
     /**
      * Get TmdbMovie by Id
      * @param movieId movie id
+     * @param includeCast wheter to include the cast
      * @return Tmdb Movie
      */
-    TmdbMovie getTmdbMovieById(Long movieId);
+    TmdbMovie getTmdbMovieById(Long movieId, boolean includeCast);
 
 }

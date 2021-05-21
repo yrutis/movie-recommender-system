@@ -290,4 +290,11 @@ public class TmdbMovie {
     public void setReleaseDate(LocalDate releaseDate) {
         this.releaseDate = releaseDate;
     }
+
+    private TmdbCast cast;
+
+    public void setCast(TmdbCast cast){
+        this.cast = cast;
+    }
+
 }

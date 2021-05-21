@@ -56,7 +56,7 @@ public class MovieServiceImplTest {
         MovieServiceImpl movieService = new MovieServiceImpl(movieRepository, tmdbClient) {
             long i = 0;
             @Override
-            public TmdbMovie getTmdbMovieById(Long movieId) {
+            public TmdbMovie getTmdbMovieById(Long movieId, boolean includeCast) {
                 return tmdbMovieMap.get(movieId);
             }
             // Override the random ID generator, in order to test the get movies method efficiently
@@ -97,7 +97,7 @@ public class MovieServiceImplTest {
         MovieServiceImpl movieService = new MovieServiceImpl(movieRepository, tmdbClient) {
             long i = 0;
             @Override
-            public TmdbMovie getTmdbMovieById(Long movieId) {
+            public TmdbMovie getTmdbMovieById(Long movieId, boolean includeCast) {
                 return tmdbMovieMap.get(movieId);
             }
             // Override the random ID generator, in order to test the get movies method efficiently
@@ -137,7 +137,7 @@ public class MovieServiceImplTest {
         MovieServiceImpl movieService = new MovieServiceImpl(movieRepository, tmdbClient) {
             long i = 1;
             @Override
-            public TmdbMovie getTmdbMovieById(Long movieId) {
+            public TmdbMovie getTmdbMovieById(Long movieId, boolean includeCast) {
                 return tmdbMovieMap.get(movieId);
             }
             // Override the random ID generator, in order to test the get movies method efficiently
@@ -176,7 +176,7 @@ public class MovieServiceImplTest {
         MovieServiceImpl movieService = new MovieServiceImpl(movieRepository, tmdbClient) {
             long i = 1;
             @Override
-            public TmdbMovie getTmdbMovieById(Long movieId) {
+            public TmdbMovie getTmdbMovieById(Long movieId, boolean includeCast) {
                 return tmdbMovieMap.get(movieId);
             }
             // Override the random ID generator, in order to test the get movies method efficiently
