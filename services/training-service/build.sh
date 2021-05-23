@@ -9,7 +9,7 @@ docker tag $IMAGE_NAME "${IMAGE_NAME}:${PYTHON_VERSION}"
 echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
 # create remote repo
-#docker push "${IMAGE_NAME}:${PYTHON_VERSION}" && docker push "${IMAGE_NAME}:latest"
+docker push "${IMAGE_NAME}:${PYTHON_VERSION}" && docker push "${IMAGE_NAME}:latest"
 
 # Test
 #python3.9 -m venv env
