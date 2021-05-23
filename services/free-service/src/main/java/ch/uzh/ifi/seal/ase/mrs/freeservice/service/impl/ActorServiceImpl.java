@@ -10,6 +10,8 @@ import feign.FeignException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -20,12 +22,12 @@ import java.util.*;
  */
 @Service
 @Slf4j
+@CacheConfig(cacheNames={"actors"})
 public class ActorServiceImpl implements IActorService {
     private final ActorRepository actorRepository;
     private final TmdbClient tmdbClient;
     private final Random random;
     private final long numberOfActorsInDatabase;
-    private final double lambda;
 
     @Value("${tmdb.api-key}")
     private String tmdbApiKey;
@@ -42,17 +44,17 @@ public class ActorServiceImpl implements IActorService {
         this.tmdbClient = tmdbClient;
         this.random = new Random();
         this.numberOfActorsInDatabase = this.actorRepository.count();
-        this.lambda = (1 / (double) this.numberOfActorsInDatabase) * 100;
     }
 
     /**
      * Collects actors until there are the amount of actors asked in the set
      *
      * @param amount amount of actors
+     * @param popularity popularity of actors
      * @return set of actors as list
      */
     @Override
-    public List<TmdbActor> getActors(Integer amount) {
+    public List<TmdbActor> getActors(Integer amount, Integer popularity) {
         if (amount > numberOfActorsInDatabase || amount > 10) {
             throw GeneralWebserviceException.builder().status(HttpStatus.BAD_REQUEST).errorCode("A001").message("Maximum number of actors per request: 10").build();
         }
@@ -65,7 +67,8 @@ public class ActorServiceImpl implements IActorService {
             if(currentIter >= maxAttempts) {
                 throw GeneralWebserviceException.builder().status(HttpStatus.INTERNAL_SERVER_ERROR).errorCode("A002").message("Maximum number of retries reached without finding enough unique actors").build();
             }
-            Optional<Actor> actor = actorRepository.findById(getRandomActorId());
+            double lamda = (1 / (double) this.numberOfActorsInDatabase) * (50 * popularity);
+            Optional<Actor> actor = actorRepository.findById(getRandomActorId(lamda));
             if(actor.isPresent()){
                 try {
                     TmdbActor tmdbActor = getTmdbActor(actor.get().getTmdbId().toString());
@@ -85,7 +88,7 @@ public class ActorServiceImpl implements IActorService {
     /**
      * Wrapper method since feign clients cannot be testet with Mockito when
      */
-
+    @Cacheable
     public TmdbActor getTmdbActor(String actorId) {
         return this.tmdbClient.getActor(actorId, tmdbApiKey);
     }
@@ -95,9 +98,9 @@ public class ActorServiceImpl implements IActorService {
      *
      * @return actor Id
      */
-    public long getRandomActorId() {
+    public long getRandomActorId(double lambda) {
         double l = 1;
-        long movieId = (long) (-Math.log(Math.exp(-this.lambda * l) - (Math.exp(-this.lambda * l) - Math.exp(-this.lambda * this.numberOfActorsInDatabase)) * this.random.nextDouble()) / this.lambda);
+        long movieId = (long) (-Math.log(Math.exp(-lambda * l) - (Math.exp(-lambda * l) - Math.exp(-lambda * this.numberOfActorsInDatabase)) * this.random.nextDouble()) / lambda);
         if (movieId >= 1 && movieId <= this.numberOfActorsInDatabase) {
             return movieId;
         }

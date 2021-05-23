@@ -17,4 +17,11 @@ public interface UserRepository extends JpaRepository<User, Long> {
      * @return Optional of User
      */
     Optional<User> findByUsername(String username);
+
+    /**
+     * Find a user by Rating user id
+     * @param tblRatingUserId user id to search with
+     * @return Optional of User
+     */
+    Optional<User> findByTblRatingUserId(Long tblRatingUserId);
 }

@@ -1,4 +1,4 @@
-# src/api/recommendations.py
+# src/api/train_recommendations.py
 
 
 from flask import Blueprint, request

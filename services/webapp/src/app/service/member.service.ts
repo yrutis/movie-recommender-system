@@ -4,15 +4,15 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {UserDto} from '../model/userDto';
 import {Router} from '@angular/router';
-import {ActorRating, MovieRating} from '../model/ratings';
+import {ActorRating, MovieRating, RatingDto} from '../model/ratings';
+import {Movie} from '../model/movie';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MemberService {
   private serviceUrl = environment.memberBackend;
-
-
+  private trainingAllowed = true;
 
   constructor(private httpClient: HttpClient, private router: Router) {
   }
@@ -30,27 +30,24 @@ export class MemberService {
   }
 
   public rateMovie(movieRating: MovieRating): Observable<void> {
-    const httpHeaders = new HttpHeaders()
-      .set('Content-Type', 'application/json')
-      .set('Authorization', 'Basic ' + btoa(this.loggedInUser.username + ':' + this.loggedInUser.password));
-
-    const httpOptions = {
-      headers: httpHeaders
-    };
-    console.log(httpOptions);
-    return this.httpClient.post<void>(this.serviceUrl + '/api/members/movieRating', movieRating, httpOptions);
+    return this.httpClient.post<void>(this.serviceUrl + '/api/members/movieRating', movieRating, this.basicAuthHeader);
   }
 
   public rateActor(actorRating: ActorRating): Observable<void> {
-    const httpHeaders = new HttpHeaders()
-      .set('Content-Type', 'application/json')
-      .set('Authorization', 'Basic ' + btoa(this.loggedInUser.username + ':' + this.loggedInUser.password));
+    return this.httpClient.post<void>(this.serviceUrl + '/api/members/actorRating', actorRating, this.basicAuthHeader);
+  }
 
-    const httpOptions = {
-      headers: httpHeaders
-    };
-    console.log(httpOptions);
-    return this.httpClient.post<void>(this.serviceUrl + '/api/members/actorRating', actorRating, httpOptions);
+  public getRecommendations(): Observable<Movie[]> {
+    return this.httpClient.get<Movie[]>(this.serviceUrl + '/api/recommendations', this.basicAuthHeader);
+  }
+
+  public getLastTrained(): Observable<Date> {
+    return this.httpClient.get<Date>(this.serviceUrl + '/api/recommendations/lastTrained', this.basicAuthHeader);
+  }
+
+  public startTrainingManually(): Observable<Date> {
+    this.trainingAllowed = false;
+    return this.httpClient.get<Date>(this.serviceUrl + '/api/recommendations/train', this.basicAuthHeader);
   }
 
   public logout(): void {
@@ -77,13 +74,15 @@ export class MemberService {
   }
 
   get basicAuthHeader(): { headers: HttpHeaders } {
-    const header = new HttpHeaders();
-    // header.append('Content-Type', 'application/json');
-    header.append('Authorization', 'Basic ' + btoa(this.loggedInUser.username + ':' + this.loggedInUser.password));
-
-    const httpOptions = {
+    const header = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization', 'Basic ' + btoa(this.loggedInUser.username + ':' + this.loggedInUser.password));
+    return {
       headers: header
     };
-    return httpOptions;
+  }
+
+  get isTrainingAllowed(): boolean {
+    return this.trainingAllowed;
   }
 }

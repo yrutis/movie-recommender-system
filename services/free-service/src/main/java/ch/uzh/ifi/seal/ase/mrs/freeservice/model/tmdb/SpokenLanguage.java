@@ -32,7 +32,7 @@ public class SpokenLanguage {
      * @param englishName  English Name
      */
     @JsonProperty("english_name")
-    public void setReleaseDate(String englishName) {
+    public void setEnglishName(String englishName) {
         this.englishName = englishName;
     }
 

@@ -31,10 +31,11 @@ public class MovieController {
     /**
      * List of movies
      * @param amount the number of movies
+     * @param popularity the popularity of movies
      * @return List of movies
      */
-    @GetMapping("/{amount}")
-    public List<TmdbMovie> getMovies(@PathVariable("amount") Integer amount) {
-        return movieService.getMovies(amount);
+    @GetMapping("/{amount}/{popularity}")
+    public List<TmdbMovie> getMovies(@PathVariable("amount") Integer amount, @PathVariable("popularity") Integer popularity) {
+        return movieService.getMovies(amount, popularity);
     }
 }

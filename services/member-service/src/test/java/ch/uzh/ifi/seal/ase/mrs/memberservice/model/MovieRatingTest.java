@@ -4,17 +4,38 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
- * MovieRatingTest
+ * Test MovieRating Class
  */
 public class MovieRatingTest {
-
     /**
-     * Test the MovieRating Builder and Getter
+     * Test the MovieRating
      */
     @Test
-    void testMovieRatingBuilderGetter() {
-        MovieRating movieRating = MovieRating.builder().rating(4.1).tmdbId(1L).build();
-        Assertions.assertEquals(1L, movieRating.getTmdbId());
-        Assertions.assertEquals(4.1, movieRating.getRating());
+    void testMovieRatingBuilder() {
+        MovieRating movieRating = MovieRating.builder().id(1L).rating(4.0).tmdbId(2L).userId(3L).build();
+        Assertions.assertEquals(1L, movieRating.getId());
+        Assertions.assertEquals(4.0, movieRating.getRating());
+        Assertions.assertEquals(2L, movieRating.getTmdbId());
+        Assertions.assertEquals(3L, movieRating.getUserId());
     }
+
+    /**
+     * Test No Args and Setter
+     */
+    @Test
+    void testMovieRatingNoArgsAndSetter() {
+        MovieRating movieRating = new MovieRating();
+        Assertions.assertNotNull(movieRating);
+        movieRating.setId(1L);
+        movieRating.setRating(4.0);
+        movieRating.setTmdbId(2L);
+        movieRating.setUserId(3L);
+        Assertions.assertEquals(1L, movieRating.getId());
+        Assertions.assertEquals(4.0, movieRating.getRating());
+        Assertions.assertEquals(2L, movieRating.getTmdbId());
+        Assertions.assertEquals(3L, movieRating.getUserId());
+    }
+
+
+
 }

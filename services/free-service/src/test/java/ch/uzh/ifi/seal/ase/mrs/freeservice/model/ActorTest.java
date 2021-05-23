@@ -31,6 +31,7 @@ public class ActorTest {
     /**
      * Test No Args
      */
+    @Test
     void testActorNoArgs() {
         Actor actor = new Actor();
         Assertions.assertNotNull(actor);

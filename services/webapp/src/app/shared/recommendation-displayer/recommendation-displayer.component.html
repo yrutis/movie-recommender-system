@@ -39,7 +39,7 @@
       <p class="text-sm mb-0">Spoken Languages</p>
       <hr class="custom-hr mt-1">
       <div class="my-2">
-        <img *ngFor="let lang of spokenLanguagesFilterKeys" [src]="'https://unpkg.com/language-icons@0.3.0/icons/'+ lang + '.svg' | safe:'resourceUrl'" height="20px" class="pointer mr-1" [ngbTooltip]="languageCodeMap.get(lang)" (click)="changeSpokenLanguageFilterValue(lang)" [class.language-list-filter-inactive-item]="!spokenLanguagesFilterValues.get(lang)">
+        <img *ngFor="let lang of spokenLanguagesFilterKeys" [src]="'https://unpkg.com/language-icons@0.3.0/icons/'+ lang + '.svg' | safe:'resourceUrl'" height="20px" class="pointer mr-1 mb-1" [ngbTooltip]="languageCodeMap.get(lang)" (click)="changeSpokenLanguageFilterValue(lang)" [class.language-list-filter-inactive-item]="!spokenLanguagesFilterValues.get(lang)">
       </div>
       <div class="genre-list my-2">
         <ul class="float-right">
@@ -57,7 +57,7 @@
       <p class="text-sm mb-0">Original Languages</p>
       <hr class="custom-hr mt-1">
       <div class="my-2">
-        <img *ngFor="let lang of originalLanguagesFilterKeys" [src]="'https://unpkg.com/language-icons@0.3.0/icons/'+ lang + '.svg' | safe:'resourceUrl'" height="20px" class="pointer mr-1" [ngbTooltip]="languageCodeMap.get(lang)" (click)="changeOriginalLanguageFilterValue(lang)" [class.language-list-filter-inactive-item]="!originalLanguagesFilterValues.get(lang)">
+        <img *ngFor="let lang of originalLanguagesFilterKeys" [src]="'https://unpkg.com/language-icons@0.3.0/icons/'+ lang + '.svg' | safe:'resourceUrl'" height="20px" class="pointer mr-1 mb-1" [ngbTooltip]="languageCodeMap.get(lang)" (click)="changeOriginalLanguageFilterValue(lang)" [class.language-list-filter-inactive-item]="!originalLanguagesFilterValues.get(lang)">
       </div>
       <div class="genre-list my-2">
         <ul class="float-right">
@@ -65,6 +65,24 @@
             <fa-icon [icon]="['far', 'check-square']" class="mr-1"></fa-icon>Select All
           </li>
           <li class="genre-list-filter-active-item pointer" (click)="changeOriginalLanguageFilterAll(false)">
+            <fa-icon [icon]="['far', 'square']" class="mr-1"></fa-icon>Select None
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col-6 mt-4">
+      <p class="text-sm mb-0">Watch Providers</p>
+      <hr class="custom-hr mt-1">
+      <div class="my-2">
+        <img *ngFor="let provider of watchProviderFilterKeys" [src]="'https://image.tmdb.org/t/p/original/'+ watchProviderLogoMap.get(provider) | safe:'resourceUrl'" height="20px" class="pointer mr-1 mb-1" [ngbTooltip]="provider" (click)="changeWatchProviderFilterValue(provider)" [class.language-list-filter-inactive-item]="!watchProviderFilterValues.get(provider)">
+      </div>
+      <div class="genre-list my-2">
+        <ul class="float-right">
+          <li class="genre-list-filter-active-item pointer"  (click)="changeWatchProviderFilterValueAll(true)">
+            <fa-icon [icon]="['far', 'check-square']" class="mr-1"></fa-icon>Select All
+          </li>
+          <li class="genre-list-filter-active-item pointer" (click)="changeWatchProviderFilterValueAll(false)">
             <fa-icon [icon]="['far', 'square']" class="mr-1"></fa-icon>Select None
           </li>
         </ul>
@@ -95,8 +113,11 @@
   </div>
 
   <div class="row">
-    <div class="col-12 mb-3">
+    <div class="col-12 text-center border-bottom mb-3">
       <p class="text">These are the movies we recommend you to watch!</p>
+      <p class="text" *ngIf="isMember && lastTrainedOn">Your recommendations were generated for you last time on: <i>{{lastTrainedOn | date:'medium'}}</i></p>
+      <p class="text" *ngIf="isMember && lastTrainedOn === null">There are no recommendations generated for you yet. Come back in 15 minutes!</p>
+      <p class="text" *ngIf="isMember && trainingAllowed" class="pointer demo-train" (click)="startTrainingManually()">For demonstration purposes you can click here to start the training without waiting for the scheduled run. The training takes a while, please be patient.</p>
     </div>
   </div>
   <div class="row mb-2" *ngFor="let rec of filteredRecommendations  | paginate: { itemsPerPage: 3, currentPage: p }; let i = index" [@enterAnim]="{ value: '', params: { delay: i * 150 } }">
@@ -106,10 +127,17 @@
     <div class="col-md-6 order-md-1 order-0 col-12">
       <h3 class="movie-title">{{rec.title}} <span *ngIf="rec.releaseDate">({{rec.releaseDate | date: 'yyyy'}})</span></h3>
       <p class="movie-tagline" *ngIf="rec.tagline">{{rec.tagline}}</p>
-      <div class="genre-list my-2">
+      <div class="genre-list my-2 pb-2 border-bottom">
         <ul>
           <li *ngFor="let genre of rec.genres">
             {{genre.name}}
+          </li>
+        </ul>
+      </div>
+      <div class="actor-list my-2 pb-2">
+        <ul>
+          <li *ngFor="let castMember of rec.cast.cast">
+            <fa-icon [icon]="['fas', 'user']" class="mr-2"></fa-icon><strong>{{castMember.name}}</strong> ({{castMember.character}})
           </li>
         </ul>
       </div>
@@ -129,7 +157,19 @@
       </p>
       <p>
         <fa-icon [icon]="['fas', 'language']" [fixedWidth]="true" class="mr-2 orange" ngbTooltip="Spoken Languages"></fa-icon>
-        <img *ngFor="let lang of rec.spokenLanguages" [alt]="lang.englishName" [ngbTooltip]="lang.englishName" [src]="'https://unpkg.com/language-icons@0.3.0/icons/'+ lang.languageCode+ '.svg' | safe:'resourceUrl'" height="20px" class="mr-1">
+        <img *ngFor="let lang of rec.spokenLanguages" [alt]="lang.englishName" [ngbTooltip]="lang.englishName" [src]="'https://unpkg.com/language-icons@0.3.0/icons/'+ lang.languageCode+ '.svg' | safe:'url'" height="20px" class="mr-1 mb-1">
+      </p>
+      <p *ngIf="rec?.watchProviders?.flatrate">
+        <fa-icon [icon]="['fas', 'tv']" [fixedWidth]="true" class="mr-2 orange" ngbTooltip="Stream"></fa-icon>
+        <img *ngFor="let prov of rec.watchProviders.flatrate" [alt]="prov.providerName" [ngbTooltip]="prov.providerName" [src]="'https://image.tmdb.org/t/p/original/'+ prov.logoPath | safe:'resourceUrl'" height="20px" class="mr-1 mb-1">
+      </p>
+      <p *ngIf="rec?.watchProviders?.buy">
+        <fa-icon [icon]="['fas', 'shopping-cart']" [fixedWidth]="true" class="mr-2 orange" ngbTooltip="Buy"></fa-icon>
+        <img *ngFor="let prov of rec.watchProviders.buy" [alt]="prov.providerName" [ngbTooltip]="prov.providerName" [src]="'https://image.tmdb.org/t/p/original/'+ prov.logoPath | safe:'resourceUrl'" height="20px" class="mr-1 mb-1">
+      </p>
+      <p *ngIf="rec?.watchProviders?.rent">
+        <fa-icon [icon]="['fas', 'hourglass-start']" [fixedWidth]="true" class="mr-2 orange" ngbTooltip="Rent"></fa-icon>
+        <img *ngFor="let prov of rec.watchProviders.rent" [alt]="prov.providerName" [ngbTooltip]="prov.providerName" [src]="'https://image.tmdb.org/t/p/original/'+ prov.logoPath | safe:'resourceUrl'" height="20px" class="mr-1 mb-1">
       </p>
     </div>
   </div>

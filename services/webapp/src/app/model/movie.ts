@@ -1,6 +1,5 @@
 export class Movie {
   id: number;
-  tmdbId: number;
   imdbId: string;
   originalLanguage: string;
   originalTitle: string;
@@ -20,6 +19,8 @@ export class Movie {
   voteCount: number;
   releaseDate: Date;
   displayFullOverview = false;
+  cast: Cast;
+  watchProviders: WatchProviderCountry;
 }
 
 export class SpokenLanguage {
@@ -40,4 +41,25 @@ export class ProductionCompany {
 export class Genre{
   id: number;
   name: string;
+}
+
+export class Cast{
+  cast: CastMember[];
+}
+export class CastMember {
+  name: string;
+  character: string;
+  order: number;
+}
+
+export class WatchProviderCountry {
+  link: string;
+  rent: WatchProvider[];
+  buy: WatchProvider[];
+  flatrate: WatchProvider[];
+}
+
+export class WatchProvider {
+  providerName: string;
+  logoPath: string;
 }

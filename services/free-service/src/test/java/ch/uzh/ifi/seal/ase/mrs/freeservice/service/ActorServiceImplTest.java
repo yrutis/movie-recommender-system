@@ -62,21 +62,21 @@ public class ActorServiceImplTest {
             }
             // Override the random ID generator, in order to test the get actors method efficiently
             @Override
-            public long getRandomActorId() {
+            public long getRandomActorId(double lambda) {
                 long result = (i % amount) + 1;
                 i++;
                 return result;
             }
         };
-        final List<TmdbActor> result = actorService.getActors(3);
+        final List<TmdbActor> result = actorService.getActors(3, 100);
 
         Assertions.assertEquals(3, result.size());
 
-        final List<TmdbActor> result2 = actorService.getActors(2);
+        final List<TmdbActor> result2 = actorService.getActors(2, 100);
         Assertions.assertEquals(2, result2.size());
 
         Assertions.assertThrows(GeneralWebserviceException.class, () -> {
-            final List<TmdbActor> result3 = actorService.getActors(20);
+            final List<TmdbActor> result3 = actorService.getActors(20, 100);
         });
     }
 
@@ -103,14 +103,14 @@ public class ActorServiceImplTest {
             }
             // Override the random ID generator, in order to test the get actors method efficiently
             @Override
-            public long getRandomActorId() {
+            public long getRandomActorId(double lambda) {
                 long result = (i % amount) + 1;
                 i++;
                 return result;
             }
         };
         Assertions.assertThrows(GeneralWebserviceException.class, () -> {
-            final List<TmdbActor> result = actorService.getActors(8);
+            final List<TmdbActor> result = actorService.getActors(8, 100);
         });
     }
 
@@ -143,17 +143,17 @@ public class ActorServiceImplTest {
             }
             // Override the random ID generator, in order to test the get actors method efficiently
             @Override
-            public long getRandomActorId() {
+            public long getRandomActorId(double lambda) {
                 long result = i;
                 i++;
                 return result;
             }
         };
-        final List<TmdbActor> result = actorService.getActors(2);
+        final List<TmdbActor> result = actorService.getActors(2, 100);
 
         Assertions.assertEquals(2, result.size());
         Assertions.assertThrows(GeneralWebserviceException.class, () -> {
-            actorService.getActors(9);
+            actorService.getActors(9, 100);
         });
 
     }
@@ -168,7 +168,7 @@ public class ActorServiceImplTest {
         ActorServiceImpl actorService = new ActorServiceImpl(actorRepository, tmdbClient);
 
         for (int i = 0; i < 50; i++) {
-            long randomId = actorService.getRandomActorId();
+            long randomId = actorService.getRandomActorId(100);
             Assertions.assertTrue(randomId >= 1 && randomId <= 5);
         }
 

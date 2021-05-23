@@ -1,4 +1,4 @@
-package ch.uzh.ifi.seal.ase.mrs.memberservice.model;
+package ch.uzh.ifi.seal.ase.mrs.memberservice.model.dto;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import lombok.Getter;
  */
 @Getter
 @Builder
-public class ActorRating {
+public class ActorRatingDto {
 
     /**
      * Id of rated actor

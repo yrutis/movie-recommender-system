@@ -15,13 +15,15 @@
     </div>
   </div>
   <div class="row mt-5" *ngIf="movies && step == 0">
-    <div class="col-12 text-center">
-      <p class="text">Please rate the movies shown below or reload them, if you have not seen them yet!</p>
+    <div class="col-12 text-center custom-slider">
+      <p class="text">Please rate the movies shown below or reload them, if you have not seen them yet! Adjust the slider below if you want to rate more or less popular movies.</p>
+      <ngx-slider [(value)]="moviePopularity" (userChangeEnd)="moviePopularityChanged($event)" [options]="moviePopularitySlideOptions"></ngx-slider>
     </div>
   </div>
   <div class="row mt-5" *ngIf="actors && step == 1">
-    <div class="col-12 text-center">
-      <p class="text">Please rate the actors shown below or reload them, if you do not know them!</p>
+    <div class="col-12 text-center custom-slider">
+      <p class="text">Please rate the actors shown below or reload them, if you do not know them! Adjust the slider below if you want to rate more or less popular actors.</p>
+      <ngx-slider [(value)]="actorPopularity" (userChangeEnd)="actorPopularityChanged($event)" [options]="actorPopularitySlideOptions"></ngx-slider>
     </div>
   </div>
   <div class="row pt-5" *ngIf="movies && step == 0">

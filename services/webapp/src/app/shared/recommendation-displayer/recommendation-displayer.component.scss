@@ -1,4 +1,6 @@
-.genre-list ul { list-style-type: none; margin: 0; padding: 0}
+.genre-list ul {
+  list-style-type: none; margin: 0; padding: 0
+}
 .genre-list ul li {
   display: inline-block;
   background-color: rgba(255,255,255,0.5);
@@ -11,6 +13,11 @@
 
 .genre-list-filter-active-item {
   background-color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.actor-list ul{
+  list-style-type: none; margin: 0; padding: 0;
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .movie-title {
@@ -44,6 +51,10 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+}
+
+.demo-train {
+  color: #ffb134;
 }
 
 .custom-hr{

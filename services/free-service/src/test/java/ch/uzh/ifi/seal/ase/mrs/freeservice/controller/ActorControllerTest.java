@@ -34,8 +34,8 @@ public class ActorControllerTest {
         TmdbActor actor1 = TmdbActor.builder().id(1L).name("actor1").build();
         TmdbActor actor2 = TmdbActor.builder().id(2L).name("actor2").build();
         List<TmdbActor> actors = Arrays.asList(actor1, actor2);
-        when(actorService.getActors(2)).thenReturn(actors);
-        List<TmdbActor> result = actorController.getActors(2);
+        when(actorService.getActors(2, 100)).thenReturn(actors);
+        List<TmdbActor> result = actorController.getActors(2, 100);
         Assertions.assertEquals(2, result.size());
         Assertions.assertEquals("actor1", result.get(0).getName());
     }
