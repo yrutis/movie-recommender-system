@@ -12,6 +12,6 @@ public interface TrainingClient {
     /**
      * Starts the training in the training backend
      */
-    @GetMapping("/recommendations")
+    @GetMapping("/train-recommendations")
     void startTraining();
 }
