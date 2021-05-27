@@ -1,5 +1,6 @@
 # src/recommendations/movie_recommender.py
 import math
+import os
 
 import pandas as pd
 from fastai.collab import CollabDataLoaders, collab_learner
@@ -9,15 +10,18 @@ from src.controller.user_controller import UserController
 
 
 class MovieRecommender:
-    def __init__(self, use_db=1):
+    def __init__(self):
         """
         initialize MovieRecommender class
         """
 
+        # set if data should be loaded from the database
+        self._use_db = not bool(int(os.getenv('TESTING')))
+
         # get all ratings
         self.ratings = (
             RatingController.get_all_ratings()
-            if use_db == 1
+            if self._use_db == 1
             else pd.read_csv(
                 "ratings_small.csv", names=["id", "rating", "userId", "movieId"]
             )
@@ -26,7 +30,7 @@ class MovieRecommender:
         # get all signed in users
         self.users = (
             UserController.get_all_users()
-            if use_db == 1
+            if self._use_db == 1
             else pd.read_csv("users.csv", index_col=0)
         )
 
@@ -92,14 +96,14 @@ class MovieRecommender:
                 ~new_df["movieId"].isin(merged_table["movieId"].tolist())
             ]
 
-            print("fix autoincrement")
-            RatingController.fix_autoincrement()
+            # fix autoincrement issue to
+            RatingController.fix_autoincrement() if self._use_db else True
 
             print("insert ratings")
-            RatingController.insert_ratings(new_df)
+            RatingController.insert_ratings(new_df) if self._use_db else True
 
         # update users in database
         # TODO only if user has rated before
-        UserController.update_user_timestamp()
+        UserController.update_user_timestamp() if self._use_db else True
 
         return "finished training: True"

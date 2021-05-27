@@ -37,10 +37,6 @@ def create_app(script_info=None):
 
     app.register_blueprint(recommendations_blueprint)
 
-    # register blueprints
-    from src.api.check_task import task_blueprint
-
-    app.register_blueprint(task_blueprint)
 
     # shell context for flask cli
     @app.shell_context_processor

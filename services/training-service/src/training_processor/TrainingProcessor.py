@@ -8,5 +8,5 @@ class TrainingProcessor(Thread):
         super(TrainingProcessor, self).__init__()
 
     def run(self):
-        movie_recommender = MovieRecommender(use_db=1)
+        movie_recommender = MovieRecommender()
         movies = movie_recommender.train_movie_recommendations()

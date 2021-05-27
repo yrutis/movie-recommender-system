@@ -2,6 +2,8 @@ version: '3.7'
 services:
   training-service:
     image: noahcha/mrs-training-service:latest
+    volumes:
+      - './services/training-service:/usr/src/app'
     ports:
       - 6004:6000
     environment:
@@ -9,6 +11,7 @@ services:
       - FLASK_ENV=development
       - APP_SETTINGS=src.config.DevelopmentConfig
       - DATABASE_URL=postgresql://admin:admin@database:5432/mrs
+      - TESTING=0
     depends_on:
       - "database"
 

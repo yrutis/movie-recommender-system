@@ -66,9 +66,12 @@ class UserController:
 
         # get all ratings
         users = session.query(User).all()
+
         for user in users:
+
+            # update the last trained on flag to reflect the current time
             user.last_trained_on = today
-            # print('this is the user {}'.format(user))
+
+            # update the user
             session.add(user)
             session.commit()
-            # print("user updated")
