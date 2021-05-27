@@ -19,9 +19,8 @@ class RatingController:
         :return:
         """
 
-        # TODO: split in different file
+        # create a db engine
         conn_url = os.getenv("DATABASE_URL")
-
         engine = create_engine(conn_url, echo=True)
         Session = sessionmaker(bind=engine)
         session = Session()
@@ -42,12 +41,14 @@ class RatingController:
         insert ratings in the database
         :return:
         """
-        conn_url = os.getenv("DATABASE_URL")
 
+        # create a db engine
+        conn_url = os.getenv("DATABASE_URL")
         engine = create_engine(conn_url, echo=True)
         Session = sessionmaker(bind=engine)
         session = Session()
 
+        # insert ratings
         for index, row in ratings.iterrows():
             rating = Rating(
                 rating=row["rating"], user_id=row["userId"], tmdb_id=row["movieId"]
@@ -58,13 +59,11 @@ class RatingController:
 
     @staticmethod
     def fix_autoincrement():
+        # create a db engine
         conn_url = os.getenv("DATABASE_URL")
-
         engine = create_engine(conn_url, echo=True)
 
         # fix pkey autoincremment issue
-        # session.execute("SELECT setval(pg_get_serial_sequence('tbl_rating', 'id'),
-        # coalesce(max(id)+1, 1), false) FROM tbl_rating;")
         with engine.connect() as connection:
             result = connection.execute(
                 "SELECT setval(pg_get_serial_sequence('tbl_rating', 'id'), coalesce(max(id)+1, 1), false) FROM tbl_rating;"

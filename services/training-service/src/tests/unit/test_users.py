@@ -5,4 +5,4 @@ def test_create_users():
     """
     test if a user can be initalized
     """
-    user = User(username='', password='', last_trained_on=None, tbl_rating_user_id=0)
+    User(username="", password="", last_trained_on=None, tbl_rating_user_id=0)

@@ -9,6 +9,10 @@ api = Api(ping_blueprint)
 
 
 class Ping(Resource):
+    """
+    ping class (sanity check of microservice)
+    """
+
     def get(self):
         return {"status": "success", "message": "pong222!"}
 

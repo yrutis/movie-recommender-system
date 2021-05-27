@@ -1,4 +1,3 @@
-# src/recommendations/movie_recommender.py
 import math
 import os
 
@@ -15,8 +14,8 @@ class MovieRecommender:
         initialize MovieRecommender class
         """
 
-        # set if data should be loaded from the database
-        self._use_db = not bool(int(os.getenv('TESTING')))
+        # set if data should be loaded from the database, in case of testing, this variable is set to false
+        self._use_db = not bool(int(os.getenv("TESTING")))
 
         # get all ratings
         self.ratings = (
@@ -40,11 +39,13 @@ class MovieRecommender:
         :return:
         """
 
-        # TODO env variable subset training
-
-        # imitating a user; TODO remove
-        self.users.at[0, "tbl_rating_user_id"] = self.ratings["userId"].max()
-        self.users.at[1, "tbl_rating_user_id"] = self.ratings["userId"].min()
+        # imitating a user; only if in test mode
+        self.users.at[0, "tbl_rating_user_id"] = (
+            self.ratings["userId"].max() if not self._use_db else True
+        )
+        self.users.at[1, "tbl_rating_user_id"] = (
+            self.ratings["userId"].min() if not self._use_db else True
+        )
 
         # create the Pytorch CollabDataLoader object for the collaborative filtering learner
         dls = CollabDataLoaders.from_df(
@@ -58,13 +59,20 @@ class MovieRecommender:
         # create the Collaborative filtering learner
         learn = collab_learner(dls, n_factors=50, y_range=(0, 5.5))
 
-        learn.fit_one_cycle(5, 5e-3, wd=0.1)
+        # train on 5 epochs, if in testing mode train only 1 epoch
+        learn.fit_one_cycle(5, 5e-3, wd=0.1) if self._use_db else learn.fit_one_cycle(
+            1, 5e-3, wd=0.1
+        )
+
+        # safe all users without ratings in a list
+        users_without_ratings = []
 
         # for each user in our user database, get the top 100 rated movies
         for index, row in self.users.iterrows():
 
             # user has not rated any movies yet and hence should not get any recommendations
             if not row["tbl_rating_user_id"] or math.isnan(row["tbl_rating_user_id"]):
+                users_without_ratings.append(row["username"])
                 continue
 
             # create a new dataframe for the test object for the fastai model
@@ -99,11 +107,10 @@ class MovieRecommender:
             # fix autoincrement issue to
             RatingController.fix_autoincrement() if self._use_db else True
 
-            print("insert ratings")
+            # insert ratings in db
             RatingController.insert_ratings(new_df) if self._use_db else True
 
         # update users in database
-        # TODO only if user has rated before
-        UserController.update_user_timestamp() if self._use_db else True
-
-        return "finished training: True"
+        UserController.update_user_timestamp(
+            users_without_ratings
+        ) if self._use_db else True

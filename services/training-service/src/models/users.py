@@ -1,10 +1,12 @@
-#
-
 from sqlalchemy import Column, Integer, String, Time
 from sqlalchemy.ext.declarative import declarative_base
 
 
 class User(declarative_base()):
+    """
+    This is the model class of the Rating table in the database
+    """
+
     __tablename__ = "tbl_user"
     id = Column(Integer, primary_key=True, autoincrement=True)
     username = Column(String, nullable=False)

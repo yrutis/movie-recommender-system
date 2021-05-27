@@ -1,6 +1,3 @@
-# src/__init__.py
-
-
 import os
 
 from flask import Flask
@@ -36,7 +33,6 @@ def create_app(script_info=None):
     from src.api.train_recommendations import recommendations_blueprint
 
     app.register_blueprint(recommendations_blueprint)
-
 
     # shell context for flask cli
     @app.shell_context_processor

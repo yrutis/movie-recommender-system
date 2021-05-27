@@ -20,9 +20,8 @@ class UserController:
         :return:
         """
 
-        # TODO: split in different file
+        # create a db engine
         conn_url = os.getenv("DATABASE_URL")
-
         engine = create_engine(conn_url, echo=True)
         Session = sessionmaker(bind=engine)
         session = Session()
@@ -50,16 +49,15 @@ class UserController:
         )
 
     @staticmethod
-    def update_user_timestamp():
+    def update_user_timestamp(users_without_ratings):
         """
         updates the timestamp of the last user training
         :return:
         """
         today = datetime.today()
 
-        # TODO: split in different file
+        # create a db engine
         conn_url = os.getenv("DATABASE_URL")
-
         engine = create_engine(conn_url, echo=True)
         Session = sessionmaker(bind=engine)
         session = Session()
@@ -68,6 +66,11 @@ class UserController:
         users = session.query(User).all()
 
         for user in users:
+
+            # If a user has not rated before, we will not update the timestamp for this specific user
+            # we cannot just check here in case the user has rated in the before training started and now
+            if user.username in users_without_ratings:
+                continue
 
             # update the last trained on flag to reflect the current time
             user.last_trained_on = today

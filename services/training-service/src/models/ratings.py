@@ -1,10 +1,12 @@
-#
-
 from sqlalchemy import Column, Float, Integer
 from sqlalchemy.ext.declarative import declarative_base
 
 
 class Rating(declarative_base()):
+    """
+    This is the model class of the Rating table in the database
+    """
+
     __tablename__ = "tbl_rating"
     id = Column(Integer, primary_key=True, autoincrement=True)
     rating = Column(Float, nullable=False)
