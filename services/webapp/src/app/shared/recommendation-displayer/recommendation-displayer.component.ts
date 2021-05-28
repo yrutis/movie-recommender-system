@@ -5,6 +5,9 @@ import {LabelType, Options} from '@angular-slider/ngx-slider';
 import {MemberService} from '../../service/member.service';
 import {ToastrService} from 'ngx-toastr';
 
+/**
+ * Component that displays recommendations
+ */
 @Component({
   selector: 'app-recommendation-displayer',
   templateUrl: './recommendation-displayer.component.html',
@@ -61,6 +64,10 @@ export class RecommendationDisplayerComponent implements OnInit, AfterViewInit {
   budgetOptions: Options;
 
 
+  /***
+   * Resize handler to scale the images in order to make them responsive
+   * @param event resize event
+   */
   @HostListener('window:resize', ['$event'])
   onResize(event): void {
     if (document.getElementsByClassName('movie-poster')[0]) {
@@ -71,12 +78,18 @@ export class RecommendationDisplayerComponent implements OnInit, AfterViewInit {
   constructor(private memberService: MemberService, private toastr: ToastrService) {
   }
 
+  /**
+   * Initialize the recommendation displayer
+   */
   ngOnInit(): void {
     this.filteredRecommendations = this.recommendations;
     this.trainingAllowed = this.memberService.isTrainingAllowed;
     this.initFilterValues();
   }
 
+  /**
+   * Starts training manually for training purposes
+   */
   startTrainingManually(): void {
     this.memberService.startTrainingManually().subscribe(value => {
       this.toastr.success('Training started successfully');
@@ -87,6 +100,9 @@ export class RecommendationDisplayerComponent implements OnInit, AfterViewInit {
     this.initFilterValues();
   }
 
+  /**
+   * Initializes the filter based on the values found in the recommendations
+   */
   initFilterValues(): void {
     this.recommendations.forEach(movie => {
       movie.genres.forEach(genre => {
@@ -230,6 +246,9 @@ export class RecommendationDisplayerComponent implements OnInit, AfterViewInit {
     };
   }
 
+  /**
+   * Rescale the images after view has been initialized (workaround for display issue)
+   */
   ngAfterViewInit(): void {
     setTimeout(() => {
       if (document.getElementsByClassName('movie-poster')[0]) {
@@ -239,56 +258,94 @@ export class RecommendationDisplayerComponent implements OnInit, AfterViewInit {
 
   }
 
+  /**
+   * Set the genre filter
+   * @param key genre key
+   */
   changeGenreFilterValue(key: string): void {
     const current = this.genreFilterValues.get(key);
     this.genreFilterValues.set(key, !current);
   }
 
+  /**
+   * Enable or disable all genres
+   * @param value enable/disable
+   */
   changeGenreFilterAll(value: boolean): void {
     this.genreFilterKeys.forEach(key => {
       this.genreFilterValues.set(key, value);
     });
   }
 
+  /**
+   * Set the spoken language filter
+   * @param key genre key
+   */
   changeSpokenLanguageFilterValue(key: string): void {
     const current = this.spokenLanguagesFilterValues.get(key);
     this.spokenLanguagesFilterValues.set(key, !current);
   }
 
+  /**
+   * Enable or disable all spoken languages
+   * @param value enable/disable
+   */
   changeSpokenLanguageFilterAll(value: boolean): void {
     this.spokenLanguagesFilterKeys.forEach(key => {
       this.spokenLanguagesFilterValues.set(key, value);
     });
   }
 
+  /**
+   * Set the original language filter
+   * @param key genre key
+   */
   changeOriginalLanguageFilterValue(key: string): void {
     const current = this.originalLanguagesFilterValues.get(key);
     this.originalLanguagesFilterValues.set(key, !current);
   }
 
+  /**
+   * Enable or disable all original languages
+   * @param value enable/disable
+   */
   changeOriginalLanguageFilterAll(value: boolean): void {
     this.originalLanguagesFilterKeys.forEach(key => {
       this.originalLanguagesFilterValues.set(key, value);
     });
   }
 
+  /**
+   * Set the watch provider filter
+   * @param key genre key
+   */
   changeWatchProviderFilterValue(key: string): void {
     const current = this.watchProviderFilterValues.get(key);
     this.watchProviderFilterValues.set(key, !current);
   }
 
+  /**
+   * Enable or disable all watch providers
+   * @param value enable/disable
+   */
   changeWatchProviderFilterValueAll(value: boolean): void {
     this.watchProviderFilterKeys.forEach(key => {
       this.watchProviderFilterValues.set(key, value);
     });
   }
 
+  /**
+   * Reset all filters
+   */
   resetFilter(): void {
     this.initFilterValues();
     this.filteredRecommendations = this.recommendations;
     this.p = 1;
   }
 
+  /**
+   * Apply the filter
+   */
   applyFilter(): void {
     let currentRecommendations = this.recommendations;
     currentRecommendations = currentRecommendations.filter(value => {

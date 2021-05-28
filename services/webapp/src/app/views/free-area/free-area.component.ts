@@ -6,6 +6,9 @@ import {ToastrService} from 'ngx-toastr';
 import {Actor} from '../../model/actor';
 import {ChangeContext, LabelType} from '@angular-slider/ngx-slider';
 
+/**
+ * Free Area Components, handles ratings and recommendations for free users
+ */
 @Component({
   selector: 'app-free-area',
   templateUrl: './free-area.component.html',
@@ -55,16 +58,27 @@ export class FreeAreaComponent implements OnInit {
   constructor(private freeService: FreeService, private toastr: ToastrService) {
   }
 
+  /**
+   * Init free area
+   */
   ngOnInit(): void {
+    // Uncomment this section if you want to use recommendations from local storage for testing purposes
+
     // if (localStorage.getItem('tempRec')) {
     //   this.recommendations = JSON.parse(localStorage.getItem('tempRec'));
     //   this.step = 2;
     // } else {
     //   this.initMovies();
     // }
+
+    // Comment this line if you want to use recommendations from local storage for testing purposes
     this.initMovies(false);
   }
 
+  /**
+   * Load movies that will be used by rating component
+   * @param changeOnly flag used to indicate whether movies have to be reloaded due to popularity slider change
+   */
   initMovies(changeOnly: boolean): void {
     this.loading = true;
     this.freeService.getMovies(3, this.moviePopularity).subscribe(value => {
@@ -88,6 +102,10 @@ export class FreeAreaComponent implements OnInit {
       });
   }
 
+  /**
+   * Load actors that will be used by rating component
+   * @param changeOnly flag used to indicate whether actors have to be reloaded due to popularity slider change
+   */
   initActors(changeOnly: boolean): void {
     this.step = 1;
     this.loading = true;
@@ -111,6 +129,11 @@ export class FreeAreaComponent implements OnInit {
       });
   }
 
+  /**
+   * registers a movie rating and saves them in a movie rating list
+   * @param i index of the movie
+   * @param value rating value, if null indicated movie was not rated and has to be reloaded
+   */
   movieWasRated(i: number, value: number): void {
     this.firstInit = false;
     if (value !== null) {
@@ -127,6 +150,12 @@ export class FreeAreaComponent implements OnInit {
     }
   }
 
+  /**
+   * registers an actor rating and saves them in a actor rating list.
+   * If 3 actors are rated (also 3 movies were rated before) the recommendations are loaded.
+   * @param i index of the actor
+   * @param value rating value, if null indicated actor was not rated and has to be reloaded
+   */
   actorWasRated(i: number, value: number): void {
     this.firstInit = false;
     if (value !== null) {
@@ -143,6 +172,10 @@ export class FreeAreaComponent implements OnInit {
     }
   }
 
+  /**
+   * Reload movie
+   * @param index index of movie to be reloaded
+   */
   reloadMovie(index: number): void {
     this.freeService.getMovies(1, this.moviePopularity).subscribe(newMovie => {
       const ids = this.movies.map(o => o.id);
@@ -154,6 +187,10 @@ export class FreeAreaComponent implements OnInit {
     });
   }
 
+  /**
+   * Reload actor
+   * @param index index of actor to be reloaded
+   */
   reloadActor(index: number): void {
     this.freeService.getActors(1, this.actorPopularity).subscribe(newActor => {
       const ids = this.actors.map(o => o.id);
@@ -165,6 +202,9 @@ export class FreeAreaComponent implements OnInit {
     });
   }
 
+  /**
+   * Load recommendations
+   */
   getRecommendations(): void {
     const ratingDto = new RatingDto();
     ratingDto.actorRatings = this.ratedActors;
@@ -178,10 +218,18 @@ export class FreeAreaComponent implements OnInit {
     });
   }
 
+  /**
+   * Handle movie popularity change
+   * @param $event popularity changed event
+   */
   moviePopularityChanged($event: ChangeContext): void {
     this.initMovies(true);
   }
 
+  /**
+   * Handle actor popularity change
+   * @param $event popularity changed event
+   */
   actorPopularityChanged($event: ChangeContext): void {
     this.initActors(true);
   }
