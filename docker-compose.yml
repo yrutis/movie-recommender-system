@@ -2,8 +2,6 @@ version: '3.7'
 services:
   training-service:
     image: noahcha/mrs-training-service:latest
-    ports:
-      - 6004:6000
     environment:
       - FLASK_APP=src/__init__.py
       - FLASK_ENV=development
@@ -12,12 +10,8 @@ services:
       - TESTING=0
     depends_on:
       - "database"
-
-
   inferenceservice:
     image: noahcha/mrs-inference-service:latest
-    ports:
-      - 5004:5000
     environment:
       - FLASK_APP=src/__init__.py
       - FLASK_ENV=development
@@ -25,7 +19,6 @@ services:
       - DATABASE_URL=postgresql://admin:admin@database:5432/mrs
     depends_on:
       - "database"
-
   free-service:
     image: noahcha/mrs-free-service:latest
     ports:
@@ -33,7 +26,8 @@ services:
     environment:
       hosts.gui: "http://localhost"
       hosts.inference: "http://inferenceservice:5000"
-      tmdb.api-key: 26787ca3bcec912a4e8f10fa4a1c48d2
+      tmdb.api-key: "Please insert API Key here"
+      tmdb.watch-provider-locale: "CH"
       spring.datasource.url: jdbc:postgresql://database:5432/mrs
       spring.datasource.username: admin
       server.port: 8080
@@ -46,6 +40,9 @@ services:
       - 8080:8080
     environment:
       hosts.gui: "http://localhost"
+      hosts.training: "http://training-service:6000"
+      tmdb.api-key: "Please insert API Key here"
+      tmdb.watch-provider-locale: "CH"
       spring.datasource.url: jdbc:postgresql://database:5432/mrs
       spring.datasource.username: admin
       spring.datasource.password: admin
@@ -57,8 +54,6 @@ services:
       - 80:80
   database:
     image: postgres:latest
-    ports:
-      - 5432:5432
     environment:
       POSTGRES_DB: mrs
       POSTGRES_USER: admin
