@@ -20,7 +20,7 @@ class MovieRecommender:
         # get all ratings
         self.ratings = (
             RatingController.get_all_ratings()
-            if self._use_db == 1
+            if self._use_db
             else pd.read_csv(
                 "ratings_small.csv", names=["id", "rating", "userId", "movieId"]
             )
@@ -29,7 +29,7 @@ class MovieRecommender:
         # get all signed in users
         self.users = (
             UserController.get_all_users()
-            if self._use_db == 1
+            if self._use_db
             else pd.read_csv("users.csv", index_col=0)
         )
 
@@ -38,14 +38,6 @@ class MovieRecommender:
         run collaborative filtering
         :return:
         """
-
-        # imitating a user; only if in test mode
-        self.users.at[0, "tbl_rating_user_id"] = (
-            self.ratings["userId"].max() if not self._use_db else True
-        )
-        self.users.at[1, "tbl_rating_user_id"] = (
-            self.ratings["userId"].min() if not self._use_db else True
-        )
 
         # create the Pytorch CollabDataLoader object for the collaborative filtering learner
         dls = CollabDataLoaders.from_df(
