@@ -1,10 +1,10 @@
 import os
 
+import pandas as pd
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 from src.models.ratings import Rating
-import pandas as pd
 
 
 class RatingController:

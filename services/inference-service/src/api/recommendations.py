@@ -42,8 +42,8 @@ class Recommendations(Resource):
         # Check if no ratings are out of bound (have to be between 0 and 5)
         for single_movie_rating in movie_ratings:
             if (
-                    single_movie_rating["my_rating"] < 1
-                    or single_movie_rating["my_rating"] > 5
+                single_movie_rating["my_rating"] < 1
+                or single_movie_rating["my_rating"] > 5
             ):
                 response_object[
                     "message"

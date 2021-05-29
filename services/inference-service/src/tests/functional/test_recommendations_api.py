@@ -143,8 +143,8 @@ def test_receive_recommendations_too_few_input(test_app):
     print(data)
     assert resp.status_code == 400
     assert (
-            "12 rated movies are needed to give a recommendation. Please try again!"
-            in data["message"]
+        "12 rated movies are needed to give a recommendation. Please try again!"
+        in data["message"]
     )
 
 
@@ -178,8 +178,8 @@ def test_recommendations_rating_out_of_bound_upper(test_app):
     data = json.loads(resp.data.decode())
     assert resp.status_code == 400
     assert (
-            "One of the ratings is not between 0 and 5. Please try again!"
-            in data["message"]
+        "One of the ratings is not between 0 and 5. Please try again!"
+        in data["message"]
     )
 
 
@@ -213,6 +213,6 @@ def test_recommendations_rating_out_of_bound_lower(test_app):
     data = json.loads(resp.data.decode())
     assert resp.status_code == 400
     assert (
-            "One of the ratings is not between 0 and 5. Please try again!"
-            in data["message"]
+        "One of the ratings is not between 0 and 5. Please try again!"
+        in data["message"]
     )

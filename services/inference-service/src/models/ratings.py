@@ -6,6 +6,7 @@ class Rating(declarative_base()):
     """
     Rating class which reflects the table rating in the database
     """
+
     __tablename__ = "tbl_rating"
     id = Column(Integer, primary_key=True, autoincrement=True)
     rating = Column(Float, nullable=False)

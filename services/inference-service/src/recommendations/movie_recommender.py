@@ -56,7 +56,7 @@ class MovieRecommender:
             # Get the UserId with the lowest weighted rating dif across the movies
             user_candidate = new_df.sort_values(
                 by=["weighted_rating_dif", "count"], ascending=(True, False)
-            ).iloc[users_candidate_count: users_candidate_count + 1]
+            ).iloc[users_candidate_count : users_candidate_count + 1]
 
             # Extract userId
             user_candidate = user_candidate.index.values[0]
@@ -66,8 +66,8 @@ class MovieRecommender:
 
             # sort according to userId's preference
             usersmovies = usersmovies.sort_values(by=["rating"], ascending=False).iloc[
-                          0:remaining_movies
-                          ]
+                0:remaining_movies
+            ]
 
             # Do not include movies the client has rated in the final movie list as a suggestion
             usersmovies = usersmovies[
