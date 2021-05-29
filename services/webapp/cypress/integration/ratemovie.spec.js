@@ -34,7 +34,6 @@ describe("test movie rating", () => {
       fixture: 'TheUsualSuspects_rating'
     })
       .as("rateThird")
-    cy.wait(6000)
     cy.wait("@rateThird")
     cy.intercept('GET', '/api/movies/1/5', {
       fixture: 'oneMovie'

@@ -16,7 +16,6 @@ describe("actor rating test", () => {
       fixture: 'actorRating'
     })
       .as('rateActor')
-    cy.wait(6000)
     cy.wait('@rateActor')
     cy.intercept('GET', '/api/actors/1/5', {
       fixture: 'oneActor'
