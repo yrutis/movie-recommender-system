@@ -1,7 +1,5 @@
-# src/tests/functional/test_recommendations_api.py
-
-import pandas as pd
 import json
+
 
 def test_receive_recommendations_valid_input(test_app):
     """
@@ -9,8 +7,6 @@ def test_receive_recommendations_valid_input(test_app):
     :param test_app: fixture
     :return:
     """
-    # df = pd.read_csv('ratings_small.csv')
-    # mocker.patch('rating_controller.get_all_ratings', return_value=df)
     client = test_app.test_client()
     resp = client.post(
         "/recommendations",
@@ -33,8 +29,6 @@ def test_receive_recommendations_valid_input(test_app):
         content_type="application/json",
     )
     data = json.loads(resp.data.decode())
-    print(data)
-    # TODO change back to guarantee 50 movies
     assert len(data) <= 50
 
 
@@ -149,8 +143,8 @@ def test_receive_recommendations_too_few_input(test_app):
     print(data)
     assert resp.status_code == 400
     assert (
-        "12 rated movies are needed to give a recommendation. Please try again!"
-        in data["message"]
+            "12 rated movies are needed to give a recommendation. Please try again!"
+            in data["message"]
     )
 
 
@@ -184,8 +178,8 @@ def test_recommendations_rating_out_of_bound_upper(test_app):
     data = json.loads(resp.data.decode())
     assert resp.status_code == 400
     assert (
-        "One of the ratings is not between 0 and 5. Please try again!"
-        in data["message"]
+            "One of the ratings is not between 0 and 5. Please try again!"
+            in data["message"]
     )
 
 
@@ -219,6 +213,6 @@ def test_recommendations_rating_out_of_bound_lower(test_app):
     data = json.loads(resp.data.decode())
     assert resp.status_code == 400
     assert (
-        "One of the ratings is not between 0 and 5. Please try again!"
-        in data["message"]
+            "One of the ratings is not between 0 and 5. Please try again!"
+            in data["message"]
     )
