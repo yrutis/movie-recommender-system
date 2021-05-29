@@ -2,8 +2,6 @@ version: '3.7'
 services:
   training-service:
     image: noahcha/mrs-training-service:latest
-    volumes:
-      - './services/training-service:/usr/src/app'
     ports:
       - 6004:6000
     environment:
