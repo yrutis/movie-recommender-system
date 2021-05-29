@@ -8,6 +8,9 @@ describe("member recommendation test", () => {
     cy.intercept('GET', '/api/recommendations', {
       fixture: 'recommendation'
     })
+      .as('getRecommendation')
+    cy.wait(10000)
+    cy.wait('@getRecommendation')
     cy.get(':nth-child(4) > .ng-star-inserted > :nth-child(2)').click()
 
     //Check the training recommendations

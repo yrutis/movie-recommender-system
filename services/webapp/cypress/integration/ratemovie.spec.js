@@ -14,6 +14,7 @@ describe("test movie rating", () => {
       fixture: 'oneMovie'
     })
       .as("getMovie")
+    cy.wait(6000)
     cy.wait("@getMovie")
 
   })
@@ -33,11 +34,13 @@ describe("test movie rating", () => {
       fixture: 'TheUsualSuspects_rating'
     })
       .as("rateThird")
+    cy.wait(6000)
     cy.wait("@rateThird")
     cy.intercept('GET', '/api/movies/1/5', {
       fixture: 'oneMovie'
     })
       .as("getMovie")
+    cy.wait(6000)
     cy.wait("@getMovie")
   })
 
@@ -47,6 +50,7 @@ describe("test movie rating", () => {
       fixture: 'MovieList'
     })
       .as("getMovie")
+    cy.wait(6000)
     cy.wait("@getMovie")
   })
 });

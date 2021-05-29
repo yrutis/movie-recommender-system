@@ -15,6 +15,7 @@ describe("signup test", () => {
       fixture: 'user'
     })
       .as('signup')
+    cy.wait(8000)
     cy.wait('@signup');
   })
 });

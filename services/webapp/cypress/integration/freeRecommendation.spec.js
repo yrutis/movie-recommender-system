@@ -9,6 +9,7 @@ describe("free recommendation test", () => {
       fixture: 'movieList'
     })
       .as('getMovies')
+    cy.wait(6000)
     cy.wait('@getMovies')
   });
 
@@ -20,6 +21,7 @@ describe("free recommendation test", () => {
       fixture: 'actorList'
     })
       .as("getActors")
+    cy.wait(8000)
     cy.wait("@getActors")
   });
 
@@ -31,6 +33,7 @@ describe("free recommendation test", () => {
       fixture: 'recommendation'
     })
       .as("getRecommendation")
+    cy.wait(6000)
     cy.wait("@getRecommendation")
   });
 
