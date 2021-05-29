@@ -1,7 +1,5 @@
-# src/tests/functional/test_recommendations_api.py
-
-import pandas as pd
 import json
+
 
 def test_receive_recommendations_valid_input(test_app):
     """
@@ -9,8 +7,6 @@ def test_receive_recommendations_valid_input(test_app):
     :param test_app: fixture
     :return:
     """
-    # df = pd.read_csv('ratings_small.csv')
-    # mocker.patch('rating_controller.get_all_ratings', return_value=df)
     client = test_app.test_client()
     resp = client.post(
         "/recommendations",
@@ -33,8 +29,6 @@ def test_receive_recommendations_valid_input(test_app):
         content_type="application/json",
     )
     data = json.loads(resp.data.decode())
-    print(data)
-    # TODO change back to guarantee 50 movies
     assert len(data) <= 50
 
 

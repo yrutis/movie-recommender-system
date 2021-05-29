@@ -9,17 +9,16 @@ class MovieRecommender:
     def __init__(self):
         """
         initialize MovieRecommender class
-        :param rated_movie_list: list of single rated movies
         """
 
-        # get all ratings
+        # get all ratings from the database
         self.ratings = RatingController.get_all_ratings()
-
 
     def get_movie_recommendations(self, rated_movie_list):
         """
         get recommended movie IDs based on a User that has similar movie preferences
-        :return:
+        :param rated_movie_list: list of single rated movies
+        :return a list of movies
         """
 
         # Check if the rated_movie_list is a list
@@ -86,7 +85,5 @@ class MovieRecommender:
 
             # Update the user candidate
             users_candidate_count += 1
-
-        # TODO Insert movie ratings from incoming user
 
         return movie_list

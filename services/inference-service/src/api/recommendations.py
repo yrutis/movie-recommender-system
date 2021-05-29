@@ -1,11 +1,9 @@
-# src/api/train_recommendations.py
-
-
 from flask import Blueprint, request
 from flask_restx import Api, Resource, fields
 
 from src.recommendations.movie_recommender import MovieRecommender
 
+# Create a recommendations blueprint with the name recommendations
 recommendations_blueprint = Blueprint("recommendations", __name__)
 api = Api(recommendations_blueprint)
 
@@ -18,8 +16,7 @@ movie_ratings_model = api.model(
     },
 )
 
-# Create an instance of the MovieRecommender class
-
+# Create an instance of the MovieRecommender class and load all data on startup of microservice
 movie_recommender = MovieRecommender()
 
 
@@ -59,10 +56,10 @@ class Recommendations(Resource):
         )
 
         # construct the response object
-        # TODO update with header
         response_object = movie_recommendations
 
         return response_object
 
 
+# add the recommendations endpoint to the flask resource
 api.add_resource(Recommendations, "/recommendations")
