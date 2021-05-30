@@ -6,6 +6,7 @@ describe("free recommendation test", () => {
     }).as('getMovies');
     cy.visit("/");
     cy.contains("Free Recommendation").click();
+    cy.wait('@getMovies');
   });
 
   it("rate movie", () => {

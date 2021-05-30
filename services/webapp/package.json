@@ -6,10 +6,9 @@
     "start": "ng serve",
     "build": "ng build",
     "build:prod": "ng build --prod",
-    "cypress:open": "concurrently \"ng serve\" \"cypress open\"",
     "cypress:run": "cypress run",
-    "cypress:ci": "ng build --prod && run-p --race start:ci cypress:run",
-    "start:ci": "http-server ./dist/cypressTest -a localhost -p 8000 -c-1",
+    "cypress:ci": "start:ci && cypress:run",
+    "start:ci": "http-server ./dist/webapp -a localhost -p 4200 -c-1",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

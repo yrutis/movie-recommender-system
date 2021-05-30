@@ -43,17 +43,3 @@ jobs:
       before_script:
         - cd ./services/training-service
       script: bash build.sh
-    - stage: "Cypress Frontend Test"
-      language: node_js
-      node_js:
-        - "8.9"
-      cache:
-        directories:
-          - ~/.npm
-          - node_modules
-      install:
-        - npm install
-      before_script:
-        - cd ./services/webapp
-      script:
-        - npx cypress run

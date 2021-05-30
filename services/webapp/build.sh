@@ -3,6 +3,7 @@ PACKAGE_VERSION=$(grep -m1 version package.json | awk -F: '{ print $2 }' | sed '
 IMAGE_NAME=noahcha/mrs-webapp
 npm ci
 npm run build:prod
+npm run cypress:ci
 sonar-scanner -Dsonar.projectKey=mrs-webapp -Dsonar.sources=. -Dsonar.host.url=https://sonaruzh.dev.eng.c-alm.ch -Dsonar.login=$SONAR_TOKEN
 docker build -t $IMAGE_NAME .
 docker tag $IMAGE_NAME "${IMAGE_NAME}:latest"
