@@ -23,6 +23,9 @@ import { SafePipe } from './shared/pipes/safe.pipe';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 
+/**
+ * App Module
+ */
 @NgModule({
   declarations: [
     AppComponent,

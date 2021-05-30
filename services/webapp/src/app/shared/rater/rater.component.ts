@@ -8,6 +8,9 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 import {Actor} from '../../model/actor';
 import {DatePipe} from '@angular/common';
 
+/**
+ * General rater component that is used for movies and actors
+ */
 @Component({
   selector: 'app-rater',
   templateUrl: './rater.component.html',
@@ -46,6 +49,9 @@ export class RaterComponent implements OnInit {
     this.config.container = 'body';
   }
 
+  /**
+   * Initialize rating component. Sanitizes images in order to properly display them and set the rating object title
+   */
   ngOnInit(): void {
     const datePipe = new DatePipe('en-US');
     if ((this.ratingObject as Movie).posterPath) {
@@ -63,10 +69,17 @@ export class RaterComponent implements OnInit {
     }
   }
 
+  /**
+   * Reload a object without rating it
+   */
   reload(): void {
     this.objectRated.emit(null);
   }
 
+  /**
+   * Rate a object
+   * @param $event rating event from StarRatingComponent
+   */
   onRate($event: { oldValue: number; newValue: number; starRating: StarRatingComponent }): void {
     this.ratable = false;
     this.objectRated.emit($event.newValue);
