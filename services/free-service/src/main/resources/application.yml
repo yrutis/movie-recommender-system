@@ -1,1 +1,23 @@
+spring.jpa.database: POSTGRESQL
+spring.datasource.platform: postgres
+spring.datasource.url: jdbc:postgresql://localhost:5432/mrs
+spring.datasource.username: admin
+spring.datasource.password: admin
+spring.jpa.show-sql: true
+spring.jpa.generate-ddl: true
+spring.jpa.hibernate.ddl-auto: update
+spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation: true
 
+spring:
+  datasource:
+    initialization-mode: always
+    data: classpath:tbl_movie.sql, classpath:tbl_actor.sql
+hosts:
+  gui: "http://localhost:4200"
+  inference: "http://localhost:5004"
+server:
+  port: 8081
+tmdb:
+  url: "https://api.themoviedb.org/3"
+  api-key: ${TMDB-API-KEY}
+  watch-provider-locale: "CH"

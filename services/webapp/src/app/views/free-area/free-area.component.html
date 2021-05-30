@@ -1,0 +1,58 @@
+<div class="container pt-4">
+  <div class="row">
+    <div class="col-12">
+      <h1 class="logo logo-sm pointer" routerLink="/">
+        Movie <br>
+        <span class="logo-offset">Match</span>
+      </h1>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row mt-5" *ngIf="loading">
+    <div class="col-12">
+      <mat-spinner class="mx-auto"></mat-spinner>
+    </div>
+  </div>
+  <div class="row mt-5" *ngIf="movies && step == 0">
+    <div class="col-12 text-center custom-slider">
+      <p class="text">Please rate the movies shown below or reload them, if you have not seen them yet! Adjust the slider below if you want to rate more or less popular movies.</p>
+      <ngx-slider [(value)]="moviePopularity" (userChangeEnd)="moviePopularityChanged($event)" [options]="moviePopularitySlideOptions"></ngx-slider>
+    </div>
+  </div>
+  <div class="row mt-5" *ngIf="actors && step == 1">
+    <div class="col-12 text-center custom-slider">
+      <p class="text">Please rate the actors shown below or reload them, if you do not know them! Adjust the slider below if you want to rate more or less popular actors.</p>
+      <ngx-slider [(value)]="actorPopularity" (userChangeEnd)="actorPopularityChanged($event)" [options]="actorPopularitySlideOptions"></ngx-slider>
+    </div>
+  </div>
+  <div class="row pt-5" *ngIf="movies && step == 0">
+    <div class="col-4" *ngFor="let movie of movies; let i = index">
+      <app-rater *ngIf="movie" [ratingObject]="movie" (objectRated)="movieWasRated(i, $event)"
+                       [delay]="firstInit ? i * 200: 200">
+      </app-rater>
+    </div>
+  </div>
+  <div class="row pt-5" *ngIf="actors && step == 1">
+    <div class="col-4" *ngFor="let actor of actors; let i = index">
+      <app-rater *ngIf="actor" [ratingObject]="actor" (objectRated)="actorWasRated(i, $event)"
+                 [delay]="firstInit ? i * 200: 200">
+      </app-rater>
+    </div>
+  </div>
+  <div class="row pt-5" *ngIf="recommendations && step == 2">
+    <div class="col-12">
+      <app-recommendation-displayer [recommendations]="recommendations"></app-recommendation-displayer>
+    </div>
+  </div>
+  <div class="row mt-5" *ngIf="serviceProblem">
+    <div class="col-12 text-center">
+      <p class="text">
+        <fa-icon [icon]="['fas', 'exclamation-triangle']" class="mr-1"></fa-icon>
+        Something went wrong, please try again later.
+      </p>
+    </div>
+  </div>
+</div>
+
+

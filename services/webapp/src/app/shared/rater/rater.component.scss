@@ -1,0 +1,30 @@
+.movie-img-style {
+  width: 100%;
+  height: 600px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.movie-img {
+  width: 100%;
+}
+
+.rated {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background: #a1a1a1b0;
+}
+
+.movie-title {
+  color: #ffffff;
+  font-size: 1.4rem;
+  font-weight: lighter;
+}
+
+.opacity-img{
+  opacity: 0.4;
+}

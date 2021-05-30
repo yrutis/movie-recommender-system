@@ -1,0 +1,62 @@
+.genre-list ul {
+  list-style-type: none; margin: 0; padding: 0
+}
+.genre-list ul li {
+  display: inline-block;
+  background-color: rgba(255,255,255,0.5);
+  color: #2855b5;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  padding: 5px;
+  border-radius: 7px;
+}
+
+.genre-list-filter-active-item {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.actor-list ul{
+  list-style-type: none; margin: 0; padding: 0;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.movie-title {
+  color: #ffb134;
+  font-size: 1.4rem;
+  font-weight: lighter;
+}
+
+.language-list-filter-inactive-item{
+  opacity: 0.5 !important;
+}
+
+.movie-tagline{
+  color: #ffffff;
+  font-size: 1.2rem;
+  font-weight: lighter;
+}
+
+.more-less{
+  color: #ffb134;
+  font-weight: normal;
+}
+
+.orange{
+  color: #ffb134;
+}
+.movie-poster{
+  width: 100%;
+  //height: 385px;
+  //height: calc(100% * 1.5);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.demo-train {
+  color: #ffb134;
+}
+
+.custom-hr{
+  background-color: rgba(255,255,255,.5);
+}

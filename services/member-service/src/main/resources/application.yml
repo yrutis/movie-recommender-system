@@ -1,1 +1,24 @@
+spring.jpa.database: POSTGRESQL
+spring.datasource.platform: postgres
+spring.datasource.url: jdbc:postgresql://localhost:5432/mrs
+spring.datasource.username: admin
+spring.datasource.password: admin
+spring.jpa.show-sql: true
+spring.jpa.generate-ddl: true
+spring.jpa.hibernate.ddl-auto: update
+spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation: true
 
+spring:
+  datasource:
+    initialization-mode: always
+    data: classpath:tbl_rating_p0.sql,  classpath:tbl_rating_p1.sql, classpath:tbl_rating_p2.sql, classpath:tbl_rating_p3.sql, classpath:tbl_rating_p4.sql,  classpath:tbl_rating_p5.sql, classpath:tbl_rating_p6.sql, classpath:tbl_rating_p7.sql,  classpath:tbl_rating_p8.sql, classpath:tbl_rating_p9.sql, classpath:tbl_rating_p10.sql,  classpath:tbl_rating_p11.sql, classpath:tbl_rating_p12.sql, classpath:tbl_rating_p13.sql, classpath:tbl_rating_p14.sql,  classpath:tbl_rating_p15.sql, classpath:tbl_rating_p16.sql, classpath:tbl_rating_p17.sql,  classpath:tbl_rating_p18.sql, classpath:tbl_rating_p19.sql
+
+
+hosts:
+  gui: "http://localhost:4200"
+  training: "http://localhost:6004"
+
+tmdb:
+  url: "https://api.themoviedb.org/3"
+  api-key: ${TMDB-API-KEY}
+  watch-provider-locale: "CH"
