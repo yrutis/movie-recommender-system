@@ -1,0 +1,1112 @@
+[
+  {
+    "id": 8274,
+    "title": "American Pie Presents: Band Camp",
+    "tagline": "This One Time at Band Camp...",
+    "overview": "Everyone has 'moved on', except for Sherman and Jim Levenstein's still understanding father. Little Matt Stiffler wants to join his older brother Steve's business and, after everything Matt has heard from Jim's band-geek wife, he plans to go back to band camp and make a video of his own.",
+    "genres": [
+      {
+        "id": 35,
+        "name": "Comedy"
+      }
+    ],
+    "popularity": 41.912,
+    "runtime": 94,
+    "revenue": 0.0,
+    "budget": 1.0E7,
+    "cast": {
+      "cast": [
+        {
+          "name": "Tad Hilgenbrink",
+          "character": "Matt Stifler",
+          "order": 0
+        },
+        {
+          "name": "Arielle Kebbel",
+          "character": "Elyse",
+          "order": 1
+        },
+        {
+          "name": "Jason Earles",
+          "character": "Ernie",
+          "order": 2
+        }
+      ]
+    },
+    "watchProviders": {
+      "link": "https://www.themoviedb.org/movie/8274-american-pie-presents-band-camp/watch?locale=CH",
+      "rent": [
+        {
+          "providerName": "Apple iTunes",
+          "logoPath": "/q6tl6Ib6X5FT80RMlcDbexIo4St.jpg",
+          "displayPriority": 2
+        },
+        {
+          "providerName": "Google Play Movies",
+          "logoPath": "/p3Z12gKq2qvJaUOMeKNU2mzKVI9.jpg",
+          "displayPriority": 52
+        }
+      ],
+      "flatrate": null,
+      "buy": [
+        {
+          "providerName": "Apple iTunes",
+          "logoPath": "/q6tl6Ib6X5FT80RMlcDbexIo4St.jpg",
+          "displayPriority": 2
+        },
+        {
+          "providerName": "Google Play Movies",
+          "logoPath": "/p3Z12gKq2qvJaUOMeKNU2mzKVI9.jpg",
+          "displayPriority": 52
+        }
+      ]
+    },
+    "imdbId": "tt0436058",
+    "originalLanguage": "en",
+    "originalTitle": "American Pie Presents: Band Camp",
+    "spokenLanguages": [
+      {
+        "name": "English",
+        "englishName": "English",
+        "languageCode": "en"
+      }
+    ],
+    "posterPath": "/NfxIDnzDCL8vSPjQAtetIzOAxE.jpg",
+    "productionCompanies": [
+      {
+        "name": "Rogue Pictures",
+        "originCountry": ""
+      }
+    ],
+    "productionCountries": [
+      {
+        "name": "United States of America",
+        "countryCode": "US"
+      }
+    ],
+    "voteAverage": 5.5,
+    "voteCount": 1594,
+    "releaseDate": "2005-10-30"
+  },
+  {
+    "id": 4032,
+    "title": "My Girl",
+    "tagline": "When your Dad's an undertaker, your Mom's in heaven, and your Grandma's got a screw loose...it's good to have a friend who understands you. Even if he is a boy.",
+    "overview": "Vada Sultenfuss is obsessed with death. Her mother is dead, and her father runs a funeral parlor. She is also in love with her English teacher, and joins a poetry class over the summer just to impress him. Thomas J., her best friend, is \"allergic to everything\", and sticks with Vada despite her hangups. When Vada's father hires Shelly, and begins to fall for her, things take a turn to the worse...",
+    "genres": [
+      {
+        "id": 35,
+        "name": "Comedy"
+      },
+      {
+        "id": 18,
+        "name": "Drama"
+      }
+    ],
+    "popularity": 16.799,
+    "runtime": 103,
+    "revenue": 5.9489799E7,
+    "budget": 1.7E7,
+    "cast": {
+      "cast": [
+        {
+          "name": "Anna Chlumsky",
+          "character": "Vada Sultenfuss",
+          "order": 0
+        },
+        {
+          "name": "Macaulay Culkin",
+          "character": "Thomas J. Sennett",
+          "order": 1
+        },
+        {
+          "name": "Dan Aykroyd",
+          "character": "Harry Sultenfuss",
+          "order": 2
+        }
+      ]
+    },
+    "watchProviders": {
+      "link": "https://www.themoviedb.org/movie/4032-my-girl/watch?locale=CH",
+      "rent": [
+        {
+          "providerName": "Apple iTunes",
+          "logoPath": "/q6tl6Ib6X5FT80RMlcDbexIo4St.jpg",
+          "displayPriority": 2
+        }
+      ],
+      "flatrate": [
+        {
+          "providerName": "Sky",
+          "logoPath": "/valHOIkEnVZKlYvKC9eZVpjoYXs.jpg",
+          "displayPriority": 7
+        },
+        {
+          "providerName": "Netflix",
+          "logoPath": "/9A1JSVmSxsyaBK4SUFsYVqbAYfW.jpg",
+          "displayPriority": 57
+        }
+      ],
+      "buy": [
+        {
+          "providerName": "SwissCom",
+          "logoPath": "/dSBzj4T9P7PMUr015gnV7meT2LR.jpg",
+          "displayPriority": 3
+        },
+        {
+          "providerName": "Google Play Movies",
+          "logoPath": "/p3Z12gKq2qvJaUOMeKNU2mzKVI9.jpg",
+          "displayPriority": 52
+        }
+      ]
+    },
+    "imdbId": "tt0102492",
+    "originalLanguage": "en",
+    "originalTitle": "My Girl",
+    "spokenLanguages": [
+      {
+        "name": "English",
+        "englishName": "English",
+        "languageCode": "en"
+      }
+    ],
+    "posterPath": "/qyJJNHteA7BUwQSey05t7qP4vRV.jpg",
+    "productionCompanies": [
+      {
+        "name": "Columbia Pictures",
+        "originCountry": "US"
+      },
+      {
+        "name": "Imagine Entertainment",
+        "originCountry": "US"
+      }
+    ],
+    "productionCountries": [
+      {
+        "name": "United States of America",
+        "countryCode": "US"
+      }
+    ],
+    "voteAverage": 7.3,
+    "voteCount": 1462,
+    "releaseDate": "1991-11-27"
+  },
+  {
+    "id": 3989,
+    "title": "Team America: World Police",
+    "tagline": "Freedom Hangs By A Thread",
+    "overview": "Team America World Police follows an international police force dedicated to maintaining global stability. Learning that dictator Kim Jong il is out to destroy the world, the team recruits Broadway star Gary Johnston to go undercover. With the help of Team America, Gary manages to uncover the plan to destroy the world. Will Team America be able to save it in time? It stars… Samuel L Jackson, Tim Robbins, Sean Penn, Michael Moore, Helen Hunt, Matt Damon, Susan Sarandon, George Clooney, Danny Glover, Ethan Hawke, Alec Baldwin… or does it?",
+    "genres": [
+      {
+        "id": 12,
+        "name": "Adventure"
+      },
+      {
+        "id": 28,
+        "name": "Action"
+      },
+      {
+        "id": 35,
+        "name": "Comedy"
+      }
+    ],
+    "popularity": 10.609,
+    "runtime": 98,
+    "revenue": 5.0907422E7,
+    "budget": 3.2E7,
+    "cast": {
+      "cast": [
+        {
+          "name": "Trey Parker",
+          "character": "Gary Johnston / Joe / Kim Jong Il / Hans Blix / Carson / Matt Damon / Drunk in Bar / Tim Robbins / Sean Penn / Michael Moore / Helen Hunt / Susan Sarandon (voice)",
+          "order": 0
+        },
+        {
+          "name": "Matt Stone",
+          "character": "Chris / George Clooney / Danny Glover / Ethan Hawke (voice)",
+          "order": 1
+        },
+        {
+          "name": "Kristen Miller",
+          "character": "Lisa (voice)",
+          "order": 2
+        }
+      ]
+    },
+    "watchProviders": {
+      "link": "https://www.themoviedb.org/movie/3989-team-america-world-police/watch?locale=CH",
+      "rent": [
+        {
+          "providerName": "Apple iTunes",
+          "logoPath": "/q6tl6Ib6X5FT80RMlcDbexIo4St.jpg",
+          "displayPriority": 2
+        },
+        {
+          "providerName": "Hollystar",
+          "logoPath": "/567LmXMmafb8e2jGOmpHDZNl2r8.jpg",
+          "displayPriority": 8
+        },
+        {
+          "providerName": "Microsoft Store",
+          "logoPath": "/paq2o2dIfQnxcERsVoq7Ys8KYz8.jpg",
+          "displayPriority": 41
+        },
+        {
+          "providerName": "Google Play Movies",
+          "logoPath": "/p3Z12gKq2qvJaUOMeKNU2mzKVI9.jpg",
+          "displayPriority": 52
+        },
+        {
+          "providerName": "Rakuten TV",
+          "logoPath": "/wuViyDkbFp4r7VqI0efPW5hFfQj.jpg",
+          "displayPriority": 91
+        }
+      ],
+      "flatrate": null,
+      "buy": [
+        {
+          "providerName": "Apple iTunes",
+          "logoPath": "/q6tl6Ib6X5FT80RMlcDbexIo4St.jpg",
+          "displayPriority": 2
+        },
+        {
+          "providerName": "Hollystar",
+          "logoPath": "/567LmXMmafb8e2jGOmpHDZNl2r8.jpg",
+          "displayPriority": 8
+        },
+        {
+          "providerName": "Microsoft Store",
+          "logoPath": "/paq2o2dIfQnxcERsVoq7Ys8KYz8.jpg",
+          "displayPriority": 41
+        },
+        {
+          "providerName": "Google Play Movies",
+          "logoPath": "/p3Z12gKq2qvJaUOMeKNU2mzKVI9.jpg",
+          "displayPriority": 52
+        },
+        {
+          "providerName": "Rakuten TV",
+          "logoPath": "/wuViyDkbFp4r7VqI0efPW5hFfQj.jpg",
+          "displayPriority": 91
+        }
+      ]
+    },
+    "imdbId": "tt0372588",
+    "originalLanguage": "en",
+    "originalTitle": "Team America: World Police",
+    "spokenLanguages": [
+      {
+        "name": "العربية",
+        "englishName": "Arabic",
+        "languageCode": "ar"
+      },
+      {
+        "name": "English",
+        "englishName": "English",
+        "languageCode": "en"
+      },
+      {
+        "name": "Français",
+        "englishName": "French",
+        "languageCode": "fr"
+      },
+      {
+        "name": "한국어/조선말",
+        "englishName": "Korean",
+        "languageCode": "ko"
+      }
+    ],
+    "posterPath": "/m1Q2VFe1DVVbjfu1LDZe7tlp9yb.jpg",
+    "productionCompanies": [
+      {
+        "name": "Paramount",
+        "originCountry": "US"
+      },
+      {
+        "name": "Scott Rudin Productions",
+        "originCountry": "US"
+      },
+      {
+        "name": "Braniff",
+        "originCountry": ""
+      }
+    ],
+    "productionCountries": [
+      {
+        "name": "Germany",
+        "countryCode": "DE"
+      },
+      {
+        "name": "United States of America",
+        "countryCode": "US"
+      }
+    ],
+    "voteAverage": 6.7,
+    "voteCount": 1339,
+    "releaseDate": "2004-01-14"
+  },
+  {
+    "id": 3870,
+    "title": "1900",
+    "tagline": "From the cradle to the grave - victims of history and change!",
+    "overview": "Set in Bertolucci's ancestral region of Emilia, the film chronicles the lives of two men during the political turmoils that took place in Italy in the first half of the 20th century.",
+    "genres": [
+      {
+        "id": 18,
+        "name": "Drama"
+      },
+      {
+        "id": 36,
+        "name": "History"
+      }
+    ],
+    "popularity": 10.076,
+    "runtime": 317,
+    "revenue": 0.0,
+    "budget": 9000000.0,
+    "cast": {
+      "cast": [
+        {
+          "name": "Robert De Niro",
+          "character": "Alfredo Berlinghieri",
+          "order": 0
+        },
+        {
+          "name": "Gérard Depardieu",
+          "character": "Olmo Dalco",
+          "order": 1
+        },
+        {
+          "name": "Dominique Sanda",
+          "character": "Ada Fiestri Paulhan",
+          "order": 2
+        }
+      ]
+    },
+    "watchProviders": null,
+    "imdbId": "tt0074084",
+    "originalLanguage": "it",
+    "originalTitle": "Novecento",
+    "spokenLanguages": [
+      {
+        "name": "Italiano",
+        "englishName": "Italian",
+        "languageCode": "it"
+      }
+    ],
+    "posterPath": "/87ELdlKW5h5qpJfVRXITvsDqYJ.jpg",
+    "productionCompanies": [
+      {
+        "name": "Paramount",
+        "originCountry": "US"
+      },
+      {
+        "name": "Les Productions Artistes Associés",
+        "originCountry": "FR"
+      },
+      {
+        "name": "Artemis Film",
+        "originCountry": "DE"
+      },
+      {
+        "name": "PEA",
+        "originCountry": "IT"
+      },
+      {
+        "name": "United Artists",
+        "originCountry": "US"
+      }
+    ],
+    "productionCountries": [
+      {
+        "name": "France",
+        "countryCode": "FR"
+      },
+      {
+        "name": "Germany",
+        "countryCode": "DE"
+      },
+      {
+        "name": "Italy",
+        "countryCode": "IT"
+      }
+    ],
+    "voteAverage": 7.9,
+    "voteCount": 409,
+    "releaseDate": "1976-09-03"
+  },
+  {
+    "id": 8285,
+    "title": "The Spirit",
+    "tagline": "I'm gonna kill you all kinds of dead.",
+    "overview": "Down these mean streets a man must come.  A hero born, murdered, and born again.  A Rookie cop named Denny Colt returns from the beyond as The Spirit, a hero whose mission is to fight against the bad forces from the shadows of Central City.  The Octopus, who kills anyone unfortunate enough to see his face, has other plans; he is going to wipe out the entire city.",
+    "genres": [
+      {
+        "id": 28,
+        "name": "Action"
+      },
+      {
+        "id": 35,
+        "name": "Comedy"
+      },
+      {
+        "id": 53,
+        "name": "Thriller"
+      },
+      {
+        "id": 80,
+        "name": "Crime"
+      },
+      {
+        "id": 878,
+        "name": "Science Fiction"
+      }
+    ],
+    "popularity": 9.543,
+    "runtime": 103,
+    "revenue": 3.9031337E7,
+    "budget": 6.0E7,
+    "cast": {
+      "cast": [
+        {
+          "name": "Gabriel Macht",
+          "character": "The Spirit/Denny Colt",
+          "order": 0
+        },
+        {
+          "name": "Scarlett Johansson",
+          "character": "Silken Floss",
+          "order": 1
+        },
+        {
+          "name": "Samuel L. Jackson",
+          "character": "Octopuss",
+          "order": 2
+        }
+      ]
+    },
+    "watchProviders": {
+      "link": "https://www.themoviedb.org/movie/8285-the-spirit/watch?locale=CH",
+      "rent": [
+        {
+          "providerName": "Hollystar",
+          "logoPath": "/567LmXMmafb8e2jGOmpHDZNl2r8.jpg",
+          "displayPriority": 8
+        },
+        {
+          "providerName": "Rakuten TV",
+          "logoPath": "/wuViyDkbFp4r7VqI0efPW5hFfQj.jpg",
+          "displayPriority": 91
+        }
+      ],
+      "flatrate": null,
+      "buy": [
+        {
+          "providerName": "Hollystar",
+          "logoPath": "/567LmXMmafb8e2jGOmpHDZNl2r8.jpg",
+          "displayPriority": 8
+        },
+        {
+          "providerName": "Google Play Movies",
+          "logoPath": "/p3Z12gKq2qvJaUOMeKNU2mzKVI9.jpg",
+          "displayPriority": 52
+        },
+        {
+          "providerName": "Rakuten TV",
+          "logoPath": "/wuViyDkbFp4r7VqI0efPW5hFfQj.jpg",
+          "displayPriority": 91
+        }
+      ]
+    },
+    "imdbId": "tt0831887",
+    "originalLanguage": "en",
+    "originalTitle": "The Spirit",
+    "spokenLanguages": [
+      {
+        "name": "Pусский",
+        "englishName": "Russian",
+        "languageCode": "ru"
+      },
+      {
+        "name": "Français",
+        "englishName": "French",
+        "languageCode": "fr"
+      },
+      {
+        "name": "English",
+        "englishName": "English",
+        "languageCode": "en"
+      }
+    ],
+    "posterPath": "/g9qawfzR3LWRC8r8YZ9w2yaQi5W.jpg",
+    "productionCompanies": [
+      {
+        "name": "DC Comics",
+        "originCountry": "US"
+      },
+      {
+        "name": "Lionsgate",
+        "originCountry": "US"
+      },
+      {
+        "name": "Dark Lot Entertainment",
+        "originCountry": ""
+      },
+      {
+        "name": "Continental Entertainment Group (CEG)",
+        "originCountry": ""
+      },
+      {
+        "name": "OddLot Entertainment",
+        "originCountry": "US"
+      },
+      {
+        "name": "Media Magik Entertainment",
+        "originCountry": ""
+      },
+      {
+        "name": "DC Entertainment",
+        "originCountry": "US"
+      }
+    ],
+    "productionCountries": [
+      {
+        "name": "United States of America",
+        "countryCode": "US"
+      }
+    ],
+    "voteAverage": 4.7,
+    "voteCount": 725,
+    "releaseDate": "2008-12-25"
+  },
+  {
+    "id": 8272,
+    "title": "The Savages",
+    "tagline": "",
+    "overview": "A sister and brother face the realities of familial responsibility as they begin to care for their ailing father.",
+    "genres": [
+      {
+        "id": 18,
+        "name": "Drama"
+      }
+    ],
+    "popularity": 6.813,
+    "runtime": 114,
+    "revenue": 0.0,
+    "budget": 0.0,
+    "cast": {
+      "cast": [
+        {
+          "name": "Laura Linney",
+          "character": "Wendy Savage",
+          "order": 0
+        },
+        {
+          "name": "Philip Seymour Hoffman",
+          "character": "Jon Savage",
+          "order": 1
+        },
+        {
+          "name": "Philip Bosco",
+          "character": "Lenny Savage",
+          "order": 2
+        }
+      ]
+    },
+    "watchProviders": {
+      "link": "https://www.themoviedb.org/movie/8272-the-savages/watch?locale=CH",
+      "rent": [
+        {
+          "providerName": "Google Play Movies",
+          "logoPath": "/p3Z12gKq2qvJaUOMeKNU2mzKVI9.jpg",
+          "displayPriority": 52
+        }
+      ],
+      "flatrate": [
+        {
+          "providerName": "Disney Plus",
+          "logoPath": "/dgPueyEdOwpQ10fjuhL2WYFQwQs.jpg",
+          "displayPriority": 49
+        }
+      ],
+      "buy": [
+        {
+          "providerName": "Google Play Movies",
+          "logoPath": "/p3Z12gKq2qvJaUOMeKNU2mzKVI9.jpg",
+          "displayPriority": 52
+        }
+      ]
+    },
+    "imdbId": "tt0775529",
+    "originalLanguage": "en",
+    "originalTitle": "The Savages",
+    "spokenLanguages": [
+      {
+        "name": "English",
+        "englishName": "English",
+        "languageCode": "en"
+      }
+    ],
+    "posterPath": "/nY54gSmTOmSXlQpWDB7DWp4u8a7.jpg",
+    "productionCompanies": [
+      {
+        "name": "Fox Searchlight Pictures",
+        "originCountry": "US"
+      },
+      {
+        "name": "Ad Hominem Enterprises",
+        "originCountry": ""
+      },
+      {
+        "name": "Lone Star Film Group",
+        "originCountry": ""
+      },
+      {
+        "name": "This Is That Productions",
+        "originCountry": ""
+      },
+      {
+        "name": "Savage Productions",
+        "originCountry": "US"
+      }
+    ],
+    "productionCountries": [
+      {
+        "name": "United States of America",
+        "countryCode": "US"
+      }
+    ],
+    "voteAverage": 6.9,
+    "voteCount": 248,
+    "releaseDate": "2007-01-19"
+  },
+  {
+    "id": 8221,
+    "title": "What Have I Done to Deserve This?",
+    "tagline": "",
+    "overview": "A henpecked housewife ekes out a meager existence, surrounded by a host of colorful characters: her ungrateful husband, her delinquent sons, her headstrong mother-in-law, and her sex worker neighbor, among others.",
+    "genres": [
+      {
+        "id": 18,
+        "name": "Drama"
+      },
+      {
+        "id": 35,
+        "name": "Comedy"
+      }
+    ],
+    "popularity": 5.664,
+    "runtime": 102,
+    "revenue": 706685.0,
+    "budget": 0.0,
+    "cast": {
+      "cast": [
+        {
+          "name": "Carmen Maura",
+          "character": "Gloria",
+          "order": 0
+        },
+        {
+          "name": "Ángel de Andrés López",
+          "character": "Antonio",
+          "order": 1
+        },
+        {
+          "name": "Verónica Forqué",
+          "character": "Cristal",
+          "order": 2
+        }
+      ]
+    },
+    "watchProviders": null,
+    "imdbId": "tt0088461",
+    "originalLanguage": "es",
+    "originalTitle": "¿Qué he hecho yo para merecer esto!",
+    "spokenLanguages": [
+      {
+        "name": "Deutsch",
+        "englishName": "German",
+        "languageCode": "de"
+      },
+      {
+        "name": "Français",
+        "englishName": "French",
+        "languageCode": "fr"
+      },
+      {
+        "name": "Español",
+        "englishName": "Spanish",
+        "languageCode": "es"
+      }
+    ],
+    "posterPath": "/fcvNzyRQnzgUm31mpRhrq5L7nkY.jpg",
+    "productionCompanies": [
+      {
+        "name": "Kaktus Producciones Cinematográficas",
+        "originCountry": "ES"
+      },
+      {
+        "name": "Tesauro",
+        "originCountry": ""
+      }
+    ],
+    "productionCountries": [
+      {
+        "name": "Spain",
+        "countryCode": "ES"
+      }
+    ],
+    "voteAverage": 7.4,
+    "voteCount": 126,
+    "releaseDate": "1984-10-24"
+  },
+  {
+    "id": 3865,
+    "title": "Dark Blue Almost Black",
+    "tagline": "If your life is not the color you like... Change it!",
+    "overview": "Jorge is a young man whose plans for the future are put on hold when his father has a stroke. For seven years, he diligently nurses his father and works as a janitor while studying part time to get a business degree.When Natalia, his childhood crush, returns from a stint studying abroad, Jorge begins to yearn for something better. He is desperate to find a new and better job, but finds that no one will hire him because he has experience only as a janitor. Antonio, Jorge’s older brother, soon to be released from jail, is an opportunist who has never gotten along with their father. In prison, at a theater workshop, Antonio meets Paula, a beautiful young woman in jail on drug charges. Paula has a problem because she flirted with another inmate's boyfriend.",
+    "genres": [
+      {
+        "id": 18,
+        "name": "Drama"
+      }
+    ],
+    "popularity": 3.484,
+    "runtime": 105,
+    "revenue": 0.0,
+    "budget": 0.0,
+    "cast": {
+      "cast": [
+        {
+          "name": "Quim Gutiérrez",
+          "character": "Jorge",
+          "order": 0
+        },
+        {
+          "name": "Antonio de la Torre",
+          "character": "Antonio",
+          "order": 1
+        },
+        {
+          "name": "Raúl Arévalo",
+          "character": "Israel (Sean)",
+          "order": 2
+        }
+      ]
+    },
+    "watchProviders": null,
+    "imdbId": "tt0452971",
+    "originalLanguage": "es",
+    "originalTitle": "AzulOscuroCasiNegro",
+    "spokenLanguages": [
+      {
+        "name": "Español",
+        "englishName": "Spanish",
+        "languageCode": "es"
+      }
+    ],
+    "posterPath": "/b84WFI8ffMKyexc4L7oUIenci79.jpg",
+    "productionCompanies": [
+      {
+        "name": "Tesela Producciones Cinematográficas",
+        "originCountry": "ES"
+      }
+    ],
+    "productionCountries": [
+      {
+        "name": "Spain",
+        "countryCode": "ES"
+      }
+    ],
+    "voteAverage": 6.8,
+    "voteCount": 68,
+    "releaseDate": "2006-03-24"
+  },
+  {
+    "id": 3937,
+    "title": "Blondie on a Budget",
+    "tagline": "",
+    "overview": "Dagwood wants to join the trout club and Blondie wants a fur coat. Jealousy reigns when Dag's old girlfriend Joan shows up, but nothing else matters when a drawing at the movie theatre provides money for the coat.",
+    "genres": [
+      {
+        "id": 35,
+        "name": "Comedy"
+      }
+    ],
+    "popularity": 2.215,
+    "runtime": 72,
+    "revenue": 0.0,
+    "budget": 0.0,
+    "cast": {
+      "cast": [
+        {
+          "name": "Penny Singleton",
+          "character": "Blondie Bumstead",
+          "order": 0
+        },
+        {
+          "name": "Arthur Lake",
+          "character": "Dagwood \" Dag \" Bumstead",
+          "order": 1
+        },
+        {
+          "name": "Larry Simms",
+          "character": "Baby Dumpling Bumstead",
+          "order": 2
+        }
+      ]
+    },
+    "watchProviders": null,
+    "imdbId": "tt0032263",
+    "originalLanguage": "en",
+    "originalTitle": "Blondie on a Budget",
+    "spokenLanguages": [
+      {
+        "name": "English",
+        "englishName": "English",
+        "languageCode": "en"
+      }
+    ],
+    "posterPath": "/blLPEXvOUIVmnR3vs4SNyOgB8OH.jpg",
+    "productionCompanies": [
+      {
+        "name": "Columbia Pictures",
+        "originCountry": "US"
+      }
+    ],
+    "productionCountries": [
+      {
+        "name": "United States of America",
+        "countryCode": "US"
+      }
+    ],
+    "voteAverage": 6.2,
+    "voteCount": 6,
+    "releaseDate": "1940-02-29"
+  },
+  {
+    "id": 3943,
+    "title": "Blondie's Blessed Event",
+    "tagline": "Blondie has a baby... Dagwood has a fit... You'll have hysterics!",
+    "overview": "Cookie is born, producing unmitigated joy in the Bumstead household. Adding to the chaos a new baby always creates is the appearance of Hans Conried as a cynical author who becomes caught up in the Bumstead lifestyle.",
+    "genres": [
+      {
+        "id": 35,
+        "name": "Comedy"
+      }
+    ],
+    "popularity": 1.779,
+    "runtime": 69,
+    "revenue": 0.0,
+    "budget": 0.0,
+    "cast": {
+      "cast": [
+        {
+          "name": "Penny Singleton",
+          "character": "Blondie Bumstead",
+          "order": 0
+        },
+        {
+          "name": "Arthur Lake",
+          "character": "Dagwood \" Dag \" Bumstead",
+          "order": 1
+        },
+        {
+          "name": "Larry Simms",
+          "character": "Alexander \" Baby \" Bumstead",
+          "order": 2
+        }
+      ]
+    },
+    "watchProviders": null,
+    "imdbId": "tt0034527",
+    "originalLanguage": "en",
+    "originalTitle": "Blondie's Blessed Event",
+    "spokenLanguages": [
+      {
+        "name": "English",
+        "englishName": "English",
+        "languageCode": "en"
+      }
+    ],
+    "posterPath": "/sGaWVcsMXNfcb7f8hJDEPAXNnrx.jpg",
+    "productionCompanies": [
+      {
+        "name": "Columbia Pictures",
+        "originCountry": "US"
+      }
+    ],
+    "productionCountries": [
+      {
+        "name": "United States of America",
+        "countryCode": "US"
+      }
+    ],
+    "voteAverage": 8.0,
+    "voteCount": 2,
+    "releaseDate": "1942-04-09"
+  },
+  {
+    "id": 4049,
+    "title": "The Glass Cell",
+    "tagline": "",
+    "overview": "A man is wrongfully imprisoned for five years. Once out, he hears about his wife's supposed adventures outside of their marriage and becomes increasingly jealous.",
+    "genres": [
+      {
+        "id": 18,
+        "name": "Drama"
+      },
+      {
+        "id": 80,
+        "name": "Crime"
+      }
+    ],
+    "popularity": 1.428,
+    "runtime": 93,
+    "revenue": 0.0,
+    "budget": 0.0,
+    "cast": {
+      "cast": [
+        {
+          "name": "Brigitte Fossey",
+          "character": "Lisa Braun",
+          "order": 0
+        },
+        {
+          "name": "Helmut Griem",
+          "character": "Phillip Braun",
+          "order": 1
+        },
+        {
+          "name": "Dieter Laser",
+          "character": "David Reinalt",
+          "order": 2
+        }
+      ]
+    },
+    "watchProviders": {
+      "link": "https://www.themoviedb.org/movie/4049-die-glaserne-zelle/watch?locale=CH",
+      "rent": [
+        {
+          "providerName": "Alleskino",
+          "logoPath": "/w0afqztoCIO9Kituy5VEcPxRLCT.jpg",
+          "displayPriority": 24
+        }
+      ],
+      "flatrate": [
+        {
+          "providerName": "Alleskino",
+          "logoPath": "/w0afqztoCIO9Kituy5VEcPxRLCT.jpg",
+          "displayPriority": 24
+        }
+      ],
+      "buy": [
+        {
+          "providerName": "Alleskino",
+          "logoPath": "/w0afqztoCIO9Kituy5VEcPxRLCT.jpg",
+          "displayPriority": 24
+        }
+      ]
+    },
+    "imdbId": "tt0077615",
+    "originalLanguage": "de",
+    "originalTitle": "Die gläserne Zelle",
+    "spokenLanguages": [
+      {
+        "name": "Deutsch",
+        "englishName": "German",
+        "languageCode": "de"
+      }
+    ],
+    "posterPath": "/mpOoyb6KOyTgWmCcCcfe0jisESw.jpg",
+    "productionCompanies": [
+      {
+        "name": "Roxy Film",
+        "originCountry": "DE"
+      },
+      {
+        "name": "Solaris Film",
+        "originCountry": ""
+      },
+      {
+        "name": "Bayerischer Rundfunk",
+        "originCountry": "DE"
+      }
+    ],
+    "productionCountries": [
+      {
+        "name": "Portugal",
+        "countryCode": "PT"
+      },
+      {
+        "name": "Germany",
+        "countryCode": "DE"
+      }
+    ],
+    "voteAverage": 6.3,
+    "voteCount": 6,
+    "releaseDate": "1978-04-06"
+  },
+  {
+    "id": 4073,
+    "title": "The Down-in-the-Hole Gang",
+    "tagline": "",
+    "overview": "Here we find a group of misfits who've given up on humanity and have decided to dwell below the pavement. The group has its own hierarchy, of course, and soon the conditions that drove them underground begin to manifest themselves without the influences of the Outside World.",
+    "genres": [
+      {
+        "id": 35,
+        "name": "Comedy"
+      }
+    ],
+    "popularity": 1.161,
+    "runtime": 90,
+    "revenue": 0.0,
+    "budget": 0.0,
+    "cast": {
+      "cast": [
+        {
+          "name": "Michel Serrault",
+          "character": "Jean-Paul Rondin",
+          "order": 0
+        },
+        {
+          "name": "Philippe Noiret",
+          "character": "Gaspard de Montfermeil",
+          "order": 1
+        },
+        {
+          "name": "Michel Galabru",
+          "character": "Commissaire Lalatte",
+          "order": 2
+        }
+      ]
+    },
+    "watchProviders": null,
+    "imdbId": "tt0070090",
+    "originalLanguage": "en",
+    "originalTitle": "Les gaspards",
+    "spokenLanguages": [
+      {
+        "name": "Français",
+        "englishName": "French",
+        "languageCode": "fr"
+      }
+    ],
+    "posterPath": "/wOXhLXkeneQNz3pzeFJUwB99eRM.jpg",
+    "productionCompanies": [
+      {
+        "name": "Les Films de la Seine",
+        "originCountry": "FR"
+      }
+    ],
+    "productionCountries": [
+      {
+        "name": "France",
+        "countryCode": "FR"
+      }
+    ],
+    "voteAverage": 6.2,
+    "voteCount": 15,
+    "releaseDate": "1974-02-06"
+  }
+]

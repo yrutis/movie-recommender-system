@@ -1,0 +1,56 @@
+{
+  "id": 101299,
+  "title": "The Hunger Games: Catching Fire",
+  "tagline": "Every revolution begins with a spark.",
+  "overview": "Katniss Everdeen has returned home safe after winning the 74th Annual Hunger Games along with fellow tribute Peeta Mellark. Winning means that they must turn around and leave their family and close friends, embarking on a \"Victor's Tour\" of the districts. Along the way Katniss senses that a rebellion is simmering, but the Capitol is still very much in control as President Snow prepares the 75th Annual Hunger Games (The Quarter Quell) - a competition that could change Panem forever.",
+  "genres": [
+    {
+      "id": 12,
+      "name": "Adventure"
+    },
+    {
+      "id": 28,
+      "name": "Action"
+    },
+    {
+      "id": 878,
+      "name": "Science Fiction"
+    }
+  ],
+  "popularity": 43.94,
+  "runtime": 146,
+  "revenue": 8.47423452E8,
+  "budget": 1.3E8,
+  "cast": null,
+  "watchProviders": null,
+  "imdbId": "tt1951264",
+  "originalLanguage": "en",
+  "originalTitle": "The Hunger Games: Catching Fire",
+  "spokenLanguages": [
+    {
+      "name": "English",
+      "englishName": "English",
+      "languageCode": "en"
+    }
+  ],
+  "posterPath": "/j1e7dLMLrJ5CxAW588m55WFQ1PK.jpg",
+  "productionCompanies": [
+    {
+      "name": "Lionsgate",
+      "originCountry": "US"
+    },
+    {
+      "name": "Color Force",
+      "originCountry": "US"
+    }
+  ],
+  "productionCountries": [
+    {
+      "name": "United States of America",
+      "countryCode": "US"
+    }
+  ],
+  "voteAverage": 7.4,
+  "voteCount": 13880,
+  "releaseDate": "11/15/2013"
+}

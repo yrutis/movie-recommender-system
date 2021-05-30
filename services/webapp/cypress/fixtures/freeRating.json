@@ -1,0 +1,30 @@
+{
+  "actorRatings": [
+    {
+      "tmdbId": 175120,
+      "rating": 3
+    },
+    {
+      "tmdbId": 113,
+      "rating": 3
+    },
+    {
+      "tmdbId": 109,
+      "rating": 3
+    }
+  ],
+  "movieRatings": [
+    {
+      "tmdbId": 7345,
+      "rating": 3
+    },
+    {
+      "tmdbId": 120467,
+      "rating": 3
+    },
+    {
+      "tmdbId": 629,
+      "rating": 3
+    }
+  ]
+}
