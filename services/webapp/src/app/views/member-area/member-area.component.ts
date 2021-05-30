@@ -31,11 +31,10 @@ export class MemberAreaComponent implements OnInit {
     floor: 1,
     ceil: 10,
     translate: (value: number, label: LabelType): string => {
-      switch (label) {
-        case LabelType.Low:
-          return '<b>Movie Popularity: </b>' + value;
-        default:
-          return '';
+      if (label === LabelType.Low) {
+        return '<b>Movie Popularity: </b>' + value;
+      } else {
+        return '';
       }
     }
   };
@@ -44,14 +43,14 @@ export class MemberAreaComponent implements OnInit {
     floor: 1,
     ceil: 10,
     translate: (value: number, label: LabelType): string => {
-      switch (label) {
-        case LabelType.Low:
-          return '<b>Actor Popularity: </b>' + value;
-        default:
-          return '';
+      if (label === LabelType.Low) {
+        return '<b>Actor Popularity: </b>' + value;
+      } else {
+        return '';
       }
     }
   };
+
   constructor(private memberService: MemberService, private freeService: FreeService, private toastr: ToastrService) {
   }
 
@@ -133,14 +132,14 @@ export class MemberAreaComponent implements OnInit {
   initRecommendations(): void {
     this.loading = true;
     this.memberService.getRecommendations().subscribe(value => {
-      this.recommendations = value;
-      this.loading = false;
-    },
-    () => {
-      this.serviceProblem = true;
-      this.loading = false;
-      this.toastr.error('Something went wrong, please try again later!');
-    });
+        this.recommendations = value;
+        this.loading = false;
+      },
+      () => {
+        this.serviceProblem = true;
+        this.loading = false;
+        this.toastr.error('Something went wrong, please try again later!');
+      });
   }
 
   /**
@@ -153,7 +152,8 @@ export class MemberAreaComponent implements OnInit {
       const movieRating = new MovieRating();
       movieRating.tmdbId = this.movies[i].id;
       movieRating.rating = $event;
-      this.memberService.rateMovie(movieRating).subscribe(value => {});
+      this.memberService.rateMovie(movieRating).subscribe(value => {
+      });
     }
     setTimeout(() => {
       this.freeService.getMovies(1, this.moviePopularity).subscribe(value => {
@@ -172,7 +172,8 @@ export class MemberAreaComponent implements OnInit {
       const actorRating = new ActorRating();
       actorRating.tmdbId = this.actors[i].id;
       actorRating.rating = $event;
-      this.memberService.rateActor(actorRating).subscribe(value => {});
+      this.memberService.rateActor(actorRating).subscribe(value => {
+      });
     }
     setTimeout(() => {
       this.freeService.getActors(1, this.actorPopularity).subscribe(value => {

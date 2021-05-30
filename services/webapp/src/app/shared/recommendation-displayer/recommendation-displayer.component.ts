@@ -114,13 +114,13 @@ export class RecommendationDisplayerComponent implements OnInit, AfterViewInit {
         this.languageCodeMap.set(language.languageCode, language.englishName);
       });
       if (movie?.watchProviders?.rent) {
-        movie?.watchProviders?.rent.forEach(provider => {
+        movie.watchProviders.rent.forEach(provider => {
           this.watchProviderFilterValues.set(provider.providerName, true);
           this.watchProviderLogoMap.set(provider.providerName, provider.logoPath);
         });
       }
       if (movie?.watchProviders?.buy) {
-        movie?.watchProviders?.buy.forEach(provider => {
+        movie.watchProviders.buy.forEach(provider => {
           this.watchProviderFilterValues.set(provider.providerName, true);
           this.watchProviderLogoMap.set(provider.providerName, provider.logoPath);
         });

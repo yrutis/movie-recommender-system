@@ -33,11 +33,10 @@ export class FreeAreaComponent implements OnInit {
     floor: 1,
     ceil: 10,
     translate: (value: number, label: LabelType): string => {
-      switch (label) {
-        case LabelType.Low:
-          return '<b>Movie Popularity: </b>' + value;
-        default:
-          return '';
+      if (label === LabelType.Low) {
+        return '<b>Movie Popularity: </b>' + value;
+      } else {
+        return '';
       }
     }
   };
@@ -46,11 +45,10 @@ export class FreeAreaComponent implements OnInit {
     floor: 1,
     ceil: 10,
     translate: (value: number, label: LabelType): string => {
-      switch (label) {
-        case LabelType.Low:
-          return '<b>Actor Popularity: </b>' + value;
-        default:
-          return '';
+      if (label === LabelType.Low) {
+        return '<b>Actor Popularity: </b>' + value;
+      } else {
+        return '';
       }
     }
   };

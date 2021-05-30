@@ -4,7 +4,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {UserDto} from '../model/userDto';
 import {Router} from '@angular/router';
-import {ActorRating, MovieRating, RatingDto} from '../model/ratings';
+import {ActorRating, MovieRating} from '../model/ratings';
 import {Movie} from '../model/movie';
 
 /**
