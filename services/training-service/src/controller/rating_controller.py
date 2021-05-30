@@ -22,8 +22,8 @@ class RatingController:
         # create a db engine
         conn_url = os.getenv("DATABASE_URL")
         engine = create_engine(conn_url, echo=True)
-        Session = sessionmaker(bind=engine)
-        session = Session()
+        session_maker = sessionmaker(bind=engine)
+        session = session_maker()
 
         # get all ratings
         ratings = session.query(Rating).all()
@@ -45,8 +45,8 @@ class RatingController:
         # create a db engine
         conn_url = os.getenv("DATABASE_URL")
         engine = create_engine(conn_url, echo=True)
-        Session = sessionmaker(bind=engine)
-        session = Session()
+        session_maker = sessionmaker(bind=engine)
+        session = session_maker()
 
         # insert ratings
         for index, row in ratings.iterrows():

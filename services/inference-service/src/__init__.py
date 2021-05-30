@@ -32,7 +32,7 @@ def create_app(script_info=None):
 
     app.register_blueprint(ping_blueprint)
 
-    # register blueprints
+    # register blueprint recommendation blueprint
     from src.api.recommendations import recommendations_blueprint
 
     app.register_blueprint(recommendations_blueprint)

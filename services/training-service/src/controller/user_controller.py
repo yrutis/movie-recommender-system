@@ -23,8 +23,8 @@ class UserController:
         # create a db engine
         conn_url = os.getenv("DATABASE_URL")
         engine = create_engine(conn_url, echo=True)
-        Session = sessionmaker(bind=engine)
-        session = Session()
+        session_maker = sessionmaker(bind=engine)
+        session = session_maker()
 
         # get all ratings
         users = session.query(User).all()
@@ -59,8 +59,8 @@ class UserController:
         # create a db engine
         conn_url = os.getenv("DATABASE_URL")
         engine = create_engine(conn_url, echo=True)
-        Session = sessionmaker(bind=engine)
-        session = Session()
+        session_maker = sessionmaker(bind=engine)
+        session = session_maker()
 
         # get all ratings
         users = session.query(User).all()
