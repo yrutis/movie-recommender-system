@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>ch.uzh.ifi.seal.ase.mrs</groupId>
 	<artifactId>free-service</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>Free Service</name>
 	<description>Service for the Movie Recommender System that handles all operations available to everyone</description>
 	<properties>

@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   training-service:
-    image: noahcha/mrs-training-service:latest
+    image: noahcha/mrs-training-service:0.0.1
     environment:
       - FLASK_APP=src/__init__.py
       - FLASK_ENV=development
@@ -12,7 +12,7 @@ services:
     depends_on:
       - "database"
   inferenceservice:
-    image: noahcha/mrs-inference-service:latest
+    image: noahcha/mrs-inference-service:0.0.1
     environment:
       - FLASK_APP=src/__init__.py
       - FLASK_ENV=development
@@ -22,7 +22,7 @@ services:
     depends_on:
       - "database"
   free-service:
-    image: noahcha/mrs-free-service:latest
+    image: noahcha/mrs-free-service:0.0.1
     ports:
       - 8081:8080
     environment:
@@ -38,7 +38,7 @@ services:
     depends_on:
       - "database"
   member-service:
-    image: noahcha/mrs-member-service:latest
+    image: noahcha/mrs-member-service:0.0.1
     ports:
       - 8080:8080
     environment:
@@ -53,11 +53,11 @@ services:
     depends_on:
       - "database"
   webapp:
-    image: noahcha/mrs-webapp:latest
+    image: noahcha/mrs-webapp:0.0.1
     ports:
       - 80:80
   database:
-    image: postgres:latest
+    image: postgres:13.3
     environment:
       POSTGRES_DB: mrs
       POSTGRES_USER: admin

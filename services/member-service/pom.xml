@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>ch.uzh.ifi.seal.ase.mrs</groupId>
 	<artifactId>member-service</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>member-service</name>
 	<description>Service for the Movie Recommender System that handles all operations available to the members</description>
 	<properties>
