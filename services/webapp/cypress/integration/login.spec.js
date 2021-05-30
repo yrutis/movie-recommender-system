@@ -3,9 +3,11 @@
 describe("member login test", () => {
 
   it.only("test login", () => {
+    cy.window().then((win) => {
+      win.sessionStorage.clear()
+    })
     cy.visit("/");
     cy.contains("Custom Recommendation").click();
-
     cy.get('#mat-input-0').type("testuser");
     cy.get('#mat-input-1').type("123456");
     cy.contains("Sign-In").click();
@@ -24,7 +26,6 @@ describe("member login test", () => {
       fixture: 'localdatetime'
     })
       .as('lastTrained')
-    cy.wait(6000)
     cy.wait('@lastTrained')
   })
 });

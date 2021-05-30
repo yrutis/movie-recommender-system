@@ -11,6 +11,9 @@
 //
 // -- This is a parent command --
 Cypress.Commands.add('login', () => {
+  cy.window().then((win) => {
+    win.sessionStorage.clear()
+  })
   cy.visit("/");
   cy.contains("Custom Recommendation").click();
 

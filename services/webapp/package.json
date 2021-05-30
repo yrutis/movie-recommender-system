@@ -6,6 +6,10 @@
     "start": "ng serve",
     "build": "ng build",
     "build:prod": "ng build --prod",
+    "cypress:open": "concurrently \"ng serve\" \"cypress open\"",
+    "cypress:run": "cypress run",
+    "cypress:ci": "ng build --prod && run-p --race start:ci cypress:run",
+    "start:ci": "http-server ./dist/cypressTest -a localhost -p 8000 -c-1",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -37,6 +41,7 @@
     "ng-starrating": "^1.0.20",
     "ngx-pagination": "^5.0.0",
     "ngx-toastr": "12.1.0",
+    "npm-run-all": "^4.1.5",
     "popper.js": "^1.16.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
