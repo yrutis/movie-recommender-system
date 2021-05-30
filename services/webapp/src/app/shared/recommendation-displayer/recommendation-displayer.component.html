@@ -116,7 +116,7 @@
     <div class="col-12 text-center border-bottom mb-3">
       <p class="text">These are the movies we recommend you to watch!</p>
       <p class="text" *ngIf="isMember && lastTrainedOn">Your recommendations were generated for you last time on: <em>{{lastTrainedOn | date:'medium'}}</em></p>
-      <p class="text" *ngIf="isMember && lastTrainedOn === null">There are no recommendations generated for you yet. Come back in 15 minutes!</p>
+      <p class="text" *ngIf="isMember && lastTrainedOn === null">There are no recommendations generated for you yet. Come back tomorrow!</p>
       <p class="text" *ngIf="isMember && trainingAllowed" class="pointer demo-train" (click)="startTrainingManually()">For demonstration purposes you can click here to start the training without waiting for the scheduled run. The training takes a while, please be patient.</p>
     </div>
   </div>
