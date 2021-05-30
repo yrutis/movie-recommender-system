@@ -13,7 +13,8 @@ class Rating(declarative_base()):
     tmdb_id = Column(Integer, nullable=False)
     user_id = Column(Integer, nullable=False)
 
-    def __init__(self, rating, tmdb_id, user_id):
+    def __init__(self, id, rating, tmdb_id, user_id):
+        self.id = id
         self.rating = rating
         self.tmdb_id = tmdb_id
         self.user_id = user_id

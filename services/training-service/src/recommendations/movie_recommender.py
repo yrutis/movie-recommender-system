@@ -71,7 +71,7 @@ class MovieRecommender:
             new_df = pd.DataFrame()
 
             # include all movies
-            new_df["movieId"] = self.ratings["movieId"]
+            new_df["movieId"] = self.ratings["movieId"].unique()
 
             # include the current user
             new_df["userId"] = row["tbl_rating_user_id"]
@@ -84,20 +84,6 @@ class MovieRecommender:
 
             # reduce the dataframe to the 100 top rated movie predictions
             new_df = new_df.nlargest(100, "rating")
-
-            # if the user appears in the ratings and the top 100 predictions table
-            # this means that the user has rated the movie before and hence knows the movie
-            merged_table = new_df.merge(self.ratings, on=["userId", "movieId"])
-
-            # if this is the case we have to remove these movies from the final predictions and
-            # add more than the top 100 movies in the final list (we add the merge difference)
-            new_df = new_df.nlargest(100 + merged_table.shape[0], "rating")
-            new_df = new_df.loc[
-                ~new_df["movieId"].isin(merged_table["movieId"].tolist())
-            ]
-
-            # fix autoincrement issue to
-            RatingController.fix_autoincrement() if self._use_db else True
 
             # insert ratings in db
             RatingController.insert_ratings(new_df) if self._use_db else True

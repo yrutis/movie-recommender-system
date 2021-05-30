@@ -50,22 +50,16 @@ class RatingController:
 
         # insert ratings
         for index, row in ratings.iterrows():
+            with engine.connect() as connection:
+                id = (
+                    connection.execute("SELECT MAX(id) FROM tbl_rating;").first()[0] + 1
+                )
             rating = Rating(
-                rating=row["rating"], user_id=row["userId"], tmdb_id=row["movieId"]
+                id=id,
+                rating=row["rating"],
+                user_id=int(row["userId"]),
+                tmdb_id=int(row["movieId"]),
             )
             session.add(rating)
             session.commit()
             print("ratings inserted")
-
-    @staticmethod
-    def fix_autoincrement():
-        # create a db engine
-        conn_url = os.getenv("DATABASE_URL")
-        engine = create_engine(conn_url, echo=True)
-
-        # fix pkey autoincremment issue
-        with engine.connect() as connection:
-            result = connection.execute(
-                "SELECT setval(pg_get_serial_sequence('tbl_rating', 'id'), coalesce(max(id)+1, 1), false) FROM tbl_rating;"
-            )
-            print("autoincrement error solved, resetting pkey to {}".format(result))
