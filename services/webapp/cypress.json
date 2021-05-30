@@ -2,5 +2,7 @@
   "baseUrl": "http://localhost:4200",
   "viewportWidth": 1000,
   "viewportHeight": 1000,
-  "retries": 2
+  "retries": 2,
+  "video": false,
+  "screenshotOnRunFailure": false
 }

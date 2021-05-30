@@ -3,20 +3,14 @@
 describe("member recommendation test", () => {
 
   it.only("get the recommendation", () => {
-    cy.login()
-    cy.get(':nth-child(3) > .nav-link').click()
+    cy.login();
     cy.intercept('GET', '/api/recommendations', {
       fixture: 'recommendation'
-    })
-      .as('getRecommendation')
-    cy.wait(10000)
-    cy.wait('@getRecommendation')
-    cy.get(':nth-child(4) > .ng-star-inserted > :nth-child(2)').click()
+    }).as('getRecommendation');
 
-    //Check the training recommendations
-    cy.get('.col-12 > .pointer').click()
-    cy.intercept('GET', '/api/recommendations/train', {
-      fixture: 'recommendation'
-    })
+    cy.get(':nth-child(3) > .nav-link').click();
+    cy.wait('@getRecommendation');
+    cy.get(':nth-child(4) > .ng-star-inserted > :nth-child(2)').click();
+
   })
 });

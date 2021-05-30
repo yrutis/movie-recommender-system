@@ -3,25 +3,19 @@
 describe("actor rating test", () => {
 
   it.only("rate the actors", () => {
-    cy.login()
-    cy.get(':nth-child(2) > .nav-link').click()
+    cy.login();
     cy.intercept('GET', '/api/actors/3/5', {
       fixture: 'actorList'
-    })
-      .as('getActors')
-    cy.wait(8000)
-    cy.wait('@getActors')
-    cy.get('app-rater.ng-tns-c146-8 > .w-100 > .mt-1 > .col-12 > .float-left').click()
+    }).as('getActors');
     cy.intercept('POST', '/api/members/actorRating', {
       fixture: 'actorRating'
-    })
-      .as('rateActor')
-    cy.wait('@rateActor')
+    }).as('rateActor');
     cy.intercept('GET', '/api/actors/1/5', {
       fixture: 'oneActor'
-    })
-      .as('getActor')
-    cy.wait(6000)
-    cy.wait('@getActor')
+    }).as('getActor');
+
+    cy.get(':nth-child(2) > .nav-link').click();
+    cy.wait('@getActors');
+    cy.get('star-rating').eq(0).shadow().find('span.star:first').click();
   })
 });
