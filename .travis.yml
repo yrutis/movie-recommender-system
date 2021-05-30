@@ -56,4 +56,4 @@ jobs:
       before_script:
         - cd ./services/webapp
       script:
-        - npm run cypress:ci
+        - npx cypress run
