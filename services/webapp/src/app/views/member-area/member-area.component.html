@@ -41,7 +41,7 @@
   <div class="row mt-5" *ngIf="movies">
     <div class="col-12 text-center custom-slider">
       <p class="text">Rate as many movies as you want! Your ratings are aggregated and you will be shown new
-        recommendations within the next 15 minutes! Adjust the slider below if you want to rate more or less popular movies.</p>
+        recommendations tomorrow! Adjust the slider below if you want to rate more or less popular movies.</p>
       <ngx-slider [(value)]="moviePopularity" (userChangeEnd)="moviePopularityChanged($event)" [options]="moviePopularitySlideOptions"></ngx-slider>
     </div>
   </div>
@@ -63,7 +63,7 @@
   <div class="row mt-5" *ngIf="actors">
     <div class="col-12 text-center">
       <p class="text">Rate as many actors as you want! Your ratings are aggregated and you will be shown new
-        recommendations within the next 15 minutes! Adjust the slider below if you want to rate more or less popular actors.</p>
+        recommendations tomorrow! Adjust the slider below if you want to rate more or less popular actors.</p>
       <ngx-slider [(value)]="actorPopularity" (userChangeEnd)="actorPopularityChanged($event)" [options]="actorPopularitySlideOptions"></ngx-slider>
     </div>
   </div>

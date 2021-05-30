@@ -1,6 +1,3 @@
-# src/api/ping.py
-
-
 from flask import Blueprint
 from flask_restx import Api, Resource
 
@@ -9,8 +6,17 @@ api = Api(ping_blueprint)
 
 
 class Ping(Resource):
+    """
+    sanitize check
+    """
+
     def get(self):
+        """
+        sanatize check if microservice is running
+        :return: pong
+        """
         return {"status": "success", "message": "pong!"}
 
 
+# add the ping endpoint to the flask resources
 api.add_resource(Ping, "/ping")

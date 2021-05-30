@@ -17,9 +17,14 @@ import javax.persistence.*;
 public class MovieRating {
     /**
      * Id of the Rating
+     * The Sequence generator with an offset of 5000000 is used since the IDENTITY Strategy does not work properly
+     * with postgres when inserting values with a sql script on startup
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "SEQ_G",
+            initialValue = 5000000,
+            allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_G" )
     private Long id;
 
     /**

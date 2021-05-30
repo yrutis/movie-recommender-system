@@ -1,6 +1,7 @@
 # src/api/ping.py
 
-from flask import Blueprint, jsonify, make_response
+
+from flask import Blueprint
 from flask_restx import Api, Resource
 
 ping_blueprint = Blueprint("ping", __name__)
@@ -8,8 +9,12 @@ api = Api(ping_blueprint)
 
 
 class Ping(Resource):
+    """
+    ping class (sanity check of microservice)
+    """
+
     def get(self):
-        return make_response(jsonify("pong"), 200)
+        return {"status": "success", "message": "pong222!"}
 
 
 api.add_resource(Ping, "/ping")
