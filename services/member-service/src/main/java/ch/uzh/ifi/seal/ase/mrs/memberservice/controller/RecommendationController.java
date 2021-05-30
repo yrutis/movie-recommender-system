@@ -62,10 +62,10 @@ public class RecommendationController {
 
     /**
      * Starts the training if allowed
-     * Also starts the training scheduled every 15min
+     * Also starts the training scheduled every day at 2am
      */
     @GetMapping("/train")
-    @Scheduled(cron = "0 0/15 * * * * ")
+    @Scheduled(cron = "0 0 2 * * *")
     public void train() {
         try {
             trainingClient.startTraining();
