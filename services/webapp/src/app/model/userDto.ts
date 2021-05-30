@@ -1,3 +1,6 @@
+/**
+ * User DTO for login
+ */
 export class UserDto {
   id: number;
   username: string;
